@@ -6,7 +6,7 @@
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>its.agency</title>
-    <link href="/style/style.css" rel="stylesheet">
+    <link href="style/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
@@ -55,6 +55,7 @@
 
 <!-- Overlay затемнение -->
 <div class="overlay" id="selectOverlay"></div>
+<div class="overlay" id="sortOverlay" style="display:none;"></div>
 
 <main>
     <div class="main-content">
@@ -168,55 +169,23 @@
     </div>
 </main>
 
-<script>
-    document.querySelectorAll('.custom-select').forEach(select => {
-        const selected = select.querySelector('.custom-select__selected');
-        const options = select.querySelectorAll('.custom-select__option');
-        const overlay = document.getElementById('selectOverlay');
-        const items = document.querySelectorAll('.filter-item');
+<!-- Модальное окно корзины -->
+<div class="cart-modal" id="cartModal" style="display:none;">
+    <div class="cart-modal__overlay" id="cartModalOverlay"></div>
+    <div class="cart-modal__content">
+        <button class="cart-modal__close" id="cartModalClose">×</button>
+        <div class="cart-modal__header">
+            <h2>Корзина <span id="cartCount"></span></h2>
+            <button class="cart-modal__clear" id="cartModalClear">Очистить список</button>
+        </div>
+        <div id="cartItems"></div>
+        <div class="cart-modal__footer">
+            <div class="cart-modal__total">Итого: <span id="cartTotal">0 ₽</span></div>
+            <button class="cart-modal__order" id="cartModalOrder">Оформить заказ</button>
+        </div>
+    </div>
+</div>
 
-        items.forEach(item => {
-            const checkbox = item.querySelector('input');
-            checkbox.addEventListener('change', () => {
-                item.classList.toggle('active', checkbox.checked);
-            });
-        });
-
-
-        selected.addEventListener('click', () => {
-            const isOpen = select.classList.contains('open');
-            document.querySelectorAll('.custom-select').forEach(s => s.classList.remove('open'));
-            if (!isOpen) {
-                select.classList.add('open');
-                overlay.style.display = 'block';
-            } else {
-                overlay.style.display = 'none';
-            }
-        });
-
-        options.forEach(option => {
-            option.addEventListener('click', e => {
-                options.forEach(opt => opt.classList.remove('custom-select__option--active'));
-                option.classList.add('custom-select__option--active');
-                selected.textContent = option.textContent;
-                select.classList.remove('open');
-                overlay.style.display = 'none';
-                e.stopPropagation();
-            });
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!select.contains(e.target)) {
-                select.classList.remove('open');
-                overlay.style.display = 'none';
-            }
-        });
-
-        overlay.addEventListener('click', () => {
-            select.classList.remove('open');
-            overlay.style.display = 'none';
-        });
-    });
-</script>
+<script src="main.js"></script>
 </body>
 </html>
