@@ -73,9 +73,6 @@ nav a:hover {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center; /* если нужно выравнивание по вертикали */
-
-  padding: 36px 0;
-  margin-right: 16px;
 }
 
 .header-content__logo-img {
@@ -126,15 +123,11 @@ nav a:hover {
 
 
 .header__menu__cart {
-  padding: 20px 16px; /* добавлен горизонтальный паддинг */
+
   display: flex;
   align-items: center;
   cursor: pointer;
   transition: background-color 0.3s ease;
-}
-
-.header__menu__cart:hover {
-  background-color: rgba(0, 0, 0, 0.05); /* эффект при наведении */
 }
 
 .header__menu__cart img {
@@ -306,28 +299,19 @@ nav a:hover {
   }
 
   .header-left, .header-right {
-    display: contents; /* убираем обёртку, чтобы вложенные элементы шли напрямую */
-  }
-
-  .hamburger {
-    order: 0;
+    display: contents; /* убираем обёртки, чтобы можно было управлять вложенными элементами */
   }
 
   .header-content__logo-img {
-    order: 1;
-    margin: 0 auto; /* центрируем */
+    order: 1; /* ставим логотип после корзины */
   }
 
   .header__menu__cart {
-    order: 2;
-    margin-left: auto;
+    order: 2; /* ставим корзину перед логотипом */
   }
 
-  /* Скрываем всё остальное на мобилке */
-  .header-nav,
-  .header__contact,
-  .header__menu img:not(.cart-icon img) {
-    display: none !important;
+  .hamburger {
+    order: 0; /* оставить бургер слева */
   }
 }
 
@@ -359,7 +343,7 @@ nav a:hover {
 
 .main-content__img {
   position: relative;
-  width: 1920px;
+  width: 100%;
   height: 560px;
 }
 
