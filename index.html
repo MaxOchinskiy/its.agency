@@ -31,25 +31,44 @@
 </head>
 <body>
 <header>
+    <div class="mobile-nav" id="mobileNav">
+      <nav>
+        <a href="#">ПРОДУКТЫ</a>
+        <a href="#">ЦВЕТА</a>
+        <a href="#">ВДОХНОВЕНИЕ</a>
+        <a href="#">СОВЕТЫ</a>
+        <a href="#">НАЙТИ МАГАЗИН</a>
+      </nav>
+    </div>
     <div class="header-content">
-        <img alt="Логотип" class="header-content__logo-img" src="image/logo.png"/>
-        <nav>
-            <a href="#">ПРОДУКТЫ</a>
-            <a href="#">ЦВЕТА</a>
-            <a href="#">ВДОХНОВЕНИЕ</a>
-            <a href="#">СОВЕТЫ</a>
-            <a href="#">НАЙТИ МАГАЗИН</a>
-        </nav>
-        <div class="header__contact">
-            <a href="tel:+74952217769">+7 (495) 221-77-69</a>
-            <span>Заказать звонок</span>
-        </div>
-        <div class="header__menu">
-            <a href="#"><img alt="Поиск" src="image/search.png"></a>
-            <a href="#"><img alt="Профиль" src="image/profile.png"></a>
-            <a href="#"><img alt="Избранное" src="image/heart.png"></a>
-            <a class="header__menu__cart" href="#"><img alt="Корзина" src="image/cart.png"></a>
-        </div>
+      <button class="burger" id="burgerBtn" aria-label="Открыть меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <img alt="Логотип" class="header-content__logo-img" src="image/logo.png"/>
+      <nav>
+        <a href="#">ПРОДУКТЫ</a>
+        <a href="#">ЦВЕТА</a>
+        <a href="#">ВДОХНОВЕНИЕ</a>
+        <a href="#">СОВЕТЫ</a>
+        <a href="#">НАЙТИ МАГАЗИН</a>
+      </nav>
+      <div class="header__contact">
+        <a href="tel:+74952217769">+7 (495) 221-77-69</a>
+        <span>Заказать звонок</span>
+      </div>
+      <div class="header__menu">
+        <a href="#"><img alt="Поиск" src="image/search.png"></a>
+        <a href="#"><img alt="Профиль" src="image/profile.png"></a>
+        <a href="#"><img alt="Избранное" src="image/heart.png"></a>
+        <a class="header__menu__cart" href="#">
+          <div class="cart-icon">
+            <img alt="Корзина" src="image/cart.png"/>
+            <span class="cart-count" id="cartTotalCountHeader">0</span>
+          </div>
+        </a>
+      </div>
     </div>
 </header>
 
@@ -173,15 +192,26 @@
 <div class="cart-modal" id="cartModal" style="display:none;">
     <div class="cart-modal__overlay" id="cartModalOverlay"></div>
     <div class="cart-modal__content">
-        <button class="cart-modal__close" id="cartModalClose">×</button>
+        <button class="cart-modal__close" id="cartModalClose">
+            <svg fill="none" height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" opacity="0.1" r="23.5" stroke="black"/>
+                <g transform="translate(12,12)">
+                    <path d="M18 6L6 18" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="1.4"/>
+                    <path d="M6 6L18 18" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="1.4"/>
+                </g>
+            </svg>
+        </button>
         <div class="cart-modal__header">
-            <h2>Корзина <span id="cartCount"></span></h2>
-            <button class="cart-modal__clear" id="cartModalClear">Очистить список</button>
+            <h2>Корзина</h2>
+            <span class="cart-modal__count" id="cartTotalCount"></span>
+            <button class="cart-modal__clear" id="cartModalClear">ОЧИСТИТЬ СПИСОК</button>
         </div>
         <div id="cartItems"></div>
         <div class="cart-modal__footer">
-            <div class="cart-modal__total">Итого: <span id="cartTotal">0 ₽</span></div>
-            <button class="cart-modal__order" id="cartModalOrder">Оформить заказ</button>
+            <div class="cart-modal__total">Итого <span id="cartTotal">0 ₽</span></div>
+            <button class="cart-modal__order" id="cartModalOrder">ОФОРМИТЬ ЗАКАЗ</button>
         </div>
     </div>
 </div>
