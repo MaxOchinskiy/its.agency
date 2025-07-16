@@ -250,22 +250,20 @@ function addToCart(card) {
     renderCart();
 }
 
-function updateCartItemQuantity(productId, quantity) {
-    // Изменение количества товара в корзине
-}
-
-function removeFromCart(productId) {
-    // Удаление товара из корзины
-}
-
-function calculateCartTotal() {
-    // Расчёт стоимости всех товаров в корзине
-}
 
 // === МОДАЛЬНЫЕ ОКНА ===
 function initModals() {
     // Открытие/закрытие корзины, фильтров, меню на мобильном
 }
+
+const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('nav.header-nav');
+
+hamburger.addEventListener('click', () => {
+    const isOpen = navMenu.classList.toggle('open');
+    hamburger.classList.toggle('active');
+    hamburger.setAttribute('aria-expanded', isOpen);
+});
 
 function initFilters() {
     let filterItems = document.querySelectorAll('.filter-item input[type="radio"]');
@@ -371,15 +369,18 @@ document.addEventListener('DOMContentLoaded', function () {
     initMenuModal();
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-  const burger = document.getElementById('burgerBtn');
-  const mobileNav = document.getElementById('mobileNav');
-  if (burger && mobileNav) {
-    burger.addEventListener('click', function() {
-      mobileNav.classList.toggle('open');
-    });
-    mobileNav.addEventListener('click', function(e) {
-      if (e.target === mobileNav) mobileNav.classList.remove('open');
-    });
-  }
+document.addEventListener('DOMContentLoaded', function () {
+    const burger = document.getElementById('burgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    if (burger && mobileNav) {
+        burger.addEventListener('click', function () {
+            mobileNav.classList.toggle('open');
+        });
+        mobileNav.addEventListener('click', function (e) {
+            // Закрывать только если клик по затемнённой области, а не по панели меню
+            if (e.target === mobileNav) {
+                mobileNav.classList.remove('open');
+            }
+        });
+    }
 }); 

@@ -31,44 +31,45 @@
 </head>
 <body>
 <header>
-    <div class="mobile-nav" id="mobileNav">
-      <nav>
-        <a href="#">ПРОДУКТЫ</a>
-        <a href="#">ЦВЕТА</a>
-        <a href="#">ВДОХНОВЕНИЕ</a>
-        <a href="#">СОВЕТЫ</a>
-        <a href="#">НАЙТИ МАГАЗИН</a>
-      </nav>
-    </div>
     <div class="header-content">
-      <button class="burger" id="burgerBtn" aria-label="Открыть меню">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <img alt="Логотип" class="header-content__logo-img" src="image/logo.png"/>
-      <nav>
-        <a href="#">ПРОДУКТЫ</a>
-        <a href="#">ЦВЕТА</a>
-        <a href="#">ВДОХНОВЕНИЕ</a>
-        <a href="#">СОВЕТЫ</a>
-        <a href="#">НАЙТИ МАГАЗИН</a>
-      </nav>
-      <div class="header__contact">
-        <a href="tel:+74952217769">+7 (495) 221-77-69</a>
-        <span>Заказать звонок</span>
-      </div>
-      <div class="header__menu">
-        <a href="#"><img alt="Поиск" src="image/search.png"></a>
-        <a href="#"><img alt="Профиль" src="image/profile.png"></a>
-        <a href="#"><img alt="Избранное" src="image/heart.png"></a>
-        <a class="header__menu__cart" href="#">
-          <div class="cart-icon">
-            <img alt="Корзина" src="image/cart.png"/>
-            <span class="cart-count" id="cartTotalCountHeader">0</span>
-          </div>
-        </a>
-      </div>
+        <div class="header-left">
+            <img alt="Логотип" class="header-content__logo-img" src="image/logo.png"/>
+            <nav class="header-nav">
+                <a href="#">ПРОДУКТЫ</a>
+                <a href="#">ЦВЕТА</a>
+                <a href="#">ВДОХНОВЕНИЕ</a>
+                <a href="#">СОВЕТЫ</a>
+                <a href="#">НАЙТИ МАГАЗИН</a>
+            </nav>
+            <button aria-controls="mobile-menu" aria-expanded="false" aria-label="Открыть меню" class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="header-right">
+            <div class="header__contact hide-mobile">
+                <a href="tel:+74952217769">+7 (495) 221-77-69</a>
+                <span>Заказать звонок</span>
+            </div>
+            <div class="header__menu">
+                <a href="#"><img alt="Поиск" class="hide-mobile" src="image/search.png"></a>
+                <a href="#"><img alt="Профиль" class="hide-mobile" src="image/profile.png"></a>
+                <a href="#"><img alt="Избранное" class="hide-mobile" src="image/heart.png"></a>
+                <a class="header__menu__cart" href="#">
+                    <span class="cart-icon">
+                        <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" fill="#7BB899" r="12"/>
+                            <text fill="black" font-family="Arial" font-size="12" id="cartTotalCountHeader"
+                                  text-anchor="middle" x="12" y="16">
+                                0
+                            </text>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+        </div>
+
     </div>
 </header>
 
@@ -78,22 +79,23 @@
 
 <main>
     <div class="main-content">
-        <div class="main-content__img">
-            <img alt="Фото вазы с цветком у стены" src="image/rectangle.png">
+        <div class="main-content__img ">
+            <img alt="Фото вазы с цветком у стены" class="hide-mobile" src="image/rectangle.png">
             <nav class="main-nav">
                 <a href="#">ГЛАВНАЯ</a>
                 <a href="#">ПРОДУКТЫ</a>
                 <a href="#">КРАСКИ</a>
             </nav>
-            <h1 class="main-title">Краски</h1>
-            <p class="main-desc">Идеально подходят для стен и других поверхностей. Найди свой идеальный цвет!</p>
-            <div class="main-nav__chevron__left">
+            <h1 class="main-title hide-mobile ">Краски</h1>
+            <p class="main-desc hide-mobile">Идеально подходят для стен и других поверхностей. Найди свой идеальный
+                цвет!</p>
+            <div class="main-nav__chevron__left hide-mobile">
                 <img alt="Chevron left" src="image/chevron-left.png"/>
             </div>
-            <div class="main-nav__chevron__right">
+            <div class="main-nav__chevron__right hide-mobile">
                 <img alt="Chevron right" src="image/chevron-right.png"/>
             </div>
-            <div class="main-nav__slice-f">
+            <div class="main-nav__slice-f hide-mobile">
                 <img alt="Slice F" src="image/sliceFhoto.png"/>
             </div>
 
