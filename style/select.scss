@@ -1,0 +1,74 @@
+.custom-select {
+  position: relative;
+  width: 100%;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  color: var(--black);
+  user-select: none;
+}
+
+.custom-select__selected::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid #222;
+  right: -4px;
+}
+
+.custom-select__selected {
+  position: absolute;
+  right: 78px;
+  display: block;
+  width: 133px;
+  height: 15px;
+  color: var(--black);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.custom-select__dropdown {
+  display: none;
+  width: 280px;
+  height: 198px;
+  position: absolute;
+  top: 100%;
+  right: 64px;
+  z-index: 201;
+  background-color: white;
+}
+
+.custom-select.open .custom-select__selected {
+  display: none;
+}
+
+.custom-select.open .custom-select__dropdown {
+  display: block;
+}
+
+.custom-select__option {
+  position: relative;
+  cursor: pointer;
+  transition: background 0.1s;
+  transform: translate(20px, 0);
+  width: 280px;
+  height: 48px;
+  color: var(--black);
+  right: 20px;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 17px 0 16px 24px;
+}
+
+.custom-select__option:hover {
+  background: #7BB899;
+}
+
+.custom-select {
+  position: relative;
+  z-index: 200;
+}

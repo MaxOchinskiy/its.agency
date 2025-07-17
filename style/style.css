@@ -1,156 +1,29 @@
-@charset "UTF-8";
-:root {
-  --black: #000000;
+@media (max-width: 480px) {
+  .header__contact a {
+    font-size: 13px;
+  }
+  .header__contact span {
+    font-size: 11px;
+  }
+  .header__menu a {
+    font-size: 12px;
+    padding: 16px 0;
+  }
+  .header__menu__cart {
+    padding: 8px;
+  }
+  .header__menu__cart img {
+    width: 18px;
+    height: 18px;
+  }
 }
-
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%; /* Растягивает на весь экран */
-  height: 100%; /* Если нужно задать высоту */
-  font-family: "Inter", sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
-  box-sizing: border-box;
-}
-
-*, *::before, *::after {
-  box-sizing: inherit;
-}
-
-.header-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 64px;
-  height: 104px;
-  max-width: 1920px;
-  width: 100%;
-  margin: 0 auto;
-  box-sizing: border-box;
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 172px; /* отступ между логотипом и nav */
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 116px; /* кастомный отступ между блоками */
-}
-
-nav {
-  display: flex;
-  align-items: center;
-  gap: 24px; /* или сколько нужно между пунктами */
-  font-size: 14px;
-  height: 100%;
-  /* Убираем фиксированную ширину и margin-right */
-  /* Позволяем родителю управлять расположением */
-}
-
-nav a {
-  display: inline-block;
-  text-decoration: none;
-  color: var(--black);
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.2;
-  transition: color 0.3s ease;
-}
-
-nav a:last-child {
-  margin-right: 0; /* убираем лишний отступ у последнего элемента */
-}
-
-.header__contact {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center; /* если нужно выравнивание по вертикали */
-}
-
-.header-content__logo-img {
-  display: block;
-  object-fit: contain;
-}
-
-.header__contact a {
-  color: var(--black);
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.2;
-  transition: color 0.3s ease;
-}
-
-.header__contact span {
-  font-size: 14px;
-  color: var(--black);
-  opacity: 0.3; /* вместо 30% */
-  font-weight: 400;
-  line-height: 1.2;
-}
-
-.header__menu {
-  display: flex;
-  align-items: center;
-  gap: 24px; /* Заменяет margin-right */
-}
-
-.header__menu a {
-  text-decoration: none;
-  padding: 41px 0;
-  color: var(--black); /* если нужно задать цвет */
-  font-size: 14px;
-  font-weight: 400;
-  transition: color 0.3s ease;
-}
-
-.header__menu__cart {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.header__menu__cart img {
-  width: 24px;
-  height: 24px;
-}
-
-.hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 24px;
-  height: 18px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  margin-left: 16px;
-}
-
-.hamburger span {
-  display: block;
-  height: 3px;
-  background-color: var(--black);
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}
-
-/* Показываем гамбургер на мобильных */
 @media (max-width: 768px) {
   nav.header-nav {
-    display: none; /* скрываем навигацию по умолчанию */
+    display: none;
     flex-direction: column;
     gap: 16px;
     position: absolute;
-    top: 104px; /* ниже хедера */
+    top: 104px;
     left: 0;
     right: 0;
     background-color: white;
@@ -164,57 +37,52 @@ nav a:last-child {
   .hamburger {
     display: flex;
   }
-  /* Можно уменьшить отступы в header-left */
   .header-left {
     gap: 8px;
-    position: relative; /* для позиционирования меню */
+    position: relative;
   }
-}
-/* Анимация гамбургера (переключение в крестик) */
-.hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
-}
-
-/* По умолчанию — всё видно */
-.hide-mobile {
-  display: block;
-}
-
-.show-mobile {
-  display: none;
-}
-
-/* При ширине 768px и меньше — меняем видимость */
-@media (max-width: 768px) {
   .hide-mobile {
     display: none !important;
   }
   .show-mobile {
     display: block !important;
   }
-}
-/* Базовая структура у тебя уже хорошая, ниже адаптив */
-@media (max-width: 1400px) {
   .header-content {
-    padding: 0 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    flex-direction: row;
   }
-  .header-left {
-    gap: 64px;
+  .header-left, .header-right {
+    display: contents;
   }
-  .header-right {
-    gap: 48px;
+  .header-content__logo-img {
+    order: 1;
   }
-  .header__contact {
-    margin-right: 0;
-    padding: 24px 0;
+  .header__menu__cart {
+    order: 2;
+  }
+  .hamburger {
+    order: 0;
+  }
+  .main-content {
+    height: 200px;
+  }
+  .main-title {
+    font-size: 36px;
+  }
+  .main-nav {
+    top: 16px;
+    left: 16px;
+    font-size: 8px;
+  }
+  .main-desc {
+    font-size: 12px;
+  }
+  .main-nav__sort__catalog__text {
+    padding-right: 16px;
+    margin-top: 40px;
   }
 }
 @media (max-width: 992px) {
@@ -257,46 +125,224 @@ nav a:last-child {
     height: 20px;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  .main-title {
+    font-size: 48px;
+  }
+  .main-desc {
+    font-size: 14px;
+    max-width: 90%;
+  }
+  .main-nav__chevron__left img,
+  .main-nav__chevron__right img {
+    width: 60px;
+    height: 60px;
+  }
+}
+@media (max-width: 1200px) {
+  .main-content {
+    height: 340px;
+  }
+}
+@media (max-width: 1258px) {
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(3, 278px);
+    justify-content: start;
+    gap: 24px;
+    padding-top: 44px;
+    direction: ltr !important;
+    transform: translateX(367px);
+    width: 100px;
+  }
   .header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px;
-    flex-direction: row;
+    padding: 0 22px;
   }
-  .header-left, .header-right {
-    display: contents; /* убираем обёртки, чтобы можно было управлять вложенными элементами */
+  .header-left {
+    gap: 64px;
   }
-  .header-content__logo-img {
-    order: 1; /* ставим логотип после корзины */
+  .header-right {
+    gap: 48px;
   }
-  .header__menu__cart {
-    order: 2; /* ставим корзину перед логотипом */
-  }
-  .hamburger {
-    order: 0; /* оставить бургер слева */
+  .header__contact {
+    margin-right: 0;
+    padding: 24px 0;
   }
 }
-@media (max-width: 480px) {
-  .header__contact a {
-    font-size: 13px;
+@media (max-width: 1400px) {
+  .header-content {
+    padding: 0 22px;
   }
-  .header__contact span {
-    font-size: 11px;
+  .header-left {
+    gap: 64px;
   }
-  .header__menu a {
-    font-size: 12px;
-    padding: 16px 0;
+  .header-right {
+    gap: 48px;
   }
-  .header__menu__cart {
-    padding: 8px;
-  }
-  .header__menu__cart img {
-    width: 18px;
-    height: 18px;
+  .header__contact {
+    margin-right: 0;
+    padding: 24px 0;
   }
 }
+@media (max-width: 1550px) {
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(2, 278px);
+    justify-content: start;
+    gap: 24px;
+    padding-top: 44px;
+    direction: ltr !important;
+    transform: translateX(367px);
+    width: 100px;
+  }
+}
+@media (max-width: 1788px) {
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(4, 278px);
+    justify-content: start;
+    gap: 24px;
+    padding-top: 44px;
+    direction: ltr !important;
+    transform: translateX(367px);
+    width: 100px;
+  }
+}
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 64px;
+  height: 104px;
+  max-width: 1920px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 172px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 116px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-size: 14px;
+  height: 100%;
+}
+
+nav a {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--black);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  transition: color 0.3s ease;
+}
+
+nav a:last-child {
+  margin-right: 0;
+}
+
+.header__contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.header-content__logo-img {
+  display: block;
+  object-fit: contain;
+}
+
+.header__contact a {
+  color: var(--black);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  transition: color 0.3s ease;
+}
+
+.header__contact span {
+  font-size: 14px;
+  color: var(--black);
+  opacity: 0.3;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.header__menu {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.header__menu a {
+  text-decoration: none;
+  padding: 41px 0;
+  color: var(--black);
+  font-size: 14px;
+  font-weight: 400;
+  transition: color 0.3s ease;
+}
+
+.header__menu__cart {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.header__menu__cart img {
+  width: 24px;
+  height: 24px;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 16px;
+}
+
+.hamburger span {
+  display: block;
+  height: 3px;
+  background-color: var(--black);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
 .main-content {
   width: 100%;
   max-width: 1920px;
@@ -319,16 +365,6 @@ nav a:last-child {
   display: block;
 }
 
-@media (max-width: 1200px) {
-  .main-content {
-    height: 340px;
-  }
-}
-@media (max-width: 768px) {
-  .main-content {
-    height: 200px;
-  }
-}
 .main-nav {
   position: absolute;
   top: 32px;
@@ -339,7 +375,7 @@ nav a:last-child {
 }
 
 .main-nav a {
-  position: relative; /* чтобы псевдоэлемент позиционировался относительно ссылки */
+  position: relative;
   color: #ffffff;
   text-decoration: none;
   font-size: 10px;
@@ -422,37 +458,6 @@ nav a:last-child {
   margin-top: 72px;
 }
 
-@media (max-width: 1024px) {
-  .main-title {
-    font-size: 48px;
-  }
-  .main-desc {
-    font-size: 14px;
-    max-width: 90%;
-  }
-  .main-nav__chevron__left img,
-  .main-nav__chevron__right img {
-    width: 60px;
-    height: 60px;
-  }
-}
-@media (max-width: 768px) {
-  .main-title {
-    font-size: 36px;
-  }
-  .main-nav {
-    top: 16px;
-    left: 16px;
-    font-size: 8px;
-  }
-  .main-desc {
-    font-size: 12px;
-  }
-  .main-nav__sort__catalog__text {
-    padding-right: 16px;
-    margin-top: 40px;
-  }
-}
 .custom-select {
   position: relative;
   width: 100%;
@@ -471,7 +476,7 @@ nav a:last-child {
   height: 0;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-top: 5px solid #222; /* цвет стрелки */
+  border-top: 5px solid #222;
   right: -4px;
 }
 
@@ -490,11 +495,11 @@ nav a:last-child {
   display: none;
   width: 280px;
   height: 198px;
-  position: absolute; /* Добавить */
-  top: 100%; /* Показать под .selected */
-  right: 64px; /* Можно подогнать как нужно */
-  z-index: 201; /* Выше чем у .overlay */
-  background-color: white; /* Чтобы опции не были прозрачными */
+  position: absolute;
+  top: 100%;
+  right: 64px;
+  z-index: 201;
+  background-color: white;
 }
 
 .custom-select.open .custom-select__selected {
@@ -521,6 +526,11 @@ nav a:last-child {
 
 .custom-select__option:hover {
   background: #7BB899;
+}
+
+.custom-select {
+  position: relative;
+  z-index: 200;
 }
 
 .overlay {
@@ -556,15 +566,6 @@ nav a:last-child {
   user-select: none;
 }
 
-.top-line {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* распределяем 3 блока по ширине */
-  gap: 20px; /* отступы между элементами (по желанию) */
-  flex-wrap: nowrap;
-  margin-bottom: 10px; /* отступ снизу для product-list */
-}
-
 .filter-item {
   position: relative;
   display: flex;
@@ -581,7 +582,6 @@ nav a:last-child {
   margin-right: 0;
 }
 
-/* Скрываем стандартный радиобаттон */
 .filter-item input[type=radio] {
   display: none;
 }
@@ -640,55 +640,6 @@ nav a:last-child {
   width: 100px;
 }
 
-@media (max-width: 1788px) {
-  .product-list {
-    display: grid;
-    grid-template-columns: repeat(4, 278px);
-    justify-content: start;
-    gap: 24px;
-    padding-top: 44px;
-    direction: ltr !important;
-    transform: translateX(367px);
-    width: 100px;
-  }
-}
-@media (max-width: 1550px) {
-  .product-list {
-    display: grid;
-    grid-template-columns: repeat(3, 278px);
-    justify-content: start;
-    gap: 24px;
-    padding-top: 44px;
-    direction: ltr !important;
-    transform: translateX(367px);
-    width: 100px;
-  }
-}
-@media (max-width: 1258px) {
-  .product-list {
-    display: grid;
-    grid-template-columns: repeat(3, 278px);
-    justify-content: start;
-    gap: 24px;
-    padding-top: 44px;
-    direction: ltr !important;
-    transform: translateX(367px);
-    width: 100px;
-  }
-  .header-content {
-    padding: 0 22px;
-  }
-  .header-left {
-    gap: 64px;
-  }
-  .header-right {
-    gap: 48px;
-  }
-  .header__contact {
-    margin-right: 0;
-    padding: 24px 0;
-  }
-}
 .product-card {
   width: 278px;
   box-sizing: border-box;
@@ -738,13 +689,6 @@ nav a:last-child {
 .product-card:hover .product-card__add {
   opacity: 1;
   visibility: visible;
-}
-
-hr {
-  border: none;
-  height: 1px;
-  background-color: #000000;
-  opacity: 10%;
 }
 
 .cart-modal {
@@ -957,6 +901,244 @@ hr {
 
 .cart-modal__order:hover {
   background: #5fa87a;
+}
+
+:root {
+  --black: #000000;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+.hide-mobile {
+  display: block;
+}
+
+.show-mobile {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .header__contact a {
+    font-size: 13px;
+  }
+  .header__contact span {
+    font-size: 11px;
+  }
+  .header__menu a {
+    font-size: 12px;
+    padding: 16px 0;
+  }
+  .header__menu__cart {
+    padding: 8px;
+  }
+  .header__menu__cart img {
+    width: 18px;
+    height: 18px;
+  }
+}
+@media (max-width: 768px) {
+  nav.header-nav {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    position: absolute;
+    top: 104px;
+    left: 0;
+    right: 0;
+    background-color: white;
+    padding: 16px 32px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  nav.header-nav.open {
+    display: flex;
+  }
+  .hamburger {
+    display: flex;
+  }
+  .header-left {
+    gap: 8px;
+    position: relative;
+  }
+  .hide-mobile {
+    display: none !important;
+  }
+  .show-mobile {
+    display: block !important;
+  }
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    flex-direction: row;
+  }
+  .header-left, .header-right {
+    display: contents;
+  }
+  .header-content__logo-img {
+    order: 1;
+  }
+  .header__menu__cart {
+    order: 2;
+  }
+  .hamburger {
+    order: 0;
+  }
+  .main-content {
+    height: 200px;
+  }
+  .main-title {
+    font-size: 36px;
+  }
+  .main-nav {
+    top: 16px;
+    left: 16px;
+    font-size: 8px;
+  }
+  .main-desc {
+    font-size: 12px;
+  }
+  .main-nav__sort__catalog__text {
+    padding-right: 16px;
+    margin-top: 40px;
+  }
+}
+@media (max-width: 992px) {
+  .header-content {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 16px 24px;
+    row-gap: 16px;
+    justify-content: space-between;
+  }
+  .header-left,
+  .header-right {
+    flex: 1 1 100%;
+    justify-content: space-between;
+    gap: 32px;
+  }
+  .header-left {
+    order: 1;
+  }
+  .header-right {
+    order: 2;
+    flex-wrap: wrap;
+  }
+  nav {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .header__contact a {
+    font-size: 14px;
+  }
+  .header__contact span {
+    font-size: 12px;
+  }
+  .header__menu a {
+    padding: 24px 0;
+    font-size: 13px;
+  }
+  .header__menu__cart img {
+    width: 20px;
+    height: 20px;
+  }
+}
+@media (max-width: 1024px) {
+  .main-title {
+    font-size: 48px;
+  }
+  .main-desc {
+    font-size: 14px;
+    max-width: 90%;
+  }
+  .main-nav__chevron__left img,
+  .main-nav__chevron__right img {
+    width: 60px;
+    height: 60px;
+  }
+}
+@media (max-width: 1200px) {
+  .main-content {
+    height: 340px;
+  }
+}
+@media (max-width: 1258px) {
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(3, 278px);
+    justify-content: start;
+    gap: 24px;
+    padding-top: 44px;
+    direction: ltr !important;
+    transform: translateX(367px);
+    width: 100px;
+  }
+  .header-content {
+    padding: 0 22px;
+  }
+  .header-left {
+    gap: 64px;
+  }
+  .header-right {
+    gap: 48px;
+  }
+  .header__contact {
+    margin-right: 0;
+    padding: 24px 0;
+  }
+}
+@media (max-width: 1400px) {
+  .header-content {
+    padding: 0 22px;
+  }
+  .header-left {
+    gap: 64px;
+  }
+  .header-right {
+    gap: 48px;
+  }
+  .header__contact {
+    margin-right: 0;
+    padding: 24px 0;
+  }
+}
+@media (max-width: 1550px) {
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(2, 278px);
+    justify-content: start;
+    gap: 24px;
+    padding-top: 44px;
+    direction: ltr !important;
+    transform: translateX(367px);
+    width: 100px;
+  }
+}
+@media (max-width: 1788px) {
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(4, 278px);
+    justify-content: start;
+    gap: 24px;
+    padding-top: 44px;
+    direction: ltr !important;
+    transform: translateX(367px);
+    width: 100px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
