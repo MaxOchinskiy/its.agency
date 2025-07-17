@@ -302,12 +302,18 @@ nav a:last-child {
 }
 
 .main-content__img {
-  width: 100%; /* Растягивается на всю ширину родителя */
-  max-width: 1920px; /* Не превышает ширину макета */
-  aspect-ratio: 1920/560; /* Сохраняем пропорции */
-  margin: 0 auto; /* Центрируем */
+  width: 100%;
+  max-width: 1920px;
+  aspect-ratio: 1920/560;
+  margin: 0 auto;
   overflow: hidden;
   position: relative;
+  min-height: 120px;
+}
+@supports not (aspect-ratio: 1) {
+  .main-content__img {
+    padding-top: 29.17%;
+  }
 }
 
 .main-content__img img {
@@ -315,8 +321,19 @@ nav a:last-child {
   height: 100%;
   object-fit: cover;
   display: block;
+  position: static;
 }
 
+@media (max-width: 1200px) {
+  .main-content__img {
+    height: 340px;
+  }
+}
+@media (max-width: 768px) {
+  .main-content__img {
+    height: 200px;
+  }
+}
 .main-nav {
   position: absolute;
   top: 32px;
