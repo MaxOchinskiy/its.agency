@@ -2,8 +2,8 @@
 function initSlider() {
     let sliderImages = [
         'image/rectangle.png',
-        'image/frame.png',
-        'image/sliceFhoto.png'
+        'image/photoMain.jpg',
+        'image/photoMain2.jpg'
     ];
     let currentIndex = 0;
     let sliderImg = document.querySelector('.main-content__img img');
@@ -32,30 +32,36 @@ function initSlider() {
 
 // === ДАННЫЕ ДЛЯ ТЕСТА ===
 let products = [
-    {id: 1, name: 'Краска Wallquest, Brownsone MS90102', price: 6000, img: 'image/rectangle.png', type: 'НОВИНКИ'},
-    {id: 2, name: 'Краска Wallquest, Brownsone MS90103', price: 7000, img: 'image/frame.png', type: 'ЕСТЬ В НАЛИЧИИ'},
-    {id: 3, name: 'Краска Wallquest, Brownsone MS90104', price: 8000, img: 'image/sliceFhoto.png', type: 'КОНТРАКТНЫЕ'},
-    {id: 4, name: 'Краска Wallquest, Brownsone MS90105', price: 9000, img: 'image/rectangle.png', type: 'ЭКСКЛЮЗИВНЫЕ'},
-    {id: 5, name: 'Краска Wallquest, Brownsone MS90106', price: 5000, img: 'image/frame.png', type: 'РАСПРОДАЖА'},
-    {id: 6, name: 'Краска Wallquest, Brownsone MS90107', price: 4000, img: 'image/rectangle.png', type: 'НОВИНКИ'},
-    {id: 7, name: 'Краска Wallquest, Brownsone MS90108', price: 10000, img: 'image/frame.png', type: 'НОВИНКИ'},
+    {
+        id: 1,
+        name: 'Краска Wallquest, Brownsone MS90102',
+        price: 6000,
+        img: 'image/img.png',
+        type: 'НОВИНКИ'
+    },
+    {id: 2, name: 'Краска Wallquest, Brownsone MS90103', price: 7000, img: 'image/img_1.png', type: 'ЕСТЬ В НАЛИЧИИ'},
+    {id: 3, name: 'Краска Wallquest, Brownsone MS90104', price: 8000, img: 'image/img_2.png', type: 'КОНТРАКТНЫЕ'},
+    {id: 4, name: 'Краска Wallquest, Brownsone MS90105', price: 9000, img: 'image/img_3.png', type: 'ЭКСКЛЮЗИВНЫЕ'},
+    {id: 5, name: 'Краска Wallquest, Brownsone MS90106', price: 5000, img: 'image/img_4.png', type: 'РАСПРОДАЖА'},
+    {id: 6, name: 'Краска Wallquest, Brownsone MS90107', price: 4000, img: 'image/img_5.png', type: 'НОВИНКИ'},
+    {id: 7, name: 'Краска Wallquest, Brownsone MS90108', price: 10000, img: 'image/img_6.png', type: 'НОВИНКИ'},
     {
         id: 8,
         name: 'Краска Wallquest, Brownsone MS90109',
         price: 3000,
-        img: 'image/sliceFhoto.png',
+        img: 'image/img_7.png',
         type: 'ЕСТЬ В НАЛИЧИИ'
     },
     {
         id: 9,
         name: 'Краска Wallquest, Brownsone MS90110',
         price: 9000,
-        img: 'image/rectangle.png',
+        img: 'image/img_8.png',
         type: 'ЕСТЬ В НАЛИЧИИ'
     },
-    {id: 10, name: 'Краска Wallquest, Brownsone MS90111', price: 2000, img: 'image/rectangle.png', type: 'НОВИНКИ'},
-    {id: 11, name: 'Краска Wallquest, Brownsone MS90112', price: 12000, img: 'image/frame.png', type: 'НОВИНКИ'},
-    {id: 12, name: 'Краска Wallquest, Brownsone MS90113', price: 800, img: 'image/sliceFhoto.png', type: 'НОВИНКИ'}
+    {id: 10, name: 'Краска Wallquest, Brownsone MS90111', price: 2000, img: 'image/img_3.png', type: 'НОВИНКИ'},
+    {id: 11, name: 'Краска Wallquest, Brownsone MS90112', price: 12000, img: 'image/img_9.png', type: 'НОВИНКИ'},
+    {id: 12, name: 'Краска Wallquest, Brownsone MS90113', price: 800, img: 'image/img_4.png', type: 'НОВИНКИ'}
 ];
 
 function renderProducts(list) {
