@@ -202,9 +202,9 @@ nav a:last-child {
   }
 }
 /* Базовая структура у тебя уже хорошая, ниже адаптив */
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
   .header-content {
-    padding: 0 32px;
+    padding: 0 22px;
   }
   .header-left {
     gap: 64px;
@@ -640,6 +640,55 @@ nav a:last-child {
   width: 100px;
 }
 
+@media (max-width: 1788px) {
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(4, 278px);
+    justify-content: start;
+    gap: 24px;
+    padding-top: 44px;
+    direction: ltr !important;
+    transform: translateX(367px);
+    width: 100px;
+  }
+}
+@media (max-width: 1550px) {
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(3, 278px);
+    justify-content: start;
+    gap: 24px;
+    padding-top: 44px;
+    direction: ltr !important;
+    transform: translateX(367px);
+    width: 100px;
+  }
+}
+@media (max-width: 1258px) {
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(3, 278px);
+    justify-content: start;
+    gap: 24px;
+    padding-top: 44px;
+    direction: ltr !important;
+    transform: translateX(367px);
+    width: 100px;
+  }
+  .header-content {
+    padding: 0 22px;
+  }
+  .header-left {
+    gap: 64px;
+  }
+  .header-right {
+    gap: 48px;
+  }
+  .header__contact {
+    margin-right: 0;
+    padding: 24px 0;
+  }
+}
 .product-card {
   width: 278px;
   box-sizing: border-box;
