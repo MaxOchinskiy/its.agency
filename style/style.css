@@ -299,10 +299,6 @@ nav a:last-child {
 }
 .main-content {
   width: 100%;
-}
-
-.main-content__img {
-  width: 100%;
   max-width: 1920px;
   aspect-ratio: 1920/560;
   margin: 0 auto;
@@ -311,12 +307,12 @@ nav a:last-child {
   min-height: 120px;
 }
 @supports not (aspect-ratio: 1) {
-  .main-content__img {
+  .main-content {
     padding-top: 29.17%;
   }
 }
 
-.main-content__img img {
+.main-content__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -325,12 +321,12 @@ nav a:last-child {
 }
 
 @media (max-width: 1200px) {
-  .main-content__img {
+  .main-content {
     height: 340px;
   }
 }
 @media (max-width: 768px) {
-  .main-content__img {
+  .main-content {
     height: 200px;
   }
 }
