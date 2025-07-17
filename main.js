@@ -15,8 +15,6 @@ function initSlider() {
         if (index >= sliderImages.length) index = 0;
         currentIndex = index;
         sliderImg.src = sliderImages[currentIndex];
-        sliderImg.style.width = '1920px';
-        sliderImg.style.height = '560px';
         sliderImg.style.objectFit = 'cover'; // сохраняет пропорции
     }
 

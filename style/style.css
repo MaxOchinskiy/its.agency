@@ -317,7 +317,6 @@ nav a:last-child {
   height: 100%;
   object-fit: cover;
   display: block;
-  position: static;
 }
 
 @media (max-width: 1200px) {
