@@ -5,7 +5,7 @@
   margin: 0 auto;
   overflow: hidden;
   position: relative;
-  min-height: 154px;
+  min-height: auto;
   @supports not (aspect-ratio: 1) {
     padding-top: 29.17%;
   }

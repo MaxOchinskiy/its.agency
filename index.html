@@ -93,7 +93,8 @@
             </span>
         </div>
         <h1 class="main-title ">Краски</h1>
-        <p class="main-desc hide-text__main">Идеально подходят для стен и других поверхностей. Найди свой идеальный
+        <p class="main-desc hide-text__main hide-chevron">Идеально подходят для стен и других поверхностей. Найди свой
+            идеальный
             цвет!</p>
         <div class="main-nav__chevron__left hide-chevron">
             <img alt="Chevron left" src="image/chevron-left.png"/>
@@ -145,12 +146,59 @@
             </label>
         </div>
         <div class="custom-select main-nav__sort__catalog__text">
-            <div class="custom-select__selected">СНАЧАЛА ДОРОГИЕ</div>
-            <div class="custom-select__dropdown">
-                <div class="custom-select__option custom-select__option--active">СНАЧАЛА ДОРОГИЕ</div>
-                <div class="custom-select__option">СНАЧАЛА НЕДОРОГИЕ</div>
-                <div class="custom-select__option">СНАЧАЛА ПОПУЛЯРНЫЕ</div>
-                <div class="custom-select__option">СНАЧАЛА НОВЫЕ</div>
+            <div>
+                <span class="filter-mobile-btn" id="filterOpenBtn">ФИЛЬТРЫ</span>
+                <div class="filter-modal" id="filterModal">
+                    <div class="filter-modal__content">
+                        <div class="filter-list">
+                            <label class="filter-item">
+                                <input checked name="filter" type="radio">
+                                <span class="toggle-switch">
+                        <span class="toggle-circle"></span>
+                    </span>
+                                НОВИНКИ
+                            </label>
+                            <label class="filter-item">
+                                <input name="filter" type="radio">
+                                <span class="toggle-switch">
+                        <span class="toggle-circle"></span>
+                    </span>
+                                ЕСТЬ В НАЛИЧИИ
+                            </label>
+                            <label class="filter-item">
+                                <input name="filter" type="radio">
+                                <span class="toggle-switch">
+                        <span class="toggle-circle"></span>
+                    </span>
+                                КОНТРАКТНЫЕ
+                            </label>
+                            <label class="filter-item">
+                                <input name="filter" type="radio">
+                                <span class="toggle-switch">
+                        <span class="toggle-circle"></span>
+                    </span>
+                                ЭКСКЛЮЗИВНЫЕ
+                            </label>
+                            <label class="filter-item">
+                                <input name="filter" type="radio">
+                                <span class="toggle-switch">
+                        <span class="toggle-circle"></span>
+                    </span>
+                                РАСПРОДАЖА
+                            </label>
+                        </div>
+                    </div>
+                    <div class="filter-modal__overlay" id="filterOverlay"></div>
+                </div>
+            </div>
+            <div class="filter-mobile">
+                <div class="custom-select__selected">СНАЧАЛА ДОРОГИЕ</div>
+                <div class="custom-select__dropdown">
+                    <div class="custom-select__option custom-select__option--active">СНАЧАЛА ДОРОГИЕ</div>
+                    <div class="custom-select__option">СНАЧАЛА НЕДОРОГИЕ</div>
+                    <div class="custom-select__option">СНАЧАЛА ПОПУЛЯРНЫЕ</div>
+                    <div class="custom-select__option">СНАЧАЛА НОВЫЕ</div>
+                </div>
             </div>
         </div>
         <div class="count__product hide-count__product">
