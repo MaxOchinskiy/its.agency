@@ -1,3 +1,11 @@
+.svg-default {
+  display: block;
+}
+
+.svg-mobile {
+  display: none;
+}
+
 @media (max-width: 375px) {
   .product-card img {
     width: 100% !important;
@@ -34,13 +42,10 @@
     width: 18px;
     height: 18px;
   }
-  .filter-list,
-  .filters-block {
-    display: none !important;
-    width: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
+  .filter-list {
+
   }
+
   .hide-menu {
     display: none !important;
   }
@@ -64,8 +69,16 @@
     max-width: 100vw !important;
   }
 
-  // Сетка товаров
+
+  .catalog-product-row {
+    margin: 0 auto !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    box-sizing: border-box !important;
+  }
+
   .product-list {
+    position: relative !important;
     display: grid !important;
     grid-template-columns: repeat(2, 156px) !important;
     gap: 16px !important;
@@ -75,9 +88,10 @@
     width: 100% !important;
     transform: none !important;
     direction: ltr !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
   }
 
-  // Карточка товара
   .product-card {
     width: 156px !important;
     height: 270px !important;
@@ -85,26 +99,57 @@
     margin: 0 !important;
     padding: 0 !important;
   }
+  .product-list::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background-color: #e0e0e0;
+  }
 
-  // Если есть изображения внутри карточки
   .product-card img {
     width: 100% !important;
     height: auto !important;
     object-fit: contain !important;
   }
   .product-card__add {
-    opacity: 1 !important;
-    visibility: visible !important;
-    position: static !important; // или подкорректируй позиционирование под мобильный макет
     left: auto !important;
     top: auto !important;
     right: auto !important;
     bottom: auto !important;
-    margin-top: 8px; // если нужно отступить от цены
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative !important;
     display: flex !important;
-    justify-content: center;
-    align-items: center;
+    justify-content: center !important;
+    align-items: center !important;
+    width: auto !important;
   }
+  .product-card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding: 8px 0 0;
+  }
+
+  .svg-default {
+    display: none !important;
+  }
+
+  .svg-mobile {
+    display: block !important;
+  }
+
+  .product-card__price {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+  }
+
+
   .hide__desc__cart {
     visibility: hidden;
     pointer-events: none;
@@ -112,6 +157,9 @@
   }
   .header__menu {
     gap: 16px !important;
+  }
+  .hide-count__product {
+    display: none !important;
   }
 
 }
@@ -182,7 +230,7 @@
     content: '';
     position: absolute;
     bottom: 0;
-    left: 10%; /* отступ слева */
+    left: 10%;
     width: 80%;
     height: 1px;
     background-color: #e0e0e0;
@@ -211,9 +259,11 @@
     margin-top: 40px;
   }
   .header-left {
+    position: relative;
     display: flex;
-    flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+
   }
 
   .header-content__logo-img {

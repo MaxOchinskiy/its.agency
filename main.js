@@ -76,13 +76,20 @@ function renderProducts(list) {
             '<div class="product-card__footer">' +
             '<span class="product-card__price"><b>' + product.price + ' ₽</b></span>' +
             '<button aria-label="Добавить" class="product-card__add" type="button">' +
-            '<svg fill="none" height="32" viewBox="0 0 80 32" width="80" xmlns="http://www.w3.org/2000/svg">' +
+            // SVG по умолчанию
+            '<svg class="svg-default" fill="none" height="32" viewBox="0 0 80 32" width="80" xmlns="http://www.w3.org/2000/svg">' +
             '<rect fill="#7BB899" height="32" rx="8" width="80"/>' +
             '<path d="M40 10.1666V21.8333" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
             '<path d="M34.167 16H45.8337" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
             '</svg>' +
+            // SVG для мобилок
+            '<svg class="svg-mobile" fill="none" height="24" viewBox="0 0 40 24" width="40" xmlns="http://www.w3.org/2000/svg">' +
+            '<rect fill="#F2F2F2" height="24" rx="6" width="40"/>' +
+            '<path d="M20 7.33331V16.6666" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
+            '<path d="M15.333 12H24.6663" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
+            '</svg>' +
             '</button>' +
-            '</div>'
+            '</div>';
         productList.appendChild(card);
     });
 }
