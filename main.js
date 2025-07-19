@@ -80,6 +80,7 @@ function initSlider() {
 ];*/
 
 var products = [];
+var cart = [];
 
 function createProductCount(count) {
     return `<div class="count__product hide-count__product">
@@ -136,83 +137,31 @@ function createCartItem(item, idx) {
     `;
 }
 
-function createCartModal(cart) {
-    let itemsHtml = cart.length === 0
-        ? '<p class="cartItems">Корзина пуста</p>'
-        : cart.map((item, idx) => createCartItem(item, idx)).join('');
+function renderCart() {
+    let cartItems = document.getElementById('cartItems');
+    let cartTotal = document.getElementById('cartTotal');
+    let cartTotalCount = document.getElementById('cartTotalCount');
+    let cartCount = document.getElementById('cartCount');
+    let cartTotalCountHeader = document.getElementById('cartTotalCountHeader');
 
     let total = cart.reduce((sum, item) => sum + item.price * item.count, 0);
     let totalCount = cart.reduce((sum, item) => sum + item.count, 0);
 
-    return `
-      <div class="cart-modal__header">
-          <h2>Корзина</h2>
-          <span class="cart-modal__count" id="cartTotalCount">${totalCount ? totalCount + ' товара' : ''}</span>
-          <button class="cart-modal__clear" id="cartModalClear">ОЧИСТИТЬ СПИСОК</button>
-      </div>
-
-      <div class="cart-modal__items-container" id="cartItems">
-          ${itemsHtml}
-      </div>
-
-      <div class="cart-modal__footer">
-          <div class="cart-modal__total">Итого <span id="cartTotal">${total} ₽</span></div>
-          <button class="cart-modal__order" id="cartModalOrder">ОФОРМИТЬ ЗАКАЗ</button>
-      </div>
-    `;
-}
-
-function createFooter() {
-    return `<footer class="footer"><div class="container"><p>1</p></div></footer>`;
-}
-
-// === КОРЗИНА ===
-let cart = [];
-
-function openCartModal() {
-    let modal = document.getElementById('cartModal');
-    console.log('Opening cart modal:', modal);
-    if (modal) {
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden'; // Блокируем скролл основной страницы
+    if (cartItems) {
+        if (cart.length === 0) {
+            cartItems.innerHTML = '<p class="cartItems">Корзина пуста</p>';
+        } else {
+            cartItems.innerHTML = cart.map((item, idx) => createCartItem(item, idx)).join('');
+        }
     }
-}
-
-function closeCartModal() {
-    let modal = document.getElementById('cartModal');
-    console.log('Closing cart modal:', modal);
-    if (modal) {
-        modal.style.display = 'none';
-        document.body.style.overflow = ''; // Восстанавливаем скролл основной страницы
-        console.log('Cart modal closed successfully');
-    } else {
-        console.error('Cart modal element not found!');
-    }
-}
-
-function renderCart() {
-    let cartItems = document.getElementById('cartItems');
-    let cartTotal = document.getElementById('cartTotal');
-    let cartCount = document.getElementById('cartCount');
-    let cartTotalCount = document.getElementById('cartTotalCount');
-    let cartTotalCountHeader = document.getElementById('cartTotalCountHeader');
-    let cartModalBody = document.getElementById('cartModalBody');
-    if (!cartModalBody) return;
-
-    let totalCount = cart.reduce(function (sum, item) {
-        return sum + item.count;
-    }, 0);
+    if (cartTotal) cartTotal.textContent = total + ' ₽';
+    if (cartTotalCount) cartTotalCount.textContent = totalCount ? totalCount + ' товара' : '';
     if (cartCount) cartCount.textContent = totalCount ? totalCount : '';
-    if (cartTotalCount) cartTotalCount.textContent = totalCount ? (totalCount + ' товара') : '';
     if (cartTotalCountHeader) cartTotalCountHeader.textContent = totalCount ? totalCount : '';
 
-    // Используем компонент для модального окна корзины
-    cartModalBody.innerHTML = createCartModal(cart);
-
-    // Навешиваем обработчики на кнопки внутри корзины
-    let cartItemsDiv = document.getElementById('cartItems');
-    if (cartItemsDiv) {
-        cartItemsDiv.querySelectorAll('.cart-modal__qty-btn').forEach(function (btn) {
+    // Навешиваем обработчики на кнопки внутри товаров
+    if (cartItems) {
+        cartItems.querySelectorAll('.cart-modal__qty-btn').forEach(function (btn) {
             btn.onclick = function () {
                 let idx = parseInt(btn.getAttribute('data-idx'));
                 let action = btn.getAttribute('data-action');
@@ -221,7 +170,7 @@ function renderCart() {
                 renderCart();
             };
         });
-        cartItemsDiv.querySelectorAll('.cart-modal__remove').forEach(function (btn) {
+        cartItems.querySelectorAll('.cart-modal__remove').forEach(function (btn) {
             btn.onclick = function () {
                 let idx = parseInt(btn.getAttribute('data-idx'));
                 cart.splice(idx, 1);
@@ -229,31 +178,27 @@ function renderCart() {
             };
         });
     }
-    // Повторно навешиваем обработчики на кнопки закрытия, overlay и очистки списка
-    let closeBtn = document.getElementById('cartModalClose');
-    let overlay = document.getElementById('cartModalOverlay');
-    let clearBtn = document.getElementById('cartModalClear');
-    if (closeBtn) {
-        closeBtn.onclick = function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            closeCartModal();
-        };
+}
+
+function openCartModal() {
+    console.log('openCartModal called');
+    let modal = document.getElementById('cartModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
     }
-    if (overlay) {
-        overlay.onclick = function () {
-            closeCartModal();
-        };
-    }
-    if (clearBtn) {
-        clearBtn.onclick = function () {
-            cart.length = 0;
-            renderCart();
-        };
+}
+
+function closeCartModal() {
+    let modal = document.getElementById('cartModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
     }
 }
 
 function initCartModal() {
+    console.log('initCartModal called', document.querySelector('.header__menu__cart'));
     let cartBtn = document.querySelector('.header__menu__cart');
     let closeBtn = document.getElementById('cartModalClose');
     let overlay = document.getElementById('cartModalOverlay');
@@ -261,43 +206,33 @@ function initCartModal() {
 
     if (cartBtn) {
         cartBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            console.log('Cart button clicked');
+            console.log('cartBtn clicked');
             renderCart();
             openCartModal();
         });
     }
-
     if (closeBtn) {
         closeBtn.addEventListener('click', function (e) {
-            console.log('Cart close button clicked');
             e.preventDefault();
             e.stopPropagation();
             closeCartModal();
         });
     }
-
     if (overlay) {
         overlay.addEventListener('click', function (e) {
-            console.log('Cart overlay clicked');
             closeCartModal();
         });
     }
-
     if (clearBtn) {
         clearBtn.addEventListener('click', function () {
-            console.log('Cart clear button clicked');
             cart.length = 0;
             renderCart();
         });
     }
-
-    // Закрытие корзины по нажатию Escape
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
             let modal = document.getElementById('cartModal');
             if (modal && modal.style.display === 'flex') {
-                console.log('Escape key pressed, closing cart');
                 closeCartModal();
             }
         }
