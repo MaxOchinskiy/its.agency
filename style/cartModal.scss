@@ -46,14 +46,6 @@
   z-index: 10;
 }
 
-.cart-modal__close:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.cart-modal__close:active {
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
 .cart-modal__header {
   position: relative;
   display: flex;
@@ -183,7 +175,7 @@
   flex: 1;
   overflow-y: auto;
   padding-bottom: 120px; /* Место для футера */
-  
+
   /* Стилизация скроллбара */
   scrollbar-width: thin;
   scrollbar-color: #c1c1c1 transparent;
