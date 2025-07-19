@@ -1328,7 +1328,7 @@ nav a:last-child {
   transform: translateY(-50%);
 }
 
-.main-nav__slice-f img {
+.main-nav__slice-f {
   position: absolute;
   bottom: 16px;
   left: 50%;
