@@ -26,7 +26,7 @@
     align-items: center;
   }
 }
-@media (min-width: 481px) {
+@media (min-width: 964px) {
   .filter-mobile-btn,
   .filter-modal {
     display: none !important;
@@ -353,6 +353,16 @@
   }
   .filter-modal .filter-list {
     display: block !important;
+  }
+  .filter-modal__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 2;
   }
 }
 @media (max-width: 941px) {
@@ -1495,7 +1505,7 @@ html, body {
     align-items: center;
   }
 }
-@media (min-width: 481px) {
+@media (min-width: 964px) {
   .filter-mobile-btn,
   .filter-modal {
     display: none !important;
@@ -1822,6 +1832,16 @@ html, body {
   }
   .filter-modal .filter-list {
     display: block !important;
+  }
+  .filter-modal__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 2;
   }
 }
 @media (max-width: 941px) {

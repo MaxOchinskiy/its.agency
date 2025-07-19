@@ -335,15 +335,23 @@ function initFilterModal() {
     let overlay = document.getElementById('filterOverlay');
     let closeBtn = document.getElementById('filterModalClose');
     
-    if (openBtn) openBtn.addEventListener('click', function () {
-        modal.classList.add('open');
-    });
+    console.log('Filter modal elements:', { openBtn, modal, overlay, closeBtn });
+    
+    if (openBtn) {
+        openBtn.addEventListener('click', function () {
+            console.log('Filter button clicked');
+            modal.classList.add('open');
+            console.log('Modal classes after open:', modal.className);
+        });
+    }
     
     if (closeBtn) closeBtn.addEventListener('click', function () {
+        console.log('Filter close button clicked');
         modal.classList.remove('open');
     });
     
     if (overlay) overlay.addEventListener('click', function () {
+        console.log('Filter overlay clicked');
         modal.classList.remove('open');
     });
 }
