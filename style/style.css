@@ -297,6 +297,33 @@ nav a:last-child {
   margin-top: 72px;
 }
 
+/* Стили для футера, прижатого к низу */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.footer {
+  margin-top: auto;
+  background: #f5f5f5;
+  padding: 20px 0;
+  border-top: 1px solid #e0e0e0;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.footer .container {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 64px;
+}
+
 .custom-select {
   position: relative;
   width: 100%;
