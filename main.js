@@ -9,6 +9,20 @@ function initSlider() {
     let sliderImg = document.querySelector('.main-content__img img');
     let leftBtn = document.querySelector('.main-nav__chevron__left');
     let rightBtn = document.querySelector('.main-nav__chevron__right');
+    let dotsContainer = document.querySelector('.main-slider-dots');
+
+    function renderDots() {
+        if (!dotsContainer) return;
+        dotsContainer.innerHTML = '';
+        sliderImages.forEach(function (_, idx) {
+            let dot = document.createElement('span');
+            dot.className = 'slider-dot' + (idx === currentIndex ? ' active' : '');
+            dot.addEventListener('click', function () {
+                showSlide(idx);
+            });
+            dotsContainer.appendChild(dot);
+        });
+    }
 
     function showSlide(index) {
         if (index < 0) index = sliderImages.length - 1;
@@ -16,6 +30,7 @@ function initSlider() {
         currentIndex = index;
         sliderImg.src = sliderImages[currentIndex];
         sliderImg.style.objectFit = 'cover'; // сохраняет пропорции
+        renderDots();
     }
 
     leftBtn.addEventListener('click', function () {
@@ -176,7 +191,7 @@ function renderCart() {
     if (cartTotalCount) cartTotalCount.textContent = totalCount ? (totalCount + ' товара') : '';
     if (cartTotalCountHeader) cartTotalCountHeader.textContent = totalCount ? totalCount : '';
     if (cart.length === 0) {
-        cartItems.innerHTML = '<p>Корзина пуста</p>';
+        cartItems.innerHTML = '<p class="cartItems">Корзина пуста</p>';
         cartTotal.textContent = '0 ₽';
         if (cartTotalCount) cartTotalCount.textContent = '';
         return;
@@ -235,9 +250,9 @@ function initCartModal() {
     let closeBtn = document.getElementById('cartModalClose');
     let overlay = document.getElementById('cartModalOverlay');
     let clearBtn = document.getElementById('cartModalClear');
-    
-    console.log('Cart modal elements:', { cartBtn, closeBtn, overlay, clearBtn });
-    
+
+    console.log('Cart modal elements:', {cartBtn, closeBtn, overlay, clearBtn});
+
     if (cartBtn) {
         cartBtn.addEventListener('click', function (e) {
             e.preventDefault();
@@ -246,7 +261,7 @@ function initCartModal() {
             openCartModal();
         });
     }
-    
+
     if (closeBtn) {
         closeBtn.addEventListener('click', function (e) {
             console.log('Cart close button clicked');
@@ -255,14 +270,14 @@ function initCartModal() {
             closeCartModal();
         });
     }
-    
+
     if (overlay) {
         overlay.addEventListener('click', function (e) {
             console.log('Cart overlay clicked');
             closeCartModal();
         });
     }
-    
+
     if (clearBtn) {
         clearBtn.addEventListener('click', function () {
             console.log('Cart clear button clicked');
@@ -270,7 +285,7 @@ function initCartModal() {
             renderCart();
         });
     }
-    
+
     // Закрытие корзины по нажатию Escape
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
@@ -325,7 +340,7 @@ if (hamburger && navMenu) {
         hamburger.setAttribute('aria-expanded', isOpen);
         document.body.classList.toggle('menu-open', isOpen);
     });
-    
+
     // Закрытие меню при клике на ссылку
     navMenu.addEventListener('click', (e) => {
         if (e.target.tagName === 'A') {
@@ -395,9 +410,9 @@ function initFilterModal() {
     let modal = document.getElementById('filterModal');
     let overlay = document.getElementById('filterOverlay');
     let closeBtn = document.getElementById('filterModalClose');
-    
-    console.log('Filter modal elements:', { openBtn, modal, overlay, closeBtn });
-    
+
+    console.log('Filter modal elements:', {openBtn, modal, overlay, closeBtn});
+
     if (openBtn) {
         openBtn.addEventListener('click', function () {
             console.log('Filter button clicked');
@@ -405,12 +420,12 @@ function initFilterModal() {
             console.log('Modal classes after open:', modal.className);
         });
     }
-    
+
     if (closeBtn) closeBtn.addEventListener('click', function () {
         console.log('Filter close button clicked');
         modal.classList.remove('open');
     });
-    
+
     if (overlay) overlay.addEventListener('click', function () {
         console.log('Filter overlay clicked');
         modal.classList.remove('open');
@@ -423,9 +438,9 @@ function initSortModal() {
     let overlay = document.getElementById('sortOverlay');
     let closeBtn = document.getElementById('sortModalClose');
     let sortItems = modal ? modal.querySelectorAll('.sort-item') : [];
-    
-    console.log('Sort modal elements:', { openBtn, modal, overlay, closeBtn });
-    
+
+    console.log('Sort modal elements:', {openBtn, modal, overlay, closeBtn});
+
     if (openBtn) {
         openBtn.addEventListener('click', function () {
             console.log('Sort button clicked');
@@ -433,17 +448,17 @@ function initSortModal() {
             console.log('Sort modal classes after open:', modal.className);
         });
     }
-    
+
     if (closeBtn) closeBtn.addEventListener('click', function () {
         console.log('Sort close button clicked');
         modal.classList.remove('open');
     });
-    
+
     if (overlay) overlay.addEventListener('click', function () {
         console.log('Sort overlay clicked');
         modal.classList.remove('open');
     });
-    
+
     // Обработка выбора сортировки в модальном окне
     sortItems.forEach(function (item) {
         item.addEventListener('click', function () {
@@ -453,16 +468,16 @@ function initSortModal() {
             });
             // Добавляем активный класс к выбранному элементу
             item.classList.add('custom-select__option--active');
-            
+
             // Обновляем текст в обычном селекте
             let selected = document.querySelector('.custom-select__selected');
             if (selected) {
                 selected.textContent = item.textContent;
             }
-            
+
             // Закрываем модальное окно
             modal.classList.remove('open');
-            
+
             // Применяем сортировку
             sortProducts();
         });
@@ -474,15 +489,15 @@ function initMenuModal() {
     let modal = document.getElementById('menuModal');
     let overlay = document.getElementById('menuOverlay');
     let closeBtn = document.getElementById('menuModalClose');
-    
+
     if (openBtn) openBtn.addEventListener('click', function () {
         modal.classList.add('open');
     });
-    
+
     if (closeBtn) closeBtn.addEventListener('click', function () {
         modal.classList.remove('open');
     });
-    
+
     if (overlay) overlay.addEventListener('click', function () {
         modal.classList.remove('open');
     });

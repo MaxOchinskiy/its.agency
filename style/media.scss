@@ -82,6 +82,13 @@
     margin-right: 0;
     padding: 24px 0;
   }
+  .main-nav__slice-f {
+    bottom: 29px;
+    position: absolute;
+
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 @media (max-width: 1270px) {
@@ -116,6 +123,13 @@
   }
   .show-mobile {
     display: block !important;
+  }
+  .main-nav__slice-f {
+    bottom: 10px;
+    position: absolute;
+
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
@@ -344,7 +358,6 @@
     border: none;
     align-self: flex-start;
     margin-left: auto;
-    margin-right: 36px;
   }
   .filter-modal {
     display: none;
@@ -452,7 +465,6 @@
     z-index: 2;
   }
 
-  // Скрываем обычную сортировку и показываем модальную
   .custom-select__selected,
   .custom-select__dropdown {
     display: none !important;
@@ -607,7 +619,7 @@
     border: none;
     align-self: flex-start;
     margin-left: auto;
-    margin-right: 36px;
+
   }
   .filter-modal {
     display: none;
@@ -643,6 +655,10 @@
   }
   .filter-modal .filter-list {
     display: block !important;
+  }
+  .cartItems {
+    margin-left: 26px !important;
+
   }
 }
 
@@ -689,7 +705,6 @@
     border: none;
     align-self: flex-start;
     margin-left: auto;
-    margin-right: 36px;
   }
   .filter-modal {
     display: none;
@@ -746,6 +761,9 @@
   .filter-list {
     display: none !important;
   }
+  .hide-slice_f {
+    display: none !important;
+  }
   .filter-mobile-btn {
     display: block !important;
     font-size: 12px;
@@ -753,7 +771,7 @@
     border: none;
     align-self: flex-start;
     margin-right: auto;
-    margin-left: 35px;
+    margin-left: 25px;
   }
   .filter-mobile {
     display: block !important;
@@ -762,7 +780,7 @@
     border: none;
     align-self: flex-start;
     margin-left: auto;
-    margin-right: 36px;
+    /*margin-right: 36px;*/
   }
   .filter-modal {
     display: none;
@@ -828,10 +846,31 @@
   .header__menu__cart {
     padding: 8px;
   }
+  .cart-modal__clear {
+    margin-top: 90px !important;
+  }
 
   .header__menu__cart img {
     width: 18px;
     height: 18px;
+  }
+  .main-nav {
+    margin-left: 10px;
+  }
+  .main-nav a {
+    color: black !important;
+
+  }
+  .main-nav a:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -11px;
+    width: 3px;
+    height: 3px;
+    background-color: #211c1d;
+    border-radius: 50%;
+    transform: translateY(-50%);
   }
   .header-left {
     display: flex;
@@ -861,7 +900,7 @@
   .main-title {
     display: flex !important;
     color: black !important;
-    margin-left: 35px !important;
+    margin-left: 25px !important;
     top: 80px !important;
   }
 
@@ -890,7 +929,7 @@
     width: 90% !important;
     transform: none !important;
     direction: ltr !important;
-    left: 14px !important;
+    left: 4px !important;
   }
 
   .filter-modal__content {
@@ -949,7 +988,6 @@
   }
 }
 
-// === АДАПТИВ КОРЗИНЫ ===
 @media (max-width: 879px) {
   .cart-modal {
     align-items: flex-end;
