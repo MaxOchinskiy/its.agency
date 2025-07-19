@@ -46,7 +46,7 @@ function initSlider() {
 }
 
 // === ДАННЫЕ ДЛЯ ТЕСТА ===
-let products = [
+/*let products = [
     {
         id: 1,
         name: 'Краска Wallquest, Brownsone MS90102',
@@ -77,7 +77,9 @@ let products = [
     {id: 10, name: 'Краска Wallquest, Brownsone MS90111', price: 2000, img: 'image/img_3.png', type: 'НОВИНКИ'},
     {id: 11, name: 'Краска Wallquest, Brownsone MS90112', price: 12000, img: 'image/img_9.png', type: 'НОВИНКИ'},
     {id: 12, name: 'Краска Wallquest, Brownsone MS90113', price: 800, img: 'image/img_4.png', type: 'НОВИНКИ'}
-];
+];*/
+
+var products = [];
 
 function createProductCount(count) {
     return `<div class="count__product hide-count__product">
@@ -538,11 +540,11 @@ function createProductCard(product) {
 }
 
 var FILTERS = [
-    { label: 'НОВИНКИ', value: 'НОВИНКИ' },
-    { label: 'ЕСТЬ В НАЛИЧИИ', value: 'ЕСТЬ В НАЛИЧИИ' },
-    { label: 'КОНТРАКТНЫЕ', value: 'КОНТРАКТНЫЕ' },
-    { label: 'ЭКСКЛЮЗИВНЫЕ', value: 'ЭКСКЛЮЗИВНЫЕ' },
-    { label: 'РАСПРОДАЖА', value: 'РАСПРОДАЖА' }
+    {label: 'НОВИНКИ', value: 'НОВИНКИ'},
+    {label: 'ЕСТЬ В НАЛИЧИИ', value: 'ЕСТЬ В НАЛИЧИИ'},
+    {label: 'КОНТРАКТНЫЕ', value: 'КОНТРАКТНЫЕ'},
+    {label: 'ЭКСКЛЮЗИВНЫЕ', value: 'ЭКСКЛЮЗИВНЫЕ'},
+    {label: 'РАСПРОДАЖА', value: 'РАСПРОДАЖА'}
 ];
 
 function createFilterItem(filter, checked) {
@@ -560,13 +562,13 @@ function renderFilterList() {
     if (!filterList) return;
     var currentChecked = filterList.querySelector('input[type="radio"]:checked');
     var checkedValue = currentChecked ? currentChecked.parentNode.textContent.trim() : FILTERS[0].value;
-    filterList.innerHTML = FILTERS.map(function(f) {
+    filterList.innerHTML = FILTERS.map(function (f) {
         return createFilterItem(f, f.value === checkedValue);
     }).join('');
     // навешиваем обработчик на фильтры
     var radios = filterList.querySelectorAll('input[type="radio"]');
-    radios.forEach(function(radio, idx) {
-        radio.addEventListener('change', function() {
+    radios.forEach(function (radio, idx) {
+        radio.addEventListener('change', function () {
             filterProducts();
         });
     });
@@ -622,10 +624,54 @@ function getFilteredAndSortedProducts() {
     return sorted;
 }
 
+// === ЗАГРУЗКА ТОВАРОВ С MOCKAPI ===
+// Подключаем Axios
+// Если используете ES5, подключите через <script> в HTML, здесь CommonJS:
+let axios;
+try {
+    axios = require('axios');
+} catch (e) {
+    axios = window.axios;
+}
+
+// URL вашего MockAPI (замените на свой)
+let API_URL = 'https://67f4eef9913986b16fa26cac.mockapi.io/products';
+
+function fetchProductsFromAPI() {
+    console.log('axios:', axios, 'API_URL:', API_URL);
+    return axios.get(API_URL)
+        .then(function (response) {
+            console.log('API response:', response);
+            if (Array.isArray(response.data)) {
+                products = response.data.map(function (item) {
+                    return {
+                        id: item.id,
+                        name: item.name,
+                        price: item.price,
+                        img: item.img || 'image/img.png',
+                        type: item.type || 'НОВИНКИ'
+                    };
+                });
+                renderProductsComponent(getFilteredAndSortedProducts());
+            } else {
+                console.warn('API data is not an array:', response.data);
+            }
+        })
+        .catch(function (error) {
+            console.warn('Ошибка загрузки товаров с API:', error);
+            renderProductsComponent(getFilteredAndSortedProducts());
+        });
+}
+
 // === ИНИЦИАЛИЗАЦИЯ ===
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     renderFilterList();
-    renderProductsComponent(getFilteredAndSortedProducts());
+    // Загружаем товары с API, если не получится — fallback на локальные
+    if (typeof axios !== 'undefined') {
+        fetchProductsFromAPI();
+    } else {
+        renderProductsComponent(getFilteredAndSortedProducts());
+    }
     initSlider();
     initCart();
     initCartModal();
