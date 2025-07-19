@@ -129,43 +129,7 @@
     </div>
     <!-- Кастомный селект -->
     <div class="catalog-top-line">
-        <div class="filter-list">
-            <label class="filter-item">
-                <input checked name="filter" type="radio">
-                <span class="toggle-switch">
-                        <span class="toggle-circle"></span>
-                    </span>
-                НОВИНКИ
-            </label>
-            <label class="filter-item">
-                <input name="filter" type="radio">
-                <span class="toggle-switch">
-                        <span class="toggle-circle"></span>
-                    </span>
-                ЕСТЬ В НАЛИЧИИ
-            </label>
-            <label class="filter-item">
-                <input name="filter" type="radio">
-                <span class="toggle-switch">
-                        <span class="toggle-circle"></span>
-                    </span>
-                КОНТРАКТНЫЕ
-            </label>
-            <label class="filter-item">
-                <input name="filter" type="radio">
-                <span class="toggle-switch">
-                        <span class="toggle-circle"></span>
-                    </span>
-                ЭКСКЛЮЗИВНЫЕ
-            </label>
-            <label class="filter-item">
-                <input name="filter" type="radio">
-                <span class="toggle-switch">
-                        <span class="toggle-circle"></span>
-                    </span>
-                РАСПРОДАЖА
-            </label>
-        </div>
+        <div class="filter-list"><!-- filter items will be rendered by JS --></div>
         <div class="custom-select main-nav__sort__catalog__text">
             <div>
                 <span class="filter-mobile-btn" id="filterOpenBtn">ФИЛЬТРЫ</span>
@@ -253,17 +217,7 @@
     </div>
     <div class="catalog-product-row">
         <div class="filter-list--spacer">
-            <div class="product-list">
-                <div class="product-card">
-                    <img alt="Product" class="product-card__img" src="image/rectangle.png">
-                    <div class="product-card__desc">Краска Wallquest, Brownsone MS90102</div>
-                    <div class="product-card__footer">
-                        <span class="product-card__price">6000 ₽</span>
-                        <button aria-label="Добавить" class="product-card__add" type="button">
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <div class="product-list"><!-- product cards will be rendered by JS --></div>
         </div>
     </div>
 </main>
@@ -288,18 +242,7 @@
                 </g>
             </svg>
         </button>
-        <div class="cart-modal__header">
-            <h2>Корзина</h2>
-            <span class="cart-modal__count" id="cartTotalCount"></span>
-            <button class="cart-modal__clear" id="cartModalClear">ОЧИСТИТЬ СПИСОК</button>
-        </div>
-        <div class="cart-modal__items-container">
-            <div id="cartItems"></div>
-        </div>
-        <div class="cart-modal__footer">
-            <div class="cart-modal__total">Итого <span id="cartTotal">0 ₽</span></div>
-            <button class="cart-modal__order" id="cartModalOrder">ОФОРМИТЬ ЗАКАЗ</button>
-        </div>
+        <div id="cartModalBody"></div>
     </div>
 </div>
 

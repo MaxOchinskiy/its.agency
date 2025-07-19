@@ -1,5 +1,6 @@
 // === СЛАЙДЕР ===
 function initSlider() {
+    console.log('initSlider called');
     let sliderImages = [
         'image/rectangle.png',
         'image/photoMain.jpg',
@@ -10,6 +11,7 @@ function initSlider() {
     let leftBtn = document.querySelector('.main-nav__chevron__left');
     let rightBtn = document.querySelector('.main-nav__chevron__right');
     let dotsContainer = document.querySelector('.main-slider-dots');
+    console.log('sliderImg:', sliderImg, 'leftBtn:', leftBtn, 'rightBtn:', rightBtn, 'dotsContainer:', dotsContainer);
 
     function renderDots() {
         if (!dotsContainer) return;
@@ -77,87 +79,85 @@ let products = [
     {id: 12, name: 'Краска Wallquest, Brownsone MS90113', price: 800, img: 'image/img_4.png', type: 'НОВИНКИ'}
 ];
 
+function createProductCount(count) {
+    return `<div class="count__product hide-count__product">
+        <h3><span id="productCount">${count}</span> ТОВАРОВ</h3>
+    </div>`;
+}
+
 function updateProductCount(count) {
     var countElem = document.getElementById('productCount');
     if (countElem) countElem.textContent = count;
 }
 
-function renderProducts(list) {
-    let productList = document.querySelector('.product-list');
-    if (!productList) return;
-    productList.innerHTML = '';
-    list.forEach(function (product) {
-        let card = document.createElement('div');
-        card.className = 'product-card';
-        card.setAttribute('data-type', product.type);
-        card.innerHTML =
-            '<img alt="Product" class="product-card__img" src="' + product.img + '" style="width:278px;height:278px;object-fit:cover;">' +
-            '<div class="product-card__desc">' + product.name + '</div>' +
-            '<div class="product-card__footer">' +
-            '<span class="product-card__price"><b>' + product.price + ' ₽</b></span>' +
-            '<button aria-label="Добавить" class="product-card__add" type="button">' +
-            // SVG по умолчанию
-            '<svg class="svg-default" fill="none" height="32" viewBox="0 0 80 32" width="80" xmlns="http://www.w3.org/2000/svg">' +
-            '<rect fill="#7BB899" height="32" rx="8" width="80"/>' +
-            '<path d="M40 10.1666V21.8333" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
-            '<path d="M34.167 16H45.8337" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
-            '</svg>' +
-            // SVG для мобилок
-            '<svg class="svg-mobile" fill="none" height="24" viewBox="0 0 40 24" width="40" xmlns="http://www.w3.org/2000/svg">' +
-            '<rect fill="#F2F2F2" height="24" rx="6" width="40"/>' +
-            '<path d="M20 7.33331V16.6666" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
-            '<path d="M15.333 12H24.6663" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
-            '</svg>' +
-            '</button>' +
-            '</div>';
-        productList.appendChild(card);
-    });
-    updateProductCount(list.length);
+function createBreadcrumbs(items) {
+    return `<span class="main-nav">` +
+        items.map(item => `<a href="#">${item}</a>`).join('') +
+        `</span>`;
 }
 
-function getFilteredAndSortedProducts() {
-    let checked = document.querySelector('.filter-item input[type="radio"]:checked');
-    let type = checked ? checked.parentNode.textContent.trim().toUpperCase() : null;
-    let filtered = type ? products.filter(function (product) {
-        return product.type === type;
-    }) : products.slice();
-    let selectedSort = document.querySelector('.custom-select__option--active');
-    let sortType = selectedSort ? selectedSort.textContent : '';
-    let sorted = filtered.slice();
-    if (sortType.trim() === 'СНАЧАЛА ДОРОГИЕ') {
-        sorted.sort(function (a, b) {
-            return b.price - a.price;
-        });
-        console.log('Сортировка: ДОРОГИЕ', sorted.map(function (p) {
-            return p.price;
-        }));
-    } else if (sortType.trim() === 'СНАЧАЛА НЕДОРОГИЕ') {
-        sorted.sort(function (a, b) {
-            return a.price - b.price;
-        });
-        console.log('Сортировка: НЕДОРОГИЕ', sorted.map(function (p) {
-            return p.price;
-        }));
-    } else {
-        console.log('Без сортировки', sorted.map(function (p) {
-            return p.price;
-        }));
-    }
-    return sorted;
+function createSortSelect(options, selected) {
+    return `
+    <div class="custom-select__selected">${selected}</div>
+    <div class="custom-select__dropdown">
+        ${options.map(opt => `
+            <div class="custom-select__option${opt === selected ? ' custom-select__option--active' : ''}">${opt}</div>
+        `).join('')}
+    </div>
+    `;
 }
 
-function sortProducts() {
-    let list = getFilteredAndSortedProducts();
-    renderProducts(list);
-    initCart();
-    updateProductCount(list.length);
+function createCartItem(item, idx) {
+    return `
+        <div class="cart-modal__item">
+            <div class="cart-modal__top">
+                <img src="${item.img}" alt="">
+                <span>
+                    ${item.name}
+                    <b>${item.price} ₽</b>
+                </span>
+                <div class="cart-modal__qty">
+                    <button class="cart-modal__qty-btn" data-idx="${idx}" data-action="minus">–</button>
+                    <span class="cart-modal__qty-value">${item.count}</span>
+                    <button class="cart-modal__qty-btn" data-idx="${idx}" data-action="plus">+</button>
+                </div>
+                <button class="cart-modal__remove" data-idx="${idx}" title="Удалить">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g opacity="0.2">
+                            <path d="M18 6L6 18" stroke="#1F2020" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6 6L18 18" stroke="#1F2020" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </g>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    `;
 }
 
-function filterProducts() {
-    let list = getFilteredAndSortedProducts();
-    renderProducts(list);
-    initCart();
-    updateProductCount(list.length);
+function createCartModal(cart) {
+    let itemsHtml = cart.length === 0
+        ? '<p class="cartItems">Корзина пуста</p>'
+        : cart.map((item, idx) => createCartItem(item, idx)).join('');
+    let total = cart.reduce((sum, item) => sum + item.price * item.count, 0);
+    let totalCount = cart.reduce((sum, item) => sum + item.count, 0);
+    return `
+    <div class="cart-modal__header">
+        <h2>Корзина</h2>
+        <span class="cart-modal__count" id="cartTotalCount">${totalCount ? totalCount + ' товара' : ''}</span>
+        <button class="cart-modal__clear" id="cartModalClear">ОЧИСТИТЬ СПИСОК</button>
+    </div>
+    <div class="cart-modal__items-container">
+        <div id="cartItems">${itemsHtml}</div>
+    </div>
+    <div class="cart-modal__footer">
+        <div class="cart-modal__total">Итого <span id="cartTotal">${total} ₽</span></div>
+        <button class="cart-modal__order" id="cartModalOrder">ОФОРМИТЬ ЗАКАЗ</button>
+    </div>
+    `;
+}
+
+function createFooter() {
+    return `<footer class="footer"><div class="container"><p>1</p></div></footer>`;
 }
 
 // === КОРЗИНА ===
@@ -190,7 +190,8 @@ function renderCart() {
     let cartCount = document.getElementById('cartCount');
     let cartTotalCount = document.getElementById('cartTotalCount');
     let cartTotalCountHeader = document.getElementById('cartTotalCountHeader');
-    if (!cartItems || !cartTotal) return;
+    let cartModalBody = document.getElementById('cartModalBody');
+    if (!cartModalBody) return;
 
     let totalCount = cart.reduce(function (sum, item) {
         return sum + item.count;
@@ -198,59 +199,52 @@ function renderCart() {
     if (cartCount) cartCount.textContent = totalCount ? totalCount : '';
     if (cartTotalCount) cartTotalCount.textContent = totalCount ? (totalCount + ' товара') : '';
     if (cartTotalCountHeader) cartTotalCountHeader.textContent = totalCount ? totalCount : '';
-    if (cart.length === 0) {
-        cartItems.innerHTML = '<p class="cartItems">Корзина пуста</p>';
-        cartTotal.textContent = '0 ₽';
-        if (cartTotalCount) cartTotalCount.textContent = '';
-        return;
+
+    // Используем компонент для модального окна корзины
+    cartModalBody.innerHTML = createCartModal(cart);
+
+    // Навешиваем обработчики на кнопки внутри корзины
+    let cartItemsDiv = document.getElementById('cartItems');
+    if (cartItemsDiv) {
+        cartItemsDiv.querySelectorAll('.cart-modal__qty-btn').forEach(function (btn) {
+            btn.onclick = function () {
+                let idx = parseInt(btn.getAttribute('data-idx'));
+                let action = btn.getAttribute('data-action');
+                if (action === 'plus') cart[idx].count++;
+                if (action === 'minus' && cart[idx].count > 1) cart[idx].count--;
+                renderCart();
+            };
+        });
+        cartItemsDiv.querySelectorAll('.cart-modal__remove').forEach(function (btn) {
+            btn.onclick = function () {
+                let idx = parseInt(btn.getAttribute('data-idx'));
+                cart.splice(idx, 1);
+                renderCart();
+            };
+        });
     }
-    let total = 0;
-    cartItems.innerHTML = '';
-    cart.forEach(function (item, idx) {
-        total += item.price * item.count;
-        let div = document.createElement('div');
-        div.className = 'cart-modal__item';
-        div.innerHTML =
-            '<div class="cart-modal__top">' +
-            '<img src="' + item.img + '" alt="">' +
-            '<span>' +
-            item.name +
-            '<b>' + item.price + ' ₽</b>' +
-            '</span>' +
-            '<div class="cart-modal__qty">' +
-            '<button class="cart-modal__qty-btn" data-idx="' + idx + '" data-action="minus">–</button>' +
-            '<span class="cart-modal__qty-value">' + item.count + '</span>' +
-            '<button class="cart-modal__qty-btn" data-idx="' + idx + '" data-action="plus">+</button>' +
-            '</div>' +
-            '<button class="cart-modal__remove" data-idx="' + idx + '" title="Удалить">' +
-            '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
-            '<g opacity="0.2">\n' +
-            '<path d="M18 6L6 18" stroke="#1F2020" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>\n' +
-            '<path d="M6 6L18 18" stroke="#1F2020" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>\n' +
-            '</g>\n' +
-            '</svg>' +
-            '</button>';
-        cartItems.appendChild(div);
-    });
-    cartTotal.textContent = total + ' ₽';
-
-
-    cartItems.querySelectorAll('.cart-modal__qty-btn').forEach(function (btn) {
-        btn.onclick = function () {
-            let idx = parseInt(btn.getAttribute('data-idx'));
-            let action = btn.getAttribute('data-action');
-            if (action === 'plus') cart[idx].count++;
-            if (action === 'minus' && cart[idx].count > 1) cart[idx].count--;
+    // Повторно навешиваем обработчики на кнопки закрытия, overlay и очистки списка
+    let closeBtn = document.getElementById('cartModalClose');
+    let overlay = document.getElementById('cartModalOverlay');
+    let clearBtn = document.getElementById('cartModalClear');
+    if (closeBtn) {
+        closeBtn.onclick = function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeCartModal();
+        };
+    }
+    if (overlay) {
+        overlay.onclick = function () {
+            closeCartModal();
+        };
+    }
+    if (clearBtn) {
+        clearBtn.onclick = function () {
+            cart.length = 0;
             renderCart();
         };
-    });
-    cartItems.querySelectorAll('.cart-modal__remove').forEach(function (btn) {
-        btn.onclick = function () {
-            let idx = parseInt(btn.getAttribute('data-idx'));
-            cart.splice(idx, 1);
-            renderCart();
-        };
-    });
+    }
 }
 
 function initCartModal() {
@@ -307,6 +301,11 @@ function initCartModal() {
 function initCart() {
     let addToCartBtns = document.querySelectorAll('.product-card__add');
     addToCartBtns.forEach(function (btn) {
+        btn.replaceWith(btn.cloneNode(true)); // снимает все обработчики
+    });
+    // теперь снова выбираем кнопки
+    let freshBtns = document.querySelectorAll('.product-card__add');
+    freshBtns.forEach(function (btn) {
         btn.addEventListener('click', function () {
             let card = btn.closest('.product-card');
             addToCart(card);
@@ -368,11 +367,13 @@ function initFilters() {
 }
 
 function initSort() {
+    console.log('initSort called');
     let customSelect = document.querySelector('.custom-select.main-nav__sort__catalog__text');
     if (!customSelect) return;
     let selected = customSelect.querySelector('.custom-select__selected');
     let options = customSelect.querySelectorAll('.custom-select__option');
     let sortOverlay = document.getElementById('sortOverlay');
+    console.log('selected:', selected, 'options:', options, 'sortOverlay:', sortOverlay);
 
     selected.addEventListener('click', function (e) {
         e.stopPropagation();
@@ -509,18 +510,131 @@ function initMenuModal() {
     });
 }
 
+// === КОМПОНЕНТЫ ===
+function createProductCard(product) {
+    return (
+        '<div class="product-card" data-type="' + product.type + '">' +
+        '<img alt="Product" class="product-card__img" src="' + product.img + '" style="width:278px;height:278px;object-fit:cover;">' +
+        '<div class="product-card__desc">' + product.name + '</div>' +
+        '<div class="product-card__footer">' +
+        '<span class="product-card__price"><b>' + product.price + ' ₽</b></span>' +
+        '<button aria-label="Добавить" class="product-card__add" type="button">' +
+        // SVG по умолчанию
+        '<svg class="svg-default" fill="none" height="32" viewBox="0 0 80 32" width="80" xmlns="http://www.w3.org/2000/svg">' +
+        '<rect fill="#7BB899" height="32" rx="8" width="80"/>' +
+        '<path d="M40 10.1666V21.8333" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
+        '<path d="M34.167 16H45.8337" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
+        '</svg>' +
+        // SVG для мобилок
+        '<svg class="svg-mobile" fill="none" height="24" viewBox="0 0 40 24" width="40" xmlns="http://www.w3.org/2000/svg">' +
+        '<rect fill="#F2F2F2" height="24" rx="6" width="40"/>' +
+        '<path d="M20 7.33331V16.6666" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
+        '<path d="M15.333 12H24.6663" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
+        '</svg>' +
+        '</button>' +
+        '</div>' +
+        '</div>'
+    );
+}
 
-document.addEventListener('DOMContentLoaded', function () {
-    initSlider();
-    initFilters();
-    initSort();
-    renderProducts(products);
+var FILTERS = [
+    { label: 'НОВИНКИ', value: 'НОВИНКИ' },
+    { label: 'ЕСТЬ В НАЛИЧИИ', value: 'ЕСТЬ В НАЛИЧИИ' },
+    { label: 'КОНТРАКТНЫЕ', value: 'КОНТРАКТНЫЕ' },
+    { label: 'ЭКСКЛЮЗИВНЫЕ', value: 'ЭКСКЛЮЗИВНЫЕ' },
+    { label: 'РАСПРОДАЖА', value: 'РАСПРОДАЖА' }
+];
+
+function createFilterItem(filter, checked) {
+    return (
+        '<label class="filter-item">' +
+        '<input name="filter" type="radio" ' + (checked ? 'checked' : '') + '>' +
+        '<span class="toggle-switch"><span class="toggle-circle"></span></span>' +
+        filter.label +
+        '</label>'
+    );
+}
+
+function renderFilterList() {
+    var filterList = document.querySelector('.filter-list');
+    if (!filterList) return;
+    var currentChecked = filterList.querySelector('input[type="radio"]:checked');
+    var checkedValue = currentChecked ? currentChecked.parentNode.textContent.trim() : FILTERS[0].value;
+    filterList.innerHTML = FILTERS.map(function(f) {
+        return createFilterItem(f, f.value === checkedValue);
+    }).join('');
+    // навешиваем обработчик на фильтры
+    var radios = filterList.querySelectorAll('input[type="radio"]');
+    radios.forEach(function(radio, idx) {
+        radio.addEventListener('change', function() {
+            filterProducts();
+        });
+    });
+}
+
+function createProductList(products) {
+    return '<div class="product-list">' + products.map(createProductCard).join('') + '</div>';
+}
+
+function renderProductsComponent(list) {
+    console.log('renderProductsComponent called');
+    var productList = document.querySelector('.product-list');
+    console.log('productList:', productList);
+    if (!productList) {
+        console.warn('Контейнер .product-list не найден!');
+        return;
+    }
+    productList.innerHTML = list.map(createProductCard).join('');
+    updateProductCount(list.length);
     initCart();
-    initModals();
+    // Удалены повторные вызовы инициализации модалок, сортировки и слайдера
+}
+
+// === ПЕРЕОПРЕДЕЛЯЕМ ОСНОВНОЙ РЕНДЕР ===
+function filterProducts() {
+    var list = getFilteredAndSortedProducts();
+    renderProductsComponent(list);
+}
+
+function sortProducts() {
+    var list = getFilteredAndSortedProducts();
+    renderProductsComponent(list);
+}
+
+function getFilteredAndSortedProducts() {
+    let checked = document.querySelector('.filter-item input[type="radio"]:checked');
+    let type = checked ? checked.parentNode.textContent.trim().toUpperCase() : null;
+    let filtered = type ? products.filter(function (product) {
+        return product.type === type;
+    }) : products.slice();
+    let selectedSort = document.querySelector('.custom-select__option--active');
+    let sortType = selectedSort ? selectedSort.textContent : '';
+    let sorted = filtered.slice();
+    if (sortType.trim() === 'СНАЧАЛА ДОРОГИЕ') {
+        sorted.sort(function (a, b) {
+            return b.price - a.price;
+        });
+    } else if (sortType.trim() === 'СНАЧАЛА НЕДОРОГИЕ') {
+        sorted.sort(function (a, b) {
+            return a.price - b.price;
+        });
+    }
+    return sorted;
+}
+
+// === ИНИЦИАЛИЗАЦИЯ ===
+document.addEventListener('DOMContentLoaded', function() {
+    renderFilterList();
+    renderProductsComponent(getFilteredAndSortedProducts());
+    initSlider();
+    initCart();
     initCartModal();
-    initFilterModal();
-    initSortModal();
-    initMenuModal();
+    initModals && initModals();
+    initFilters && initFilters();
+    initSort && initSort();
+    initFilterModal && initFilterModal();
+    initSortModal && initSortModal();
+    initMenuModal && initMenuModal();
 });
 
 document.addEventListener('DOMContentLoaded', function () {
