@@ -259,8 +259,6 @@ function initCartModal() {
     let overlay = document.getElementById('cartModalOverlay');
     let clearBtn = document.getElementById('cartModalClear');
 
-    console.log('Cart modal elements:', {cartBtn, closeBtn, overlay, clearBtn});
-
     if (cartBtn) {
         cartBtn.addEventListener('click', function (e) {
             e.preventDefault();

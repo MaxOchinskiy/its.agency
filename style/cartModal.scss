@@ -178,9 +178,7 @@
 .cart-modal__items-container {
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 120px; /* Место для футера */
-
-  /* Стилизация скроллбара */
+  padding-bottom: 120px;
   scrollbar-width: thin;
   scrollbar-color: #c1c1c1 transparent;
 }
