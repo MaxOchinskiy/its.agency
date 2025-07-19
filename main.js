@@ -77,6 +77,11 @@ let products = [
     {id: 12, name: 'Краска Wallquest, Brownsone MS90113', price: 800, img: 'image/img_4.png', type: 'НОВИНКИ'}
 ];
 
+function updateProductCount(count) {
+    var countElem = document.getElementById('productCount');
+    if (countElem) countElem.textContent = count;
+}
+
 function renderProducts(list) {
     let productList = document.querySelector('.product-list');
     if (!productList) return;
@@ -107,6 +112,7 @@ function renderProducts(list) {
             '</div>';
         productList.appendChild(card);
     });
+    updateProductCount(list.length);
 }
 
 function getFilteredAndSortedProducts() {
@@ -144,12 +150,14 @@ function sortProducts() {
     let list = getFilteredAndSortedProducts();
     renderProducts(list);
     initCart();
+    updateProductCount(list.length);
 }
 
 function filterProducts() {
     let list = getFilteredAndSortedProducts();
     renderProducts(list);
     initCart();
+    updateProductCount(list.length);
 }
 
 // === КОРЗИНА ===

@@ -65,15 +65,3 @@
 .filter-item input[type=radio]:checked + .toggle-switch .toggle-circle {
   left: calc(100% - 16px);
 }
-
-/*
-.filter-modal__close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  z-index: 2;
-}*/

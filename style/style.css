@@ -416,17 +416,6 @@ nav a:last-child {
   left: calc(100% - 16px);
 }
 
-/*
-.filter-modal__close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  z-index: 2;
-}*/
 .count__product {
   position: relative;
   margin-left: 362px;
@@ -650,7 +639,6 @@ nav a:last-child {
 .cart-modal__item .cart-modal__qty {
   display: flex;
   align-items: center;
-  margin-right: 37px;
 }
 
 .cart-modal__qty-btn {
@@ -824,16 +812,6 @@ html, body {
   box-sizing: inherit;
 }
 
-/*.filter-modal__close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  z-index: 2;
-}*/
 .svg-default {
   display: block;
 }
@@ -1710,6 +1688,10 @@ html, body {
     width: 100% !important;
     max-width: 100vw !important;
   }
+  .cart-modal__qty {
+    margin-left: 30px;
+    margin-right: 0;
+  }
   .catalog-product-row {
     margin-left: 20px !important;
   }
@@ -1869,10 +1851,6 @@ html, body {
   .cart-modal__item {
     padding: 12px 0;
   }
-  .cart-modal__item img {
-    width: 70px;
-    height: 70px;
-  }
   .cart-modal__item span {
     font-size: 13px;
   }
@@ -1893,11 +1871,18 @@ html, body {
   .cart-modal__items-container {
     padding-bottom: 80px;
   }
+  .cartItems {
+    margin-left: 16px !important;
+  }
   .cart-modal__close {
     top: 16px;
     right: 16px;
     font-size: 20px;
     padding: 4px;
+  }
+  .cart-modal__close svg {
+    width: 30px;
+    height: 30px;
   }
   .cart-modal__header h2 {
     font-size: 18px;
@@ -1917,10 +1902,6 @@ html, body {
     margin-left: 16px;
     margin-right: 16px;
     padding: 10px 0;
-  }
-  .cart-modal__item img {
-    width: 60px;
-    height: 60px;
   }
   .cart-modal__item span {
     font-size: 12px;
@@ -1942,6 +1923,10 @@ html, body {
   .cart-modal__item .cart-modal__remove {
     font-size: 18px;
     margin-right: 16px;
+    padding-left: 0;
+  }
+  .cart-modal__qty-value {
+    margin-top: 8px;
   }
   .cart-modal__total {
     left: 16px;
