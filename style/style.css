@@ -128,40 +128,46 @@
   nav.header-nav {
     display: none;
     flex-direction: column;
-    gap: 16px;
-    position: absolute;
-    top: 104px;
+    gap: 0;
+    position: fixed;
+    top: 0;
     left: 0;
     right: 0;
+    bottom: 0;
     background-color: white;
-    padding: 16px 32px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 80px 24px 24px 24px;
+    box-shadow: none;
     z-index: 1000;
+    overflow-y: auto;
   }
-  .main-nav {
-    gap: 2px;
+  nav.header-nav a {
+    display: block;
+    padding: 16px 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #f0f0f0;
+    transition: color 0.3s ease;
   }
-  .main-nav a {
-    color: black;
-    margin-left: 18px;
-    gap: 10px;
+  nav.header-nav a:hover {
+    color: #7BB899;
+  }
+  nav.header-nav a:last-child {
+    border-bottom: none;
   }
   .main-title {
     font-size: 46px;
-  }
-  .main-nav a:not(:last-child)::after {
-    background-color: black;
-    position: absolute;
-    top: 50%;
-    right: -14px;
-    width: 3px;
-    height: 3px;
   }
   nav.header-nav.open {
     display: flex;
   }
   .hamburger {
     display: flex;
+    margin-left: 0;
+  }
+  body.menu-open {
+    overflow: hidden;
   }
   .header-left {
     gap: 8px;
@@ -478,6 +484,13 @@
   }
 }
 @media (max-width: 714px) {
+  nav.header-nav {
+    padding: 75px 22px 22px 22px;
+  }
+  nav.header-nav a {
+    font-size: 17px;
+    padding: 15px 0;
+  }
   .product-list {
     position: relative !important;
     display: grid !important;
@@ -622,6 +635,20 @@
   }
 }
 @media (max-width: 480px) {
+  nav.header-nav {
+    padding: 70px 20px 20px 20px;
+  }
+  nav.header-nav a {
+    font-size: 16px;
+    padding: 14px 0;
+  }
+  .hamburger {
+    width: 20px;
+    height: 16px;
+  }
+  .hamburger span {
+    height: 2px;
+  }
   .header__menu a {
     font-size: 12px;
     padding: 16px 0;
@@ -849,26 +876,31 @@ nav a:last-child {
   cursor: pointer;
   padding: 0;
   margin-left: 10px;
+  z-index: 1001;
+  position: relative;
 }
 
 .hamburger span {
   display: block;
   height: 3px;
+  width: 100%;
   background-color: var(--black);
   border-radius: 2px;
   transition: all 0.3s ease;
+  transform-origin: center;
 }
 
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: rotate(45deg) translate(6px, 6px);
 }
 
 .hamburger.active span:nth-child(2) {
   opacity: 0;
+  transform: scale(0);
 }
 
 .hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
 .main-content {
@@ -1607,40 +1639,46 @@ html, body {
   nav.header-nav {
     display: none;
     flex-direction: column;
-    gap: 16px;
-    position: absolute;
-    top: 104px;
+    gap: 0;
+    position: fixed;
+    top: 0;
     left: 0;
     right: 0;
+    bottom: 0;
     background-color: white;
-    padding: 16px 32px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 80px 24px 24px 24px;
+    box-shadow: none;
     z-index: 1000;
+    overflow-y: auto;
   }
-  .main-nav {
-    gap: 2px;
+  nav.header-nav a {
+    display: block;
+    padding: 16px 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #f0f0f0;
+    transition: color 0.3s ease;
   }
-  .main-nav a {
-    color: black;
-    margin-left: 18px;
-    gap: 10px;
+  nav.header-nav a:hover {
+    color: #7BB899;
+  }
+  nav.header-nav a:last-child {
+    border-bottom: none;
   }
   .main-title {
     font-size: 46px;
-  }
-  .main-nav a:not(:last-child)::after {
-    background-color: black;
-    position: absolute;
-    top: 50%;
-    right: -14px;
-    width: 3px;
-    height: 3px;
   }
   nav.header-nav.open {
     display: flex;
   }
   .hamburger {
     display: flex;
+    margin-left: 0;
+  }
+  body.menu-open {
+    overflow: hidden;
   }
   .header-left {
     gap: 8px;
@@ -1957,6 +1995,13 @@ html, body {
   }
 }
 @media (max-width: 714px) {
+  nav.header-nav {
+    padding: 75px 22px 22px 22px;
+  }
+  nav.header-nav a {
+    font-size: 17px;
+    padding: 15px 0;
+  }
   .product-list {
     position: relative !important;
     display: grid !important;
@@ -2101,6 +2146,20 @@ html, body {
   }
 }
 @media (max-width: 480px) {
+  nav.header-nav {
+    padding: 70px 20px 20px 20px;
+  }
+  nav.header-nav a {
+    font-size: 16px;
+    padding: 14px 0;
+  }
+  .hamburger {
+    width: 20px;
+    height: 16px;
+  }
+  .hamburger span {
+    height: 2px;
+  }
   .header__menu a {
     font-size: 12px;
     padding: 16px 0;

@@ -270,11 +270,24 @@ function initModals() {
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('nav.header-nav');
 
-hamburger.addEventListener('click', () => {
-    const isOpen = navMenu.classList.toggle('open');
-    hamburger.classList.toggle('active');
-    hamburger.setAttribute('aria-expanded', isOpen);
-});
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+        const isOpen = navMenu.classList.toggle('open');
+        hamburger.classList.toggle('active');
+        hamburger.setAttribute('aria-expanded', isOpen);
+        document.body.classList.toggle('menu-open', isOpen);
+    });
+    
+    // Закрытие меню при клике на ссылку
+    navMenu.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') {
+            navMenu.classList.remove('open');
+            hamburger.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('menu-open');
+        }
+    });
+}
 
 function initFilters() {
     let filterItems = document.querySelectorAll('.filter-item input[type="radio"]');
