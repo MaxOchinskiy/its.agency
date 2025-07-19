@@ -93,7 +93,8 @@
             </span>
         </div>
         <h1 class="main-title ">Краски</h1>
-        <p class="main-desc hide-text__main hide-chevron">Идеально подходят для стен и других поверхностей. Найди свой
+        <p class="main-desc hide-text__main hide-chevron_title">Идеально подходят для стен и других поверхностей. Найди
+            свой
             идеальный
             цвет!</p>
         <div class="main-nav__chevron__left hide-chevron">
@@ -149,7 +150,14 @@
             <div>
                 <span class="filter-mobile-btn" id="filterOpenBtn">ФИЛЬТРЫ</span>
                 <div class="filter-modal" id="filterModal">
+                    <div class="filter-modal__overlay" id="filterOverlay"></div>
                     <div class="filter-modal__content">
+                        <button class="filter-modal__close" id="filterModalClose">
+                            <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 6L6 18" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4"/>
+                                <path d="M6 6L18 18" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4"/>
+                            </svg>
+                        </button>
                         <div class="filter-list">
                             <label class="filter-item">
                                 <input checked name="filter" type="radio">
@@ -188,7 +196,6 @@
                             </label>
                         </div>
                     </div>
-                    <div class="filter-modal__overlay" id="filterOverlay"></div>
                 </div>
             </div>
             <div class="filter-mobile">

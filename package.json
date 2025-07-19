@@ -7,5 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "sass:watch": "sass --watch style/style.scss:style/style.css"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "sass": "^1.89.2"
+  }
 }
