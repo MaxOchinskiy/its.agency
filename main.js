@@ -417,6 +417,58 @@ function initFilterModal() {
     });
 }
 
+function initSortModal() {
+    let openBtn = document.getElementById('sortOpenBtn');
+    let modal = document.getElementById('sortModal');
+    let overlay = document.getElementById('sortOverlay');
+    let closeBtn = document.getElementById('sortModalClose');
+    let sortItems = modal ? modal.querySelectorAll('.sort-item') : [];
+    
+    console.log('Sort modal elements:', { openBtn, modal, overlay, closeBtn });
+    
+    if (openBtn) {
+        openBtn.addEventListener('click', function () {
+            console.log('Sort button clicked');
+            modal.classList.add('open');
+            console.log('Sort modal classes after open:', modal.className);
+        });
+    }
+    
+    if (closeBtn) closeBtn.addEventListener('click', function () {
+        console.log('Sort close button clicked');
+        modal.classList.remove('open');
+    });
+    
+    if (overlay) overlay.addEventListener('click', function () {
+        console.log('Sort overlay clicked');
+        modal.classList.remove('open');
+    });
+    
+    // Обработка выбора сортировки в модальном окне
+    sortItems.forEach(function (item) {
+        item.addEventListener('click', function () {
+            // Убираем активный класс у всех элементов
+            sortItems.forEach(function (opt) {
+                opt.classList.remove('custom-select__option--active');
+            });
+            // Добавляем активный класс к выбранному элементу
+            item.classList.add('custom-select__option--active');
+            
+            // Обновляем текст в обычном селекте
+            let selected = document.querySelector('.custom-select__selected');
+            if (selected) {
+                selected.textContent = item.textContent;
+            }
+            
+            // Закрываем модальное окно
+            modal.classList.remove('open');
+            
+            // Применяем сортировку
+            sortProducts();
+        });
+    });
+}
+
 function initMenuModal() {
     let openBtn = document.getElementById('menuOpenBtn');
     let modal = document.getElementById('menuModal');
@@ -446,6 +498,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initModals();
     initCartModal();
     initFilterModal();
+    initSortModal();
     initMenuModal();
 });
 

@@ -35,6 +35,10 @@
   .filter-list {
     display: block !important;
   }
+  .sort-mobile-btn,
+  .sort-modal {
+    display: none !important;
+  }
 }
 @media (max-width: 1788px) {
   .product-list {
@@ -429,6 +433,83 @@
     cursor: pointer;
     padding: 8px;
     z-index: 2;
+  }
+  .custom-select__selected,
+  .custom-select__dropdown {
+    display: none !important;
+  }
+  .sort-mobile-btn {
+    display: block !important;
+    font-size: 12px;
+    color: #000000;
+    border: none;
+    align-self: flex-start;
+    margin-left: auto;
+    margin-right: 36px;
+    cursor: pointer;
+  }
+  .sort-modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 20%;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 2000;
+  }
+  .sort-modal.open {
+    display: flex;
+  }
+  .sort-modal__overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 80%;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+  }
+  .sort-modal__content {
+    position: relative;
+    background: #fff;
+    border-radius: 24px 24px 0 0;
+    width: 100%;
+    height: 100%;
+    padding: 32px 24px 24px 24px;
+    z-index: 1;
+  }
+  .sort-modal .sort-list {
+    display: block !important;
+  }
+  .sort-modal__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 2;
+  }
+  .sort-item {
+    cursor: pointer;
+    padding: 16px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+  }
+  .sort-item:last-child {
+    border-bottom: none;
+  }
+  .sort-item:hover {
+    color: #7BB899;
+  }
+  .sort-item.custom-select__option--active {
+    color: #7BB899;
+    font-weight: 500;
   }
 }
 @media (max-width: 941px) {
@@ -1272,6 +1353,11 @@ nav a:last-child {
   user-select: none;
 }
 
+.sort-mobile-btn,
+.sort-modal {
+  display: none;
+}
+
 .custom-select__selected::after {
   content: "";
   position: absolute;
@@ -1827,6 +1913,10 @@ html, body {
   .filter-list {
     display: block !important;
   }
+  .sort-mobile-btn,
+  .sort-modal {
+    display: none !important;
+  }
 }
 @media (max-width: 1788px) {
   .product-list {
@@ -2221,6 +2311,83 @@ html, body {
     cursor: pointer;
     padding: 8px;
     z-index: 2;
+  }
+  .custom-select__selected,
+  .custom-select__dropdown {
+    display: none !important;
+  }
+  .sort-mobile-btn {
+    display: block !important;
+    font-size: 12px;
+    color: #000000;
+    border: none;
+    align-self: flex-start;
+    margin-left: auto;
+    margin-right: 36px;
+    cursor: pointer;
+  }
+  .sort-modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 20%;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 2000;
+  }
+  .sort-modal.open {
+    display: flex;
+  }
+  .sort-modal__overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 80%;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+  }
+  .sort-modal__content {
+    position: relative;
+    background: #fff;
+    border-radius: 24px 24px 0 0;
+    width: 100%;
+    height: 100%;
+    padding: 32px 24px 24px 24px;
+    z-index: 1;
+  }
+  .sort-modal .sort-list {
+    display: block !important;
+  }
+  .sort-modal__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 2;
+  }
+  .sort-item {
+    cursor: pointer;
+    padding: 16px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+  }
+  .sort-item:last-child {
+    border-bottom: none;
+  }
+  .sort-item:hover {
+    color: #7BB899;
+  }
+  .sort-item.custom-select__option--active {
+    color: #7BB899;
+    font-weight: 500;
   }
 }
 @media (max-width: 941px) {

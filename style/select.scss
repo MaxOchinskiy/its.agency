@@ -7,6 +7,12 @@
   user-select: none;
 }
 
+// Скрываем модальную сортировку по умолчанию
+.sort-mobile-btn,
+.sort-modal {
+  display: none;
+}
+
 .custom-select__selected::after {
   content: "";
   position: absolute;

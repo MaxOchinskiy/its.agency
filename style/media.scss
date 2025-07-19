@@ -36,9 +36,11 @@
   .filter-list {
     display: block !important;
   }
+  .sort-mobile-btn,
+  .sort-modal {
+    display: none !important;
+  }
 }
-
-// --- МЕДИА-ЗАПРОСЫ ОТ БОЛЬШЕГО К МЕНЬШЕМУ ---
 
 @media (max-width: 1788px) {
   .product-list {
@@ -151,7 +153,7 @@
     z-index: 1000;
     overflow-y: auto;
   }
-  
+
   nav.header-nav a {
     display: block;
     padding: 16px 0;
@@ -162,32 +164,32 @@
     border-bottom: 1px solid #f0f0f0;
     transition: color 0.3s ease;
   }
-  
+
   nav.header-nav a:hover {
     color: #7BB899;
   }
-  
+
   nav.header-nav a:last-child {
     border-bottom: none;
   }
-  
+
   .main-title {
     font-size: 46px;
   }
-  
+
   nav.header-nav.open {
     display: flex;
   }
-  
+
   .hamburger {
     display: flex;
     margin-left: 0;
   }
-  
+
   body.menu-open {
     overflow: hidden;
   }
-  
+
   .header-left {
     gap: 8px;
     position: relative;
@@ -449,6 +451,85 @@
     padding: 8px;
     z-index: 2;
   }
+
+  // Скрываем обычную сортировку и показываем модальную
+  .custom-select__selected,
+  .custom-select__dropdown {
+    display: none !important;
+  }
+  .sort-mobile-btn {
+    display: block !important;
+    font-size: 12px;
+    color: #000000;
+    border: none;
+    align-self: flex-start;
+    margin-left: auto;
+    margin-right: 36px;
+    cursor: pointer;
+  }
+  .sort-modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 20%;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 2000;
+  }
+  .sort-modal.open {
+    display: flex;
+  }
+  .sort-modal__overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 80%;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+  }
+  .sort-modal__content {
+    position: relative;
+    background: #fff;
+    border-radius: 24px 24px 0 0;
+    width: 100%;
+    height: 100%;
+    padding: 32px 24px 24px 24px;
+    z-index: 1;
+  }
+  .sort-modal .sort-list {
+    display: block !important;
+  }
+  .sort-modal__close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 2;
+  }
+  .sort-item {
+    cursor: pointer;
+    padding: 16px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+  }
+  .sort-item:last-child {
+    border-bottom: none;
+  }
+  .sort-item:hover {
+    color: #7BB899;
+  }
+  .sort-item.custom-select__option--active {
+    color: #7BB899;
+    font-weight: 500;
+  }
 }
 
 @media (max-width: 941px) {
@@ -569,12 +650,12 @@
   nav.header-nav {
     padding: 75px 22px 22px 22px;
   }
-  
+
   nav.header-nav a {
     font-size: 17px;
     padding: 15px 0;
   }
-  
+
   .product-list {
     position: relative !important;
     display: grid !important;
@@ -724,17 +805,17 @@
   nav.header-nav {
     padding: 70px 20px 20px 20px;
   }
-  
+
   nav.header-nav a {
     font-size: 16px;
     padding: 14px 0;
   }
-  
+
   .hamburger {
     width: 20px;
     height: 16px;
   }
-  
+
   .hamburger span {
     height: 2px;
   }
@@ -873,7 +954,7 @@
   .cart-modal {
     align-items: flex-end;
   }
-  
+
   .cart-modal__content {
     width: 100%;
     height: 80vh;
@@ -881,82 +962,82 @@
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
     overflow: hidden;
   }
-  
+
   .cart-modal__items-container {
     padding-bottom: 100px;
   }
-  
+
   .cart-modal__close {
     top: 20px;
     right: 20px;
     font-size: 24px;
     padding: 6px;
   }
-  
+
   .cart-modal__header h2 {
     font-size: 24px;
     margin-left: 20px;
     margin-bottom: 60px;
   }
-  
+
   .cart-modal__count {
     left: 20px;
     font-size: 12px;
   }
-  
+
   .cart-modal__clear {
     margin-top: 80px;
     padding: 0 20px;
     font-size: 12px;
   }
-  
+
   .cart-modal__item {
     margin-left: 20px;
     margin-right: 20px;
     padding: 16px 0;
   }
-  
+
   .cart-modal__item img {
     width: 80px;
     height: 80px;
   }
-  
+
   .cart-modal__item span {
     font-size: 14px;
     margin-bottom: 12px;
   }
-  
+
   .cart-modal__item b {
     font-size: 14px;
     margin-top: 8px;
   }
-  
+
   .cart-modal__qty-btn {
     width: 36px;
     height: 20px;
     font-size: 16px;
   }
-  
+
   .cart-modal__qty-value {
     min-width: 36px;
     font-size: 14px;
   }
-  
+
   .cart-modal__item .cart-modal__remove {
     font-size: 20px;
     margin-right: 20px;
   }
-  
+
   .cart-modal__total {
     left: 20px;
     bottom: 20px;
     font-size: 14px;
   }
-  
+
   .cart-modal__total span {
     font-size: 24px;
   }
-  
+
   .cart-modal__order {
     right: 20px;
     bottom: 20px;
@@ -971,33 +1052,33 @@
     height: 85vh;
     overflow: hidden;
   }
-  
+
   .cart-modal__items-container {
     padding-bottom: 90px;
   }
-  
+
   .cart-modal__header h2 {
     font-size: 20px;
     margin-bottom: 50px;
   }
-  
+
   .cart-modal__item {
     padding: 12px 0;
   }
-  
+
   .cart-modal__item img {
     width: 70px;
     height: 70px;
   }
-  
+
   .cart-modal__item span {
     font-size: 13px;
   }
-  
+
   .cart-modal__item b {
     font-size: 13px;
   }
-  
+
   .cart-modal__order {
     width: 180px;
     height: 44px;
@@ -1010,82 +1091,82 @@
     height: 90vh;
     overflow: hidden;
   }
-  
+
   .cart-modal__items-container {
     padding-bottom: 80px;
   }
-  
+
   .cart-modal__close {
     top: 16px;
     right: 16px;
     font-size: 20px;
     padding: 4px;
   }
-  
+
   .cart-modal__header h2 {
     font-size: 18px;
     margin-left: 16px;
     margin-bottom: 40px;
   }
-  
+
   .cart-modal__count {
     left: 16px;
     font-size: 11px;
   }
-  
+
   .cart-modal__clear {
     margin-top: 60px;
     padding: 0 16px;
     font-size: 11px;
   }
-  
+
   .cart-modal__item {
     margin-left: 16px;
     margin-right: 16px;
     padding: 10px 0;
   }
-  
+
   .cart-modal__item img {
     width: 60px;
     height: 60px;
   }
-  
+
   .cart-modal__item span {
     font-size: 12px;
     margin-bottom: 8px;
   }
-  
+
   .cart-modal__item b {
     font-size: 12px;
     margin-top: 6px;
   }
-  
+
   .cart-modal__qty-btn {
     width: 32px;
     height: 18px;
     font-size: 14px;
   }
-  
+
   .cart-modal__qty-value {
     min-width: 32px;
     font-size: 12px;
   }
-  
+
   .cart-modal__item .cart-modal__remove {
     font-size: 18px;
     margin-right: 16px;
   }
-  
+
   .cart-modal__total {
     left: 16px;
     bottom: 16px;
     font-size: 12px;
   }
-  
+
   .cart-modal__total span {
     font-size: 20px;
   }
-  
+
   .cart-modal__order {
     right: 16px;
     bottom: 16px;
