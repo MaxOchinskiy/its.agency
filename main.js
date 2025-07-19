@@ -141,11 +141,24 @@ function filterProducts() {
 let cart = [];
 
 function openCartModal() {
-    document.getElementById('cartModal').style.display = 'flex';
+    let modal = document.getElementById('cartModal');
+    console.log('Opening cart modal:', modal);
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Блокируем скролл основной страницы
+    }
 }
 
 function closeCartModal() {
-    document.getElementById('cartModal').style.display = 'none';
+    let modal = document.getElementById('cartModal');
+    console.log('Closing cart modal:', modal);
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = ''; // Восстанавливаем скролл основной страницы
+        console.log('Cart modal closed successfully');
+    } else {
+        console.error('Cart modal element not found!');
+    }
 }
 
 function renderCart() {
@@ -222,16 +235,51 @@ function initCartModal() {
     let closeBtn = document.getElementById('cartModalClose');
     let overlay = document.getElementById('cartModalOverlay');
     let clearBtn = document.getElementById('cartModalClear');
-    if (cartBtn) cartBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        renderCart();
-        openCartModal();
-    });
-    if (closeBtn) closeBtn.addEventListener('click', closeCartModal);
-    if (overlay) overlay.addEventListener('click', closeCartModal);
-    if (clearBtn) clearBtn.addEventListener('click', function () {
-        cart.length = 0;
-        renderCart();
+    
+    console.log('Cart modal elements:', { cartBtn, closeBtn, overlay, clearBtn });
+    
+    if (cartBtn) {
+        cartBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            console.log('Cart button clicked');
+            renderCart();
+            openCartModal();
+        });
+    }
+    
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function (e) {
+            console.log('Cart close button clicked');
+            e.preventDefault();
+            e.stopPropagation();
+            closeCartModal();
+        });
+    }
+    
+    if (overlay) {
+        overlay.addEventListener('click', function (e) {
+            console.log('Cart overlay clicked');
+            closeCartModal();
+        });
+    }
+    
+    if (clearBtn) {
+        clearBtn.addEventListener('click', function () {
+            console.log('Cart clear button clicked');
+            cart.length = 0;
+            renderCart();
+        });
+    }
+    
+    // Закрытие корзины по нажатию Escape
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            let modal = document.getElementById('cartModal');
+            if (modal && modal.style.display === 'flex') {
+                console.log('Escape key pressed, closing cart');
+                closeCartModal();
+            }
+        }
     });
 }
 
