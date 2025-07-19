@@ -378,6 +378,31 @@ function initFilterModal() {
         console.log('Filter overlay clicked');
         modal.classList.remove('open');
     });
+    
+    // Добавляем логику отключения фильтра для модального окна
+    let modalRadios = modal ? modal.querySelectorAll('input[type="radio"]') : [];
+    var lastCheckedModal = null;
+    
+    modalRadios.forEach(function (radio) {
+        radio.addEventListener('change', function () {
+            if (this.checked) {
+                lastCheckedModal = this;
+                filterProducts();
+            }
+        });
+        
+        // Добавляем возможность отключить фильтр повторным кликом
+        radio.addEventListener('click', function (e) {
+            if (this === lastCheckedModal && this.checked) {
+                // Если кликаем по уже выбранному фильтру, отключаем его
+                setTimeout(() => {
+                    this.checked = false;
+                    lastCheckedModal = null;
+                    filterProducts();
+                }, 0);
+            }
+        });
+    });
 }
 
 function initSortModal() {
@@ -500,15 +525,32 @@ function renderFilterList() {
     var filterList = document.querySelector('.filter-list');
     if (!filterList) return;
     var currentChecked = filterList.querySelector('input[type="radio"]:checked');
-    var checkedValue = currentChecked ? currentChecked.parentNode.textContent.trim() : null; // Убираем FILTERS[0].value
+    var checkedValue = currentChecked ? currentChecked.parentNode.textContent.trim() : null;
     filterList.innerHTML = FILTERS.map(function (f) {
         return createFilterItem(f, f.value === checkedValue);
     }).join('');
     // навешиваем обработчик на фильтры
     var radios = filterList.querySelectorAll('input[type="radio"]');
+    var lastChecked = null; // Запоминаем последний выбранный фильтр
+    
     radios.forEach(function (radio, idx) {
         radio.addEventListener('change', function () {
-            filterProducts();
+            if (this.checked) {
+                lastChecked = this; // Запоминаем выбранный фильтр
+                filterProducts();
+            }
+        });
+        
+        // Добавляем возможность отключить фильтр повторным кликом
+        radio.addEventListener('click', function (e) {
+            if (this === lastChecked && this.checked) {
+                // Если кликаем по уже выбранному фильтру, отключаем его
+                setTimeout(() => {
+                    this.checked = false;
+                    lastChecked = null;
+                    filterProducts();
+                }, 0);
+            }
         });
     });
 }
