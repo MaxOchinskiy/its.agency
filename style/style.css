@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .header-content {
   display: flex;
   align-items: center;
@@ -702,18 +703,21 @@ nav a:last-child {
   padding: 12px 0;
   position: relative;
   margin-top: 10px;
+  min-height: 120px; /* Минимальная высота, но не фиксированная */
 }
 
 .cart-modal__top {
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* Выравнивание по верху вместо center */
   gap: 8px;
+  min-height: 96px; /* Минимальная высота вместо фиксированной */
 }
 
 .cart-modal__item img {
   width: 96px;
   height: 96px;
   object-fit: cover;
+  flex-shrink: 0; /* Запрещаем сжатие изображения */
 }
 
 .cart-modal__item span {
@@ -724,9 +728,10 @@ nav a:last-child {
   margin-bottom: 20px;
   font-weight: 300;
   font-size: 16px;
+  /* Убираем overflow: hidden чтобы текст не обрезался */
 }
 
-.cart-modal__item b {
+.cart-modal__item span b {
   display: flex;
   flex-direction: column;
   font-weight: 600;
@@ -738,6 +743,10 @@ nav a:last-child {
 .cart-modal__item .cart-modal__qty {
   display: flex;
   align-items: center;
+}
+
+.cart-modal__qty {
+  margin-top: 15px;
 }
 
 .cart-modal__qty-btn {
@@ -780,6 +789,7 @@ nav a:last-child {
   padding-bottom: 120px;
   scrollbar-width: thin;
   scrollbar-color: #c1c1c1 transparent;
+  /* Убираем любые ограничения высоты */
 }
 
 .cart-modal__items-container::-webkit-scrollbar {
@@ -800,18 +810,66 @@ nav a:last-child {
 }
 
 .cart-modal__footer {
-  position: absolute;
+  position: fixed; /* Фиксированное позиционирование */
   bottom: 0;
-  left: 0;
-  right: 0;
+  right: 0; /* Привязываем к правому краю модального окна */
+  width: 600px; /* Ширина равна ширине модального окна */
   background: #fff;
   padding: 60px 0;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   border-top: 1px solid #f0f0f0;
+  z-index: 3; /* Поверх контента */
 }
 
+/* Адаптивность для планшетов */
+@media (max-width: 879px) {
+  .cart-modal__footer {
+    width: 100%; /* На всю ширину экрана */
+    right: 0;
+  }
+  .cart-modal__total {
+    left: 20px;
+    bottom: 20px;
+    font-size: 14px;
+  }
+  .cart-modal__total span {
+    font-size: 24px;
+  }
+  .cart-modal__order {
+    right: 20px;
+    bottom: 20px;
+    width: 200px;
+    height: 48px;
+    font-size: 14px;
+  }
+}
+/* Адаптивность для мобильных */
+@media (max-width: 714px) {
+  .cart-modal__order {
+    width: 180px;
+    height: 44px;
+    font-size: 13px;
+  }
+}
+@media (max-width: 480px) {
+  .cart-modal__total {
+    left: 16px;
+    bottom: 16px;
+    font-size: 12px;
+  }
+  .cart-modal__total span {
+    font-size: 20px;
+  }
+  .cart-modal__order {
+    right: 16px;
+    bottom: 16px;
+    width: 160px;
+    height: 40px;
+    font-size: 12px;
+  }
+}
 .cart-modal__total {
   position: absolute;
   left: 40px;
