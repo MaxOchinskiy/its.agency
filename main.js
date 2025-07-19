@@ -500,7 +500,7 @@ function renderFilterList() {
     var filterList = document.querySelector('.filter-list');
     if (!filterList) return;
     var currentChecked = filterList.querySelector('input[type="radio"]:checked');
-    var checkedValue = currentChecked ? currentChecked.parentNode.textContent.trim() : FILTERS[0].value;
+    var checkedValue = currentChecked ? currentChecked.parentNode.textContent.trim() : null; // Убираем FILTERS[0].value
     filterList.innerHTML = FILTERS.map(function (f) {
         return createFilterItem(f, f.value === checkedValue);
     }).join('');
@@ -543,7 +543,7 @@ function sortProducts() {
 }
 
 function getFilteredAndSortedProducts() {
-    let checked = document.querySelector('.filter-item input[type="radio"]:checked');
+    let checked = document.querySelector('.filter-list:not(.filter-modal .filter-list) input[type="radio"]:checked');
     let type = checked ? checked.parentNode.textContent.trim().toUpperCase() : null;
     let filtered = type ? products.filter(function (product) {
         return product.type === type;
