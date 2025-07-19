@@ -140,21 +140,25 @@ function createCartModal(cart) {
     let itemsHtml = cart.length === 0
         ? '<p class="cartItems">Корзина пуста</p>'
         : cart.map((item, idx) => createCartItem(item, idx)).join('');
+
     let total = cart.reduce((sum, item) => sum + item.price * item.count, 0);
     let totalCount = cart.reduce((sum, item) => sum + item.count, 0);
+
     return `
-    <div class="cart-modal__header">
-        <h2>Корзина</h2>
-        <span class="cart-modal__count" id="cartTotalCount">${totalCount ? totalCount + ' товара' : ''}</span>
-        <button class="cart-modal__clear" id="cartModalClear">ОЧИСТИТЬ СПИСОК</button>
-    </div>
-    <div class="cart-modal__items-container">
-        <div id="cartItems">${itemsHtml}</div>
-    </div>
-    <div class="cart-modal__footer">
-        <div class="cart-modal__total">Итого <span id="cartTotal">${total} ₽</span></div>
-        <button class="cart-modal__order" id="cartModalOrder">ОФОРМИТЬ ЗАКАЗ</button>
-    </div>
+      <div class="cart-modal__header">
+          <h2>Корзина</h2>
+          <span class="cart-modal__count" id="cartTotalCount">${totalCount ? totalCount + ' товара' : ''}</span>
+          <button class="cart-modal__clear" id="cartModalClear">ОЧИСТИТЬ СПИСОК</button>
+      </div>
+
+      <div class="cart-modal__items-container" id="cartItems">
+          ${itemsHtml}
+      </div>
+
+      <div class="cart-modal__footer">
+          <div class="cart-modal__total">Итого <span id="cartTotal">${total} ₽</span></div>
+          <button class="cart-modal__order" id="cartModalOrder">ОФОРМИТЬ ЗАКАЗ</button>
+      </div>
     `;
 }
 
