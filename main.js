@@ -1,6 +1,4 @@
-// === СЛАЙДЕР ===
 function initSlider() {
-    console.log('initSlider called');
     const sliderImages = [
         'image/rectangle.png',
         'image/photoMain.jpg',
@@ -11,7 +9,6 @@ function initSlider() {
     const leftBtn = document.querySelector('.main-nav__chevron__left');
     const rightBtn = document.querySelector('.main-nav__chevron__right');
     const dotsContainer = document.querySelector('.main-slider-dots');
-    console.log('sliderImg:', sliderImg, 'leftBtn:', leftBtn, 'rightBtn:', rightBtn, 'dotsContainer:', dotsContainer);
 
     function renderDots() {
         if (!dotsContainer) return;
@@ -68,10 +65,10 @@ function createCartItem(item, idx) {
                     <button class="cart-modal__qty-btn" data-idx="${idx}" data-action="plus">+</button>
                 </div>
                 <button class="cart-modal__remove" data-idx="${idx}" title="Удалить">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="24" height="24" viewBox="0 0 24 24" style="fill: none;">
                         <g opacity="0.2">
-                            <path d="M18 6L6 18" stroke="#1F2020" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M6 6L18 18" stroke="#1F2020" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M18 6L6 18" stroke="#1F2020" style="stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round;"/>
+                            <path d="M6 6L18 18" stroke="#1F2020" style="stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round;"/>
                         </g>
                     </svg>
                 </button>
@@ -123,7 +120,6 @@ function renderCart() {
 }
 
 function openCartModal() {
-    console.log('openCartModal called');
     const modal = document.getElementById('cartModal');
     if (modal) {
         modal.style.display = 'flex';
@@ -221,7 +217,7 @@ if (hamburger && navMenu) {
     hamburger.addEventListener('click', () => {
         const isOpen = navMenu.classList.toggle('open');
         hamburger.classList.toggle('active');
-        hamburger.setAttribute('aria-expanded', isOpen);
+        hamburger.setAttribute('aria-expanded', isOpen.toString());
         document.body.classList.toggle('menu-open', isOpen);
     });
 
@@ -245,13 +241,12 @@ function initFilters() {
 }
 
 function initSort() {
-    console.log('initSort called');
     const customSelect = document.querySelector('.custom-select.main-nav__sort__catalog__text');
     if (!customSelect) return;
     const selected = customSelect.querySelector('.custom-select__selected');
     const options = customSelect.querySelectorAll('.custom-select__option');
     const sortOverlay = document.getElementById('sortOverlay');
-    console.log('selected:', selected, 'options:', options, 'sortOverlay:', sortOverlay);
+
 
     selected.addEventListener('click', function (e) {
         e.stopPropagation();
@@ -295,23 +290,18 @@ function initFilterModal() {
     const overlay = document.getElementById('filterOverlay');
     const closeBtn = document.getElementById('filterModalClose');
 
-    console.log('Filter modal elements:', {openBtn, modal, overlay, closeBtn});
 
     if (openBtn) {
         openBtn.addEventListener('click', function () {
-            console.log('Filter button clicked');
             modal.classList.add('open');
-            console.log('Modal classes after open:', modal.className);
         });
     }
 
     if (closeBtn) closeBtn.addEventListener('click', function () {
-        console.log('Filter close button clicked');
         modal.classList.remove('open');
     });
 
     if (overlay) overlay.addEventListener('click', function () {
-        console.log('Filter overlay clicked');
         modal.classList.remove('open');
     });
 
@@ -345,23 +335,18 @@ function initSortModal() {
     const closeBtn = document.getElementById('sortModalClose');
     const sortItems = modal ? modal.querySelectorAll('.sort-item') : [];
 
-    console.log('Sort modal elements:', {openBtn, modal, overlay, closeBtn});
 
     if (openBtn) {
         openBtn.addEventListener('click', function () {
-            console.log('Sort button clicked');
             modal.classList.add('open');
-            console.log('Sort modal classes after open:', modal.className);
         });
     }
 
     if (closeBtn) closeBtn.addEventListener('click', function () {
-        console.log('Sort close button clicked');
         modal.classList.remove('open');
     });
 
     if (overlay) overlay.addEventListener('click', function () {
-        console.log('Sort overlay clicked');
         modal.classList.remove('open');
     });
 
@@ -384,27 +369,27 @@ function initSortModal() {
 }
 
 function createProductCard(product) {
-    return (
-        '<div class="product-card" data-type="' + product.type + '">' +
-        '<img alt="Product" class="product-card__img" src="' + product.img + '" style="width:278px;height:278px;object-fit:cover;">' +
-        '<div class="product-card__desc">' + product.name + '</div>' +
-        '<div class="product-card__footer">' +
-        '<span class="product-card__price"><b>' + product.price + ' ₽</b></span>' +
-        '<button aria-label="Добавить" class="product-card__add" type="button">' +
-        '<svg class="svg-default" fill="none" height="32" viewBox="0 0 80 32" width="80" xmlns="http://www.w3.org/2000/svg">' +
-        '<rect fill="#7BB899" height="32" rx="8" width="80"/>' +
-        '<path d="M40 10.1666V21.8333" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
-        '<path d="M34.167 16H45.8337" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
-        '</svg>' +
-        '<svg class="svg-mobile" fill="none" height="24" viewBox="0 0 40 24" width="40" xmlns="http://www.w3.org/2000/svg">' +
-        '<rect fill="#F2F2F2" height="24" rx="6" width="40"/>' +
-        '<path d="M20 7.33331V16.6666" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
-        '<path d="M15.333 12H24.6663" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
-        '</svg>' +
-        '</button>' +
-        '</div>' +
-        '</div>'
-    );
+    return `
+        <div class="product-card" data-type="${product.type}">
+            <img alt="Product" class="product-card__img" src="${product.img}">
+            <div class="product-card__desc">${product.name}</div>
+            <div class="product-card__footer">
+                <span class="product-card__price"><b>${product.price} ₽</b></span>
+                <button aria-label="Добавить" class="product-card__add">
+                    <svg class="svg-default" height="32" viewBox="0 0 80 32" width="80" style="fill: none;">
+                        <rect fill="#7BB899" height="32" rx="8" width="80"/>
+                        <path d="M40 10.1666V21.8333" stroke="#1F2020" style="stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"/>
+                        <path d="M34.167 16H45.8337" stroke="#1F2020" style="stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"/>
+                    </svg>
+                    <svg class="svg-mobile" height="24" viewBox="0 0 40 24" width="40" style="fill: none;">
+                        <rect fill="#F2F2F2" height="24" rx="6" width="40"/>
+                        <path d="M20 7.33331V16.6666" stroke="#1F2020" style="stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"/>
+                        <path d="M15.333 12H24.6663" stroke="#1F2020" style="stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    `;
 }
 
 const FILTERS = [
@@ -416,13 +401,13 @@ const FILTERS = [
 ];
 
 function createFilterItem(filter, checked) {
-    return (
-        '<label class="filter-item">' +
-        '<input name="filter" type="radio" ' + (checked ? 'checked' : '') + '>' +
-        '<span class="toggle-switch"><span class="toggle-circle"></span></span>' +
-        filter.label +
-        '</label>'
-    );
+    return `
+        <label class="filter-item">
+            <input name="filter" type="radio" ${checked ? 'checked' : ''}>
+            <span class="toggle-switch"><span class="toggle-circle"></span></span>
+            ${filter.label}
+        </label>
+    `;
 }
 
 function renderFilterList() {
@@ -457,11 +442,8 @@ function renderFilterList() {
 }
 
 function renderProductsComponent(list) {
-    console.log('renderProductsComponent called');
     const productList = document.querySelector('.product-list');
-    console.log('productList:', productList);
     if (!productList) {
-        console.warn('Контейнер .product-list не найден!');
         return;
     }
     productList.innerHTML = list.map(createProductCard).join('');
@@ -501,19 +483,23 @@ function getFilteredAndSortedProducts() {
 }
 
 let axios;
-try {
-    axios = require('axios');
-} catch (e) {
+
+if (typeof window !== 'undefined' && window.axios) {
     axios = window.axios;
+} else {
+    axios = null;
 }
 
 const API_URL = 'https://67f4eef9913986b16fa26cac.mockapi.io/products';
 
 function fetchProductsFromAPI() {
-    console.log('axios:', axios, 'API_URL:', API_URL);
+    if (!axios) {
+        renderProductsComponent(getFilteredAndSortedProducts());
+        return Promise.resolve();
+    }
+
     return axios.get(API_URL)
         .then(function (response) {
-            console.log('API response:', response);
             if (Array.isArray(response.data)) {
                 products.length = 0; // Clear array instead of reassignment
                 response.data.forEach(function (item) {
@@ -526,19 +512,14 @@ function fetchProductsFromAPI() {
                     });
                 });
                 renderProductsComponent(getFilteredAndSortedProducts());
-            } else {
-                console.warn('API data is not an array:', response.data);
             }
         })
-        .catch(function (error) {
-            console.warn('Ошибка загрузки товаров с API:', error);
-            renderProductsComponent(getFilteredAndSortedProducts());
-        });
+
 }
 
 document.addEventListener('DOMContentLoaded', function () {
     renderFilterList();
-    if (typeof axios !== 'undefined') {
+    if (axios) {
         fetchProductsFromAPI();
     } else {
         renderProductsComponent(getFilteredAndSortedProducts());
