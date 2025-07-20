@@ -103,21 +103,21 @@
   padding: 12px 0;
   position: relative;
   margin-top: 10px;
-  min-height: 120px; /* Минимальная высота, но не фиксированная */
+  min-height: 120px;
 }
 
 .cart-modal__top {
   display: flex;
-  align-items: flex-start; /* Выравнивание по верху вместо center */
+  align-items: flex-start;
   gap: 8px;
-  min-height: 96px; /* Минимальная высота вместо фиксированной */
+  min-height: 96px;
 }
 
 .cart-modal__item img {
   width: 96px;
   height: 96px;
   object-fit: cover;
-  flex-shrink: 0; /* Запрещаем сжатие изображения */
+  flex-shrink: 0;
 }
 
 .cart-modal__item span {
@@ -128,7 +128,7 @@
   margin-bottom: 20px;
   font-weight: 300;
   font-size: 16px;
-  /* Убираем overflow: hidden чтобы текст не обрезался */
+
 }
 
 .cart-modal__item span b {
@@ -178,6 +178,10 @@
   margin-right: 30px;
 }
 
+.cart-modal__remove {
+  margin-top: 30px;
+}
+
 .cart-modal__item.inactive {
   opacity: 0.5;
   pointer-events: none;
@@ -189,7 +193,7 @@
   padding-bottom: 120px;
   scrollbar-width: thin;
   scrollbar-color: #c1c1c1 transparent;
-  /* Убираем любые ограничения высоты */
+
 }
 
 .cart-modal__items-container::-webkit-scrollbar {
@@ -210,23 +214,23 @@
 }
 
 .cart-modal__footer {
-  position: fixed; /* Фиксированное позиционирование */
+  position: fixed;
   bottom: 0;
-  right: 0; /* Привязываем к правому краю модального окна */
-  width: 600px; /* Ширина равна ширине модального окна */
+  right: 0;
+  width: 600px;
   background: #fff;
   padding: 60px 0;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   border-top: 1px solid #f0f0f0;
-  z-index: 3; /* Поверх контента */
+  z-index: 3;
 }
 
-/* Адаптивность для планшетов */
+
 @media (max-width: 879px) {
   .cart-modal__footer {
-    width: 100%; /* На всю ширину экрана */
+    width: 100%;
     right: 0;
   }
 
@@ -249,7 +253,7 @@
   }
 }
 
-/* Адаптивность для мобильных */
+
 @media (max-width: 714px) {
 
   .cart-modal__order {

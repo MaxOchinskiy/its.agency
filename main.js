@@ -31,7 +31,7 @@ function initSlider() {
         if (index >= sliderImages.length) index = 0;
         currentIndex = index;
         sliderImg.src = sliderImages[currentIndex];
-        sliderImg.style.objectFit = 'cover'; // сохраняет пропорции
+        sliderImg.style.objectFit = 'cover';
         renderDots();
     }
 
@@ -45,69 +45,12 @@ function initSlider() {
     showSlide(currentIndex);
 }
 
-// === ДАННЫЕ ДЛЯ ТЕСТА ===
-/*let products = [
-    {
-        id: 1,
-        name: 'Краска Wallquest, Brownsone MS90102',
-        price: 6000,
-        img: 'image/img.png',
-        type: 'НОВИНКИ'
-    },
-    {id: 2, name: 'Краска Wallquest, Brownsone MS90103', price: 7000, img: 'image/img_1.png', type: 'ЕСТЬ В НАЛИЧИИ'},
-    {id: 3, name: 'Краска Wallquest, Brownsone MS90104', price: 8000, img: 'image/img_2.png', type: 'КОНТРАКТНЫЕ'},
-    {id: 4, name: 'Краска Wallquest, Brownsone MS90105', price: 9000, img: 'image/img_3.png', type: 'ЭКСКЛЮЗИВНЫЕ'},
-    {id: 5, name: 'Краска Wallquest, Brownsone MS90106', price: 5000, img: 'image/img_4.png', type: 'РАСПРОДАЖА'},
-    {id: 6, name: 'Краска Wallquest, Brownsone MS90107', price: 4000, img: 'image/img_5.png', type: 'НОВИНКИ'},
-    {id: 7, name: 'Краска Wallquest, Brownsone MS90108', price: 10000, img: 'image/img_6.png', type: 'НОВИНКИ'},
-    {
-        id: 8,
-        name: 'Краска Wallquest, Brownsone MS90109',
-        price: 3000,
-        img: 'image/img_7.png',
-        type: 'ЕСТЬ В НАЛИЧИИ'
-    },
-    {
-        id: 9,
-        name: 'Краска Wallquest, Brownsone MS90110',
-        price: 9000,
-        img: 'image/img_8.png',
-        type: 'ЕСТЬ В НАЛИЧИИ'
-    },
-    {id: 10, name: 'Краска Wallquest, Brownsone MS90111', price: 2000, img: 'image/img_3.png', type: 'НОВИНКИ'},
-    {id: 11, name: 'Краска Wallquest, Brownsone MS90112', price: 12000, img: 'image/img_9.png', type: 'НОВИНКИ'},
-    {id: 12, name: 'Краска Wallquest, Brownsone MS90113', price: 800, img: 'image/img_4.png', type: 'НОВИНКИ'}
-];*/
-
 var products = [];
 var cart = [];
-
-function createProductCount(count) {
-    return `<div class="count__product hide-count__product">
-        <h3><span id="productCount">${count}</span> ТОВАРОВ</h3>
-    </div>`;
-}
 
 function updateProductCount(count) {
     var countElem = document.getElementById('productCount');
     if (countElem) countElem.textContent = count;
-}
-
-function createBreadcrumbs(items) {
-    return `<span class="main-nav">` +
-        items.map(item => `<a href="#">${item}</a>`).join('') +
-        `</span>`;
-}
-
-function createSortSelect(options, selected) {
-    return `
-    <div class="custom-select__selected">${selected}</div>
-    <div class="custom-select__dropdown">
-        ${options.map(opt => `
-            <div class="custom-select__option${opt === selected ? ' custom-select__option--active' : ''}">${opt}</div>
-        `).join('')}
-    </div>
-    `;
 }
 
 function createCartItem(item, idx) {
@@ -159,7 +102,6 @@ function renderCart() {
     if (cartCount) cartCount.textContent = totalCount ? totalCount : '';
     if (cartTotalCountHeader) cartTotalCountHeader.textContent = totalCount ? totalCount : '';
 
-    // Навешиваем обработчики на кнопки внутри товаров
     if (cartItems) {
         cartItems.querySelectorAll('.cart-modal__qty-btn').forEach(function (btn) {
             btn.onclick = function () {
@@ -198,7 +140,6 @@ function closeCartModal() {
 }
 
 function initCartModal() {
-    console.log('initCartModal called', document.querySelector('.header__menu__cart'));
     let cartBtn = document.querySelector('.header__menu__cart');
     let closeBtn = document.getElementById('cartModalClose');
     let overlay = document.getElementById('cartModalOverlay');
@@ -206,7 +147,6 @@ function initCartModal() {
 
     if (cartBtn) {
         cartBtn.addEventListener('click', function (e) {
-            console.log('cartBtn clicked');
             renderCart();
             openCartModal();
         });
@@ -242,13 +182,12 @@ function initCartModal() {
 function initCart() {
     let addToCartBtns = document.querySelectorAll('.product-card__add');
     addToCartBtns.forEach(function (btn) {
-        btn.replaceWith(btn.cloneNode(true)); // снимает все обработчики
+        btn.replaceWith(btn.cloneNode(true));
     });
-    // теперь снова выбираем кнопки
     let freshBtns = document.querySelectorAll('.product-card__add');
     freshBtns.forEach(function (btn) {
         btn.addEventListener('click', function () {
-            let card = btn.closest('.product-card');
+            let card = this.closest('.product-card');
             addToCart(card);
         });
     });
@@ -256,24 +195,23 @@ function initCart() {
 
 function addToCart(card) {
     let name = card.querySelector('.product-card__desc').textContent;
-    let price = parseInt(card.querySelector('.product-card__price').textContent);
-    let img = card.querySelector('img').src;
-    let id = name + price; // уникальный id на основе имени и цены
-    let item = cart.find(function (i) {
-        return i.id === id;
-    });
-    if (item) {
-        item.count++;
+    let price = parseInt(card.querySelector('.product-card__price b').textContent);
+    let img = card.querySelector('.product-card__img').src;
+    let id = name + price;
+
+    let existingItem = cart.find(item => item.id === id);
+    if (existingItem) {
+        existingItem.count++;
     } else {
-        cart.push({id: id, name: name, price: price, img: img, count: 1});
+        cart.push({
+            id: id,
+            name: name,
+            price: price,
+            img: img,
+            count: 1
+        });
     }
     renderCart();
-}
-
-
-// === МОДАЛЬНЫЕ ОКНА ===
-function initModals() {
-    // Открытие/закрытие корзины, фильтров, меню на мобильном
 }
 
 const hamburger = document.querySelector('.hamburger');
@@ -287,7 +225,6 @@ if (hamburger && navMenu) {
         document.body.classList.toggle('menu-open', isOpen);
     });
 
-    // Закрытие меню при клике на ссылку
     navMenu.addEventListener('click', (e) => {
         if (e.target.tagName === 'A') {
             navMenu.classList.remove('open');
@@ -323,7 +260,6 @@ function initSort() {
         if (!isOpen && sortOverlay) sortOverlay.style.display = 'block';
         else if (isOpen && sortOverlay) sortOverlay.style.display = 'none';
     });
-
 
     options.forEach(function (option) {
         option.addEventListener('click', function (e) {
@@ -378,11 +314,10 @@ function initFilterModal() {
         console.log('Filter overlay clicked');
         modal.classList.remove('open');
     });
-    
-    // Добавляем логику отключения фильтра для модального окна
+
     let modalRadios = modal ? modal.querySelectorAll('input[type="radio"]') : [];
     var lastCheckedModal = null;
-    
+
     modalRadios.forEach(function (radio) {
         radio.addEventListener('change', function () {
             if (this.checked) {
@@ -390,11 +325,9 @@ function initFilterModal() {
                 filterProducts();
             }
         });
-        
-        // Добавляем возможность отключить фильтр повторным кликом
+
         radio.addEventListener('click', function (e) {
             if (this === lastCheckedModal && this.checked) {
-                // Если кликаем по уже выбранному фильтру, отключаем его
                 setTimeout(() => {
                     this.checked = false;
                     lastCheckedModal = null;
@@ -432,51 +365,24 @@ function initSortModal() {
         modal.classList.remove('open');
     });
 
-    // Обработка выбора сортировки в модальном окне
     sortItems.forEach(function (item) {
         item.addEventListener('click', function () {
-            // Убираем активный класс у всех элементов
             sortItems.forEach(function (opt) {
                 opt.classList.remove('custom-select__option--active');
             });
-            // Добавляем активный класс к выбранному элементу
             item.classList.add('custom-select__option--active');
 
-            // Обновляем текст в обычном селекте
             let selected = document.querySelector('.custom-select__selected');
             if (selected) {
                 selected.textContent = item.textContent;
             }
 
-            // Закрываем модальное окно
             modal.classList.remove('open');
-
-            // Применяем сортировку
             sortProducts();
         });
     });
 }
 
-function initMenuModal() {
-    let openBtn = document.getElementById('menuOpenBtn');
-    let modal = document.getElementById('menuModal');
-    let overlay = document.getElementById('menuOverlay');
-    let closeBtn = document.getElementById('menuModalClose');
-
-    if (openBtn) openBtn.addEventListener('click', function () {
-        modal.classList.add('open');
-    });
-
-    if (closeBtn) closeBtn.addEventListener('click', function () {
-        modal.classList.remove('open');
-    });
-
-    if (overlay) overlay.addEventListener('click', function () {
-        modal.classList.remove('open');
-    });
-}
-
-// === КОМПОНЕНТЫ ===
 function createProductCard(product) {
     return (
         '<div class="product-card" data-type="' + product.type + '">' +
@@ -485,13 +391,11 @@ function createProductCard(product) {
         '<div class="product-card__footer">' +
         '<span class="product-card__price"><b>' + product.price + ' ₽</b></span>' +
         '<button aria-label="Добавить" class="product-card__add" type="button">' +
-        // SVG по умолчанию
         '<svg class="svg-default" fill="none" height="32" viewBox="0 0 80 32" width="80" xmlns="http://www.w3.org/2000/svg">' +
         '<rect fill="#7BB899" height="32" rx="8" width="80"/>' +
         '<path d="M40 10.1666V21.8333" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
         '<path d="M34.167 16H45.8337" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
         '</svg>' +
-        // SVG для мобилок
         '<svg class="svg-mobile" fill="none" height="24" viewBox="0 0 40 24" width="40" xmlns="http://www.w3.org/2000/svg">' +
         '<rect fill="#F2F2F2" height="24" rx="6" width="40"/>' +
         '<path d="M20 7.33331V16.6666" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>' +
@@ -529,22 +433,19 @@ function renderFilterList() {
     filterList.innerHTML = FILTERS.map(function (f) {
         return createFilterItem(f, f.value === checkedValue);
     }).join('');
-    // навешиваем обработчик на фильтры
     var radios = filterList.querySelectorAll('input[type="radio"]');
-    var lastChecked = null; // Запоминаем последний выбранный фильтр
-    
+    var lastChecked = null;
+
     radios.forEach(function (radio, idx) {
         radio.addEventListener('change', function () {
             if (this.checked) {
-                lastChecked = this; // Запоминаем выбранный фильтр
+                lastChecked = this;
                 filterProducts();
             }
         });
-        
-        // Добавляем возможность отключить фильтр повторным кликом
+
         radio.addEventListener('click', function (e) {
             if (this === lastChecked && this.checked) {
-                // Если кликаем по уже выбранному фильтру, отключаем его
                 setTimeout(() => {
                     this.checked = false;
                     lastChecked = null;
@@ -553,10 +454,6 @@ function renderFilterList() {
             }
         });
     });
-}
-
-function createProductList(products) {
-    return '<div class="product-list">' + products.map(createProductCard).join('') + '</div>';
 }
 
 function renderProductsComponent(list) {
@@ -570,10 +467,8 @@ function renderProductsComponent(list) {
     productList.innerHTML = list.map(createProductCard).join('');
     updateProductCount(list.length);
     initCart();
-    // Удалены повторные вызовы инициализации модалок, сортировки и слайдера
 }
 
-// === ПЕРЕОПРЕДЕЛЯЕМ ОСНОВНОЙ РЕНДЕР ===
 function filterProducts() {
     var list = getFilteredAndSortedProducts();
     renderProductsComponent(list);
@@ -605,9 +500,6 @@ function getFilteredAndSortedProducts() {
     return sorted;
 }
 
-// === ЗАГРУЗКА ТОВАРОВ С MOCKAPI ===
-// Подключаем Axios
-// Если используете ES5, подключите через <script> в HTML, здесь CommonJS:
 let axios;
 try {
     axios = require('axios');
@@ -615,7 +507,6 @@ try {
     axios = window.axios;
 }
 
-// URL вашего MockAPI (замените на свой)
 let API_URL = 'https://67f4eef9913986b16fa26cac.mockapi.io/products';
 
 function fetchProductsFromAPI() {
@@ -644,10 +535,8 @@ function fetchProductsFromAPI() {
         });
 }
 
-// === ИНИЦИАЛИЗАЦИЯ ===
 document.addEventListener('DOMContentLoaded', function () {
     renderFilterList();
-    // Загружаем товары с API, если не получится — fallback на локальные
     if (typeof axios !== 'undefined') {
         fetchProductsFromAPI();
     } else {
@@ -656,26 +545,10 @@ document.addEventListener('DOMContentLoaded', function () {
     initSlider();
     initCart();
     initCartModal();
-    initModals && initModals();
     initFilters && initFilters();
     initSort && initSort();
     initFilterModal && initFilterModal();
     initSortModal && initSortModal();
-    initMenuModal && initMenuModal();
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    const burger = document.getElementById('burgerBtn');
-    const mobileNav = document.getElementById('mobileNav');
-    if (burger && mobileNav) {
-        burger.addEventListener('click', function () {
-            mobileNav.classList.toggle('open');
-        });
-        mobileNav.addEventListener('click', function (e) {
-            // Закрывать только если клик по затемнённой области, а не по панели меню
-            if (e.target === mobileNav) {
-                mobileNav.classList.remove('open');
-            }
-        });
-    }
-}); 
+ 

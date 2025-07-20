@@ -1,4 +1,3 @@
-@charset "UTF-8";
 .header-content {
   display: flex;
   align-items: center;
@@ -297,7 +296,6 @@ nav a:last-child {
   margin-top: 72px;
 }
 
-/* Стили для футера, прижатого к низу */
 body {
   min-height: 100vh;
   display: flex;
@@ -618,14 +616,6 @@ main {
   visibility: visible;
 }
 
-.svg-default {
-  display: block;
-}
-
-.svg-mobile {
-  display: none;
-}
-
 .cart-modal {
   position: fixed;
   top: 0;
@@ -730,21 +720,21 @@ main {
   padding: 12px 0;
   position: relative;
   margin-top: 10px;
-  min-height: 120px; /* Минимальная высота, но не фиксированная */
+  min-height: 120px;
 }
 
 .cart-modal__top {
   display: flex;
-  align-items: flex-start; /* Выравнивание по верху вместо center */
+  align-items: flex-start;
   gap: 8px;
-  min-height: 96px; /* Минимальная высота вместо фиксированной */
+  min-height: 96px;
 }
 
 .cart-modal__item img {
   width: 96px;
   height: 96px;
   object-fit: cover;
-  flex-shrink: 0; /* Запрещаем сжатие изображения */
+  flex-shrink: 0;
 }
 
 .cart-modal__item span {
@@ -755,7 +745,6 @@ main {
   margin-bottom: 20px;
   font-weight: 300;
   font-size: 16px;
-  /* Убираем overflow: hidden чтобы текст не обрезался */
 }
 
 .cart-modal__item span b {
@@ -805,6 +794,10 @@ main {
   margin-right: 30px;
 }
 
+.cart-modal__remove {
+  margin-top: 30px;
+}
+
 .cart-modal__item.inactive {
   opacity: 0.5;
   pointer-events: none;
@@ -816,7 +809,6 @@ main {
   padding-bottom: 120px;
   scrollbar-width: thin;
   scrollbar-color: #c1c1c1 transparent;
-  /* Убираем любые ограничения высоты */
 }
 
 .cart-modal__items-container::-webkit-scrollbar {
@@ -837,23 +829,22 @@ main {
 }
 
 .cart-modal__footer {
-  position: fixed; /* Фиксированное позиционирование */
+  position: fixed;
   bottom: 0;
-  right: 0; /* Привязываем к правому краю модального окна */
-  width: 600px; /* Ширина равна ширине модального окна */
+  right: 0;
+  width: 600px;
   background: #fff;
   padding: 60px 0;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   border-top: 1px solid #f0f0f0;
-  z-index: 3; /* Поверх контента */
+  z-index: 3;
 }
 
-/* Адаптивность для планшетов */
 @media (max-width: 879px) {
   .cart-modal__footer {
-    width: 100%; /* На всю ширину экрана */
+    width: 100%;
     right: 0;
   }
   .cart-modal__total {
@@ -872,7 +863,6 @@ main {
     font-size: 14px;
   }
 }
-/* Адаптивность для мобильных */
 @media (max-width: 714px) {
   .cart-modal__order {
     width: 180px;
@@ -1639,6 +1629,9 @@ html, body {
     width: 38px;
     height: 38px;
   }
+  .cart-modal__remove {
+    margin-top: 25px;
+  }
 }
 @media (max-width: 714px) {
   nav.header-nav {
@@ -1755,7 +1748,6 @@ html, body {
     border: none;
     align-self: flex-start;
     margin-left: auto;
-    /*margin-right: 36px;*/
   }
   .filter-modal {
     display: none;
@@ -1828,6 +1820,10 @@ html, body {
   .main-nav a {
     color: black !important;
   }
+  .cart-modal__top {
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+  }
   .main-nav a:not(:last-child)::after {
     content: "";
     position: absolute;
@@ -1879,7 +1875,7 @@ html, body {
     max-width: 100vw !important;
   }
   .cart-modal__qty {
-    margin-left: 30px;
+    margin-left: 0;
     margin-right: 0;
   }
   .catalog-product-row {
@@ -1913,9 +1909,9 @@ html, body {
   .filter-list {
     margin-left: 0 !important;
   }
-  /*.sort-list {
-    margin-top: 38px !important;
-  }*/
+  .cart-modal__remove {
+    margin-top: 20px;
+  }
 }
 @media (max-width: 930px) {
   .header-content {
