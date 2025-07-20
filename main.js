@@ -284,50 +284,25 @@ function initSort() {
     }
 }
 
-function attachModalFilterHandlers() {
-    const modal = document.getElementById('filterModal');
-    if (!modal) return;
-    const filterList = modal.querySelector('.filter-list');
-    if (!filterList) return;
+function initFilterModal() {
+    const {modal} = initModal('filterOpenBtn', 'filterModal', 'filterOverlay', 'filterModalClose');
 
-    // Удаляем старый обработчик, если был
-    filterList.onclick = null;
+    const modalRadios = modal ? modal.querySelectorAll('input[type="radio"]') : [];
+    let lastCheckedModal = null;
 
-    // Новый код: сброс по повторному клику
-    const radios = filterList.querySelectorAll('input[type="radio"]');
-    let lastChecked = null;
-    radios.forEach(function (radio) {
+    modalRadios.forEach(function (radio) {
         radio.addEventListener('change', function () {
             if (this.checked) {
-                lastChecked = this;
-                // Синхронизируем основной фильтр
-                const mainFilterList = document.querySelector('.catalog-top-line > .filter-list');
-                if (mainFilterList) {
-                    const mainRadios = mainFilterList.querySelectorAll('input[type="radio"]');
-                    mainRadios.forEach(function (mainRadio) {
-                        const modalLabel = radio.parentNode.textContent.trim();
-                        const mainLabel = mainRadio.parentNode.textContent.trim();
-                        mainRadio.checked = (modalLabel === mainLabel);
-                    });
-                }
+                lastCheckedModal = this;
                 filterProducts();
-                // renderModalFilterList(); // убираем, чтобы не пересоздавать DOM
             }
         });
+
         radio.addEventListener('click', function () {
-            if (this === lastChecked && this.checked) {
+            if (this === lastCheckedModal && this.checked) {
                 setTimeout(() => {
                     this.checked = false;
-                    this.dispatchEvent(new Event('change', { bubbles: true })); // триггерим обновление анимации
-                    lastChecked = null;
-                    // Синхронизируем основной фильтр
-                    const mainFilterList = document.querySelector('.catalog-top-line > .filter-list');
-                    if (mainFilterList) {
-                        const mainRadios = mainFilterList.querySelectorAll('input[type="radio"]');
-                        mainRadios.forEach(function (mainRadio) {
-                            mainRadio.checked = false;
-                        });
-                    }
+                    lastCheckedModal = null;
                     filterProducts();
                 }, 0);
             }
@@ -335,98 +310,39 @@ function attachModalFilterHandlers() {
     });
 }
 
-function renderModalFilterList() {
-    const modalFilterList = document.querySelector('#filterModal .filter-list');
-    if (!modalFilterList) return;
-    const mainFilterList = document.querySelector('.catalog-top-line > .filter-list');
-    let checkedValue = null;
-    if (mainFilterList) {
-        const checkedRadio = mainFilterList.querySelector('input[type="radio"]:checked');
-        checkedValue = checkedRadio ? checkedRadio.parentNode.textContent.trim() : null;
-    }
-    modalFilterList.innerHTML = FILTERS.map(function (f) {
-        // Если checkedValue === null, ни один radio не выделен
-        return createFilterItem(f, checkedValue && f.value === checkedValue);
-    }).join('');
-    attachModalFilterHandlers();
-}
-
-// Модифицируем initModal для фильтра, чтобы рендерить фильтры при открытии
-function initModal(openBtnId, modalId, overlayId, closeBtnId) {
-    const openBtn = document.getElementById(openBtnId);
-    const modal = document.getElementById(modalId);
-    const overlay = document.getElementById(overlayId);
-    const closeBtn = document.getElementById(closeBtnId);
-
-    if (openBtn) {
-        openBtn.addEventListener('click', function () {
-            if (modalId === 'filterModal') {
-                renderModalFilterList();
-            }
-            modal.classList.add('open');
-        });
-    }
-
-    if (closeBtn) {
-        closeBtn.addEventListener('click', function () {
-            modal.classList.remove('open');
-        });
-    }
-
-    if (overlay) {
-        overlay.addEventListener('click', function () {
-            modal.classList.remove('open');
-        });
-    }
-
-    return {modal, overlay, closeBtn};
-}
-
-function initFilterModal() {
-    initModal('filterOpenBtn', 'filterModal', 'filterOverlay', 'filterModalClose');
-    // Добавляем обработчик на кнопку сброса фильтра
-    const resetBtn = document.getElementById('filterModalReset');
-    if (resetBtn) {
-        resetBtn.addEventListener('click', function () {
-            // Снимаем все фильтры в основной панели
-            const mainFilterList = document.querySelector('.catalog-top-line > .filter-list');
-            if (mainFilterList) {
-                const mainRadios = mainFilterList.querySelectorAll('input[type="radio"]');
-                mainRadios.forEach(radio => radio.checked = false);
-            }
-            renderFilterList();
-            // Снимаем все фильтры в модалке
-            const modalFilterList = document.querySelector('#filterModal .filter-list');
-            if (modalFilterList) {
-                const modalRadios = modalFilterList.querySelectorAll('input[type="radio"]');
-                modalRadios.forEach(radio => radio.checked = false);
-            }
-            filterProducts();
-            // renderModalFilterList(); // убираем, чтобы не пересоздавать DOM
-            // Закрываем модалку
-            const modal = document.getElementById('filterModal');
-            if (modal) modal.classList.remove('open');
-        });
-    }
-}
-
 function initSortModal() {
-    const {modal} = initModal('sortOpenBtn', 'sortModal', 'sortModalOverlay', 'sortModalClose');
-    const sortItems = modal ? modal.querySelectorAll('.sort-item') : [];
-
+    const sortOpenBtn = document.getElementById('sortOpenBtn');
+    const sortModal = document.getElementById('sortModal');
+    const sortOverlay = document.getElementById('sortModalOverlay');
+    const sortCloseBtn = document.getElementById('sortModalClose');
+    if (sortOpenBtn && sortModal) {
+        sortOpenBtn.addEventListener('click', function () {
+            sortModal.classList.add('open');
+        });
+    }
+    if (sortCloseBtn && sortModal) {
+        sortCloseBtn.addEventListener('click', function () {
+            sortModal.classList.remove('open');
+        });
+    }
+    if (sortOverlay && sortModal) {
+        sortOverlay.addEventListener('click', function () {
+            sortModal.classList.remove('open');
+        });
+    }
+    // Обработчики выбора сортировки в модалке
+    const sortItems = sortModal ? sortModal.querySelectorAll('.sort-item') : [];
     sortItems.forEach(function (item) {
         item.addEventListener('click', function () {
             sortItems.forEach(function (opt) {
                 opt.classList.remove('custom-select__option--active');
             });
             item.classList.add('custom-select__option--active');
-
             const selected = document.querySelector('.custom-select__selected');
             if (selected) {
                 selected.textContent = item.textContent;
             }
-
-            modal.classList.remove('open');
+            sortModal.classList.remove('open');
             sortProducts();
         });
     });
@@ -475,8 +391,7 @@ function createFilterItem(filter, checked) {
 }
 
 function renderFilterList() {
-    // Рендерим только основной фильтр
-    const filterList = document.querySelector('.catalog-top-line > .filter-list');
+    const filterList = document.querySelector('.filter-list');
     if (!filterList) return;
     const currentChecked = filterList.querySelector('input[type="radio"]:checked');
     const checkedValue = currentChecked ? currentChecked.parentNode.textContent.trim() : null;
@@ -498,7 +413,7 @@ function renderFilterList() {
             if (this === lastChecked && this.checked) {
                 setTimeout(() => {
                     this.checked = false;
-                    this.dispatchEvent(new Event('change', { bubbles: true })); // триггерим обновление анимации
+                    this.dispatchEvent(new Event('change', {bubbles: true})); // триггерим обновление анимации
                     lastChecked = null;
                     filterProducts();
                 }, 0);
@@ -528,7 +443,7 @@ function sortProducts() {
 }
 
 function getFilteredAndSortedProducts() {
-    const checked = document.querySelector('.filter-list:not(.filter-modal .filter-list) input[type="radio"]:checked');
+    const checked = document.querySelector('.filter-list input[type="radio"]:checked');
     const type = checked ? checked.parentNode.textContent.trim().toUpperCase() : null;
     const filtered = type ? products.filter(function (product) {
         return product.type === type;
@@ -623,7 +538,6 @@ document.addEventListener('DOMContentLoaded', function () {
     initCartModal();
     if (typeof initFilters === 'function') initFilters();
     if (typeof initSort === 'function') initSort();
-    if (typeof initFilterModal === 'function') initFilterModal();
     if (typeof initSortModal === 'function') initSortModal();
 });
 
