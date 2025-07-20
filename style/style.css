@@ -1423,7 +1423,7 @@ html, body {
   }
   .filter-modal__close {
     position: absolute;
-    top: 0;
+    top: 16px;
     right: 16px;
     background: none;
     border: none;

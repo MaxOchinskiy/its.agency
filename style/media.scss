@@ -1,3 +1,140 @@
+@mixin filter-modal-base {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 20%;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 2000;
+}
+
+@mixin filter-modal-open {
+  display: flex;
+}
+
+@mixin filter-modal-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 80%;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+@mixin filter-modal-content {
+  position: relative;
+  background: #fff;
+  border-radius: 24px 24px 0 0;
+  width: 100%;
+  height: 100%;
+  padding: 32px 24px 24px 24px;
+  z-index: 1;
+}
+
+@mixin filter-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 2;
+}
+
+
+@mixin sort-modal-base {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 20%;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 2000;
+}
+
+@mixin sort-modal-open {
+  display: flex;
+}
+
+@mixin sort-modal-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 80%;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+@mixin sort-modal-content {
+  position: relative;
+  background: #fff;
+  border-radius: 24px 24px 0 0;
+  width: 100%;
+  height: 100%;
+  padding: 32px 24px 24px 24px;
+  z-index: 1;
+}
+
+@mixin sort-modal-close {
+  position: absolute;
+  top: 0;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 2;
+}
+
+
+@mixin filter-list-hidden {
+  display: none !important;
+}
+
+@mixin filter-mobile-btn-base($margin-left: 35px) {
+  display: block !important;
+  font-size: 12px;
+  color: #000000;
+  border: none;
+  align-self: flex-start;
+  margin-right: auto;
+  margin-left: $margin-left;
+}
+
+@mixin filter-mobile-base {
+  display: block !important;
+  font-size: 12px;
+  color: #000000;
+  border: none;
+  align-self: flex-start;
+  margin-left: auto;
+}
+
+@mixin filter-modal-complete {
+  .filter-modal {
+    @include filter-modal-base;
+  }
+  .filter-modal.open {
+    @include filter-modal-open;
+  }
+  .filter-modal__overlay {
+    @include filter-modal-overlay;
+  }
+  .filter-modal__content {
+    @include filter-modal-content;
+  }
+  .filter-modal .filter-list {
+    display: block !important;
+  }
+}
+
 .svg-default {
   display: block;
 }
@@ -361,49 +498,22 @@
     margin-left: auto;
   }
   .filter-modal {
-    display: none;
-    position: fixed;
-    left: 0;
-    top: 20%;
-    right: 0;
-    bottom: 0;
-    justify-content: center;
-    align-items: flex-end;
-    z-index: 2000;
+    @include filter-modal-base;
   }
   .filter-modal.open {
-    display: flex;
+    @include filter-modal-open;
   }
   .filter-modal__overlay {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 80%;
-    height: 100%;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    @include filter-modal-overlay;
   }
   .filter-modal__content {
-    position: relative;
-    background: #fff;
-    border-radius: 24px 24px 0 0;
-    width: 100%;
-    height: 100%;
-    padding: 32px 24px 24px 24px;
-    z-index: 1;
+    @include filter-modal-content;
   }
   .filter-modal .filter-list {
     display: block !important;
   }
   .filter-modal__close {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    z-index: 2;
+    @include filter-modal-close;
   }
 
 
@@ -422,49 +532,22 @@
     margin-left: 35px;
   }
   .filter-modal {
-    display: none;
-    position: fixed;
-    left: 0;
-    top: 20%;
-    right: 0;
-    bottom: 0;
-    justify-content: center;
-    align-items: flex-end;
-    z-index: 2000;
+    @include filter-modal-base;
   }
   .filter-modal.open {
-    display: flex;
+    @include filter-modal-open;
   }
   .filter-modal__overlay {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 80%;
-    height: 100%;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    @include filter-modal-overlay;
   }
   .filter-modal__content {
-    position: relative;
-    background: #fff;
-    border-radius: 24px 24px 0 0;
-    width: 100%;
-    height: 100%;
-    padding: 32px 24px 24px 24px;
-    z-index: 1;
+    @include filter-modal-content;
   }
   .filter-modal .filter-list {
     display: block !important;
   }
   .filter-modal__close {
-    position: absolute;
-    top: 0;
-    right: 16px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    z-index: 2;
+    @include filter-modal-close;
   }
 
   .custom-select__selected,
@@ -482,49 +565,22 @@
     cursor: pointer;
   }
   .sort-modal {
-    display: none;
-    position: fixed;
-    left: 0;
-    top: 20%;
-    right: 0;
-    bottom: 0;
-    justify-content: center;
-    align-items: flex-end;
-    z-index: 2000;
+    @include sort-modal-base;
   }
   .sort-modal.open {
-    display: flex;
+    @include sort-modal-open;
   }
   .sort-modal__overlay {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 80%;
-    height: 100%;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    @include sort-modal-overlay;
   }
   .sort-modal__content {
-    position: relative;
-    background: #fff;
-    border-radius: 24px 24px 0 0;
-    width: 100%;
-    height: 100%;
-    padding: 32px 24px 24px 24px;
-    z-index: 1;
+    @include sort-modal-content;
   }
   .sort-modal .sort-list {
     display: block !important;
   }
   .sort-modal__close {
-    position: absolute;
-    top: 0;
-    right: 16px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    z-index: 2;
+    @include sort-modal-close;
   }
   .sort-item {
     cursor: pointer;
@@ -606,61 +662,15 @@
     margin-top: 16px !important;
   }
   .filter-list {
-    display: none !important;
+    @include filter-list-hidden;
   }
   .filter-mobile-btn {
-    display: block !important;
-    font-size: 12px;
-    color: #000000;
-    border: none;
-    align-self: flex-start;
-    margin-right: auto;
-    margin-left: 35px;
+    @include filter-mobile-btn-base(35px);
   }
   .filter-mobile {
-    display: block !important;
-    font-size: 12px;
-    color: #000000;
-    border: none;
-    align-self: flex-start;
-    margin-left: auto;
-
+    @include filter-mobile-base;
   }
-  .filter-modal {
-    display: none;
-    position: fixed;
-    left: 0;
-    top: 20%;
-    right: 0;
-    bottom: 0;
-    justify-content: center;
-    align-items: flex-end;
-    z-index: 2000;
-  }
-  .filter-modal.open {
-    display: flex;
-  }
-  .filter-modal__overlay {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 80%;
-    height: 100%;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.4);
-  }
-  .filter-modal__content {
-    position: relative;
-    background: #fff;
-    border-radius: 24px 24px 0 0;
-    width: 100%;
-    height: 100%;
-    padding: 32px 24px 24px 24px;
-    z-index: 1;
-  }
-  .filter-modal .filter-list {
-    display: block !important;
-  }
+  @include filter-modal-complete;
   .cartItems {
     margin-left: 26px !important;
 
@@ -700,60 +710,15 @@
     padding-right: 24px !important;
   }
   .filter-list {
-    display: none !important;
+    @include filter-list-hidden;
   }
   .filter-mobile-btn {
-    display: block !important;
-    font-size: 12px;
-    color: #000000;
-    border: none;
-    align-self: flex-start;
-    margin-right: auto;
-    margin-left: 35px;
+    @include filter-mobile-btn-base(35px);
   }
   .filter-mobile {
-    display: block !important;
-    font-size: 12px;
-    color: #000000;
-    border: none;
-    align-self: flex-start;
-    margin-left: auto;
+    @include filter-mobile-base;
   }
-  .filter-modal {
-    display: none;
-    position: fixed;
-    left: 0;
-    top: 20%;
-    right: 0;
-    bottom: 0;
-    justify-content: center;
-    align-items: flex-end;
-    z-index: 2000;
-  }
-  .filter-modal.open {
-    display: flex;
-  }
-  .filter-modal__overlay {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 80%;
-    height: 100%;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.4);
-  }
-  .filter-modal__content {
-    position: relative;
-    background: #fff;
-    border-radius: 24px 24px 0 0;
-    width: 100%;
-    height: 100%;
-    padding: 32px 24px 24px 24px;
-    z-index: 1;
-  }
-  .filter-modal .filter-list {
-    display: block !important;
-  }
+  @include filter-modal-complete;
 }
 
 @media(max-width: 443px) {
@@ -778,64 +743,18 @@
     padding-right: 24px !important;
   }
   .filter-list {
-    display: none !important;
+    @include filter-list-hidden;
   }
   .hide-slice_f {
     display: none !important;
   }
   .filter-mobile-btn {
-    display: block !important;
-    font-size: 12px;
-    color: #000000;
-    border: none;
-    align-self: flex-start;
-    margin-right: auto;
-    margin-left: 25px;
+    @include filter-mobile-btn-base(25px);
   }
   .filter-mobile {
-    display: block !important;
-    font-size: 12px;
-    color: #000000;
-    border: none;
-    align-self: flex-start;
-    margin-left: auto;
-
+    @include filter-mobile-base;
   }
-  .filter-modal {
-    display: none;
-    position: fixed;
-    left: 0;
-    top: 20%;
-    right: 0;
-    bottom: 0;
-    justify-content: center;
-    align-items: flex-end;
-    z-index: 2000;
-  }
-  .filter-modal.open {
-    display: flex;
-  }
-  .filter-modal__overlay {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 80%;
-    height: 100%;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.4);
-  }
-  .filter-modal__content {
-    position: relative;
-    background: #fff;
-    border-radius: 24px 24px 0 0;
-    width: 100%;
-    height: 100%;
-    padding: 32px 24px 24px 24px;
-    z-index: 1;
-  }
-  .filter-modal .filter-list {
-    display: block !important;
-  }
+  @include filter-modal-complete;
 }
 
 @media (max-width: 480px) {
