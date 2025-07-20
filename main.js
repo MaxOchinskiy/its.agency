@@ -284,30 +284,59 @@ function initSort() {
     }
 }
 
-function initFilterModal() {
-    const {modal} = initModal('filterOpenBtn', 'filterModal', 'filterOverlay', 'filterModalClose');
+function renderModalFilterList() {
+    const filterList = document.querySelector('#filterModal .filter-list');
+    if (!filterList) return;
+    filterList.innerHTML = FILTERS.map(function (f) {
+        return createFilterItem(f, false); // всегда невыбранные, можно синхронизировать если нужно
+    }).join('');
+    attachModalFilterHandlers();
+}
 
-    const modalRadios = modal ? modal.querySelectorAll('input[type="radio"]') : [];
-    let lastCheckedModal = null;
-
-    modalRadios.forEach(function (radio) {
+function attachModalFilterHandlers() {
+    const filterList = document.querySelector('#filterModal .filter-list');
+    if (!filterList) return;
+    const radios = filterList.querySelectorAll('input[type="radio"]');
+    let lastChecked = null;
+    radios.forEach(function (radio) {
         radio.addEventListener('change', function () {
             if (this.checked) {
-                lastCheckedModal = this;
-                filterProducts();
+                lastChecked = this;
+                // Здесь можно вызвать фильтрацию для модалки, если нужно
             }
         });
-
-        radio.addEventListener('click', function () {
-            if (this === lastCheckedModal && this.checked) {
-                setTimeout(() => {
-                    this.checked = false;
-                    lastCheckedModal = null;
-                    filterProducts();
-                }, 0);
+        radio.addEventListener('mousedown', function (e) {
+            if (this.checked) {
+                e.preventDefault();
+                this.checked = false;
+                lastChecked = null;
+                // Здесь можно сбросить фильтрацию для модалки, если нужно
             }
         });
     });
+}
+
+function initFilterModal() {
+    const filterOpenBtn = document.getElementById('filterOpenBtn');
+    const filterModal = document.getElementById('filterModal');
+    const filterOverlay = document.getElementById('filterOverlay');
+    const filterCloseBtn = document.getElementById('filterModalClose');
+    if (filterOpenBtn && filterModal) {
+        filterOpenBtn.addEventListener('click', function () {
+            renderModalFilterList();
+            filterModal.classList.add('open');
+        });
+    }
+    if (filterCloseBtn && filterModal) {
+        filterCloseBtn.addEventListener('click', function () {
+            filterModal.classList.remove('open');
+        });
+    }
+    if (filterOverlay && filterModal) {
+        filterOverlay.addEventListener('click', function () {
+            filterModal.classList.remove('open');
+        });
+    }
 }
 
 function initSortModal() {
@@ -539,6 +568,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (typeof initFilters === 'function') initFilters();
     if (typeof initSort === 'function') initSort();
     if (typeof initSortModal === 'function') initSortModal();
+    if (typeof initFilterModal === 'function') initFilterModal();
 });
 
  
