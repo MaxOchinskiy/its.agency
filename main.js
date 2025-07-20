@@ -175,6 +175,47 @@ function initCartModal() {
     });
 }
 
+function renderFilterList(targetSelector) {
+    const filterList = typeof targetSelector === 'string'
+        ? document.querySelector(targetSelector)
+        : targetSelector; // можно передавать сам элемент
+
+    if (!filterList) return;
+
+    const currentChecked = filterList.querySelector('input[type="radio"]:checked');
+    const checkedValue = currentChecked
+        ? currentChecked.parentNode.textContent.trim()
+        : null;
+
+    filterList.innerHTML = FILTERS.map(function (f) {
+        return createFilterItem(f, f.value === checkedValue);
+    }).join('');
+
+    const radios = filterList.querySelectorAll('input[type="radio"]');
+    let lastChecked = null;
+
+    radios.forEach(function (radio) {
+        radio.addEventListener('change', function () {
+            if (this.checked) {
+                lastChecked = this;
+                filterProducts();
+            }
+        });
+
+        // Отмена фильтра по повторному клику
+        radio.addEventListener('click', function () {
+            if (this === lastChecked && this.checked) {
+                setTimeout(() => {
+                    this.checked = false;
+                    this.dispatchEvent(new Event('change', {bubbles: true}));
+                    lastChecked = null;
+                    filterProducts();
+                }, 0);
+            }
+        });
+    });
+}
+
 function initCart() {
     const addToCartBtns = document.querySelectorAll('.product-card__add');
     addToCartBtns.forEach(function (btn) {
@@ -232,13 +273,44 @@ if (hamburger && navMenu) {
 }
 
 function initFilters() {
-    const filterItems = document.querySelectorAll('.filter-item input[type="radio"]');
-    filterItems.forEach(function (item) {
-        item.addEventListener('change', function () {
-            filterProducts();
+    const filterItems = document.querySelectorAll('.custom-filter .filter-item');
+
+    filterItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const isActive = item.classList.contains('filter-item--active');
+            const filterType = item.dataset.filterType;
+            const filterValue = item.dataset.filterValue;
+
+            if (isActive) {
+                // Снимаем активность и сбрасываем фильтр
+                item.classList.remove('filter-item--active');
+                resetFilter(filterType, filterValue);
+            } else {
+                // Снимаем активность у других фильтров этого типа и ставим активность на кликнутом
+                document.querySelectorAll(`.filter-item[data-filter-type="${filterType}"]`)
+                    .forEach(el => el.classList.remove('filter-item--active'));
+
+                item.classList.add('filter-item--active');
+                applyFilter(filterType, filterValue);
+            }
         });
     });
 }
+
+// Пример заглушек для функций применения и сброса фильтра
+function applyFilter(type, value) {
+    console.log(`Применяем фильтр: ${type} = ${value}`);
+    // Здесь твоя логика применения фильтра
+}
+
+function resetFilter(type, value) {
+    console.log(`Сбрасываем фильтр: ${type} = ${value}`);
+    // Здесь твоя логика сброса фильтра
+}
+
+// Запуск инициализации фильтров
+initFilters();
+
 
 function initSort() {
     const customSelect = document.querySelector('.custom-select.main-nav__sort__catalog__text');
@@ -280,61 +352,6 @@ function initSort() {
         sortOverlay.addEventListener('click', function () {
             customSelect.classList.remove('open');
             sortOverlay.style.display = 'none';
-        });
-    }
-}
-
-function renderModalFilterList() {
-    const filterList = document.querySelector('#filterModal .filter-list');
-    if (!filterList) return;
-    filterList.innerHTML = FILTERS.map(function (f) {
-        return createFilterItem(f, false); // всегда невыбранные, можно синхронизировать если нужно
-    }).join('');
-    attachModalFilterHandlers();
-}
-
-function attachModalFilterHandlers() {
-    const filterList = document.querySelector('#filterModal .filter-list');
-    if (!filterList) return;
-    const radios = filterList.querySelectorAll('input[type="radio"]');
-    let lastChecked = null;
-    radios.forEach(function (radio) {
-        radio.addEventListener('change', function () {
-            if (this.checked) {
-                lastChecked = this;
-                // Здесь можно вызвать фильтрацию для модалки, если нужно
-            }
-        });
-        radio.addEventListener('mousedown', function (e) {
-            if (this.checked) {
-                e.preventDefault();
-                this.checked = false;
-                lastChecked = null;
-                // Здесь можно сбросить фильтрацию для модалки, если нужно
-            }
-        });
-    });
-}
-
-function initFilterModal() {
-    const filterOpenBtn = document.getElementById('filterOpenBtn');
-    const filterModal = document.getElementById('filterModal');
-    const filterOverlay = document.getElementById('filterOverlay');
-    const filterCloseBtn = document.getElementById('filterModalClose');
-    if (filterOpenBtn && filterModal) {
-        filterOpenBtn.addEventListener('click', function () {
-            renderModalFilterList();
-            filterModal.classList.add('open');
-        });
-    }
-    if (filterCloseBtn && filterModal) {
-        filterCloseBtn.addEventListener('click', function () {
-            filterModal.classList.remove('open');
-        });
-    }
-    if (filterOverlay && filterModal) {
-        filterOverlay.addEventListener('click', function () {
-            filterModal.classList.remove('open');
         });
     }
 }
@@ -419,35 +436,43 @@ function createFilterItem(filter, checked) {
     `;
 }
 
-function renderFilterList() {
-    const filterList = document.querySelector('.filter-list');
-    if (!filterList) return;
-    const currentChecked = filterList.querySelector('input[type="radio"]:checked');
-    const checkedValue = currentChecked ? currentChecked.parentNode.textContent.trim() : null;
-    filterList.innerHTML = FILTERS.map(function (f) {
-        return createFilterItem(f, f.value === checkedValue);
-    }).join('');
-    const radios = filterList.querySelectorAll('input[type="radio"]');
-    let lastChecked = null;
+function initFilterModal() {
+    const openBtn = document.getElementById('filterOpenBtn');
+    const modal = document.getElementById('filterModal');
+    const overlay = document.getElementById('filterOverlay');
+    const closeBtn = document.getElementById('filterModalClose');
+    const modalList = modal ? modal.querySelector('.filter-list') : null;
 
-    radios.forEach(function (radio) {
-        radio.addEventListener('change', function () {
-            if (this.checked) {
-                lastChecked = this;
-                filterProducts();
-            }
-        });
+    if (!modal) return; // нет модалки — выходим
 
-        radio.addEventListener('click', function () {
-            if (this === lastChecked && this.checked) {
-                setTimeout(() => {
-                    this.checked = false;
-                    this.dispatchEvent(new Event('change', {bubbles: true})); // триггерим обновление анимации
-                    lastChecked = null;
-                    filterProducts();
-                }, 0);
-            }
-        });
+    // при первом открытии — отрендерим список
+    let initialized = false;
+
+    function ensureRendered() {
+        if (initialized) return;
+        renderFilterList(modalList);
+        initialized = true;
+    }
+
+    function openModal() {
+        ensureRendered();
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    if (openBtn) openBtn.addEventListener('click', openModal);
+    if (overlay) overlay.addEventListener('click', closeModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('open')) {
+            closeModal();
+        }
     });
 }
 
@@ -464,7 +489,12 @@ function renderProductsComponent(list) {
 function filterProducts() {
     const list = getFilteredAndSortedProducts();
     renderProductsComponent(list);
+
+    renderFilterList('.catalog-top-line > .filter-list');
+    const modalList = document.querySelector('#filterModal .filter-list');
+    if (modalList) renderFilterList(modalList);
 }
+
 
 function sortProducts() {
     const list = getFilteredAndSortedProducts();
@@ -555,20 +585,43 @@ function fetchProductsFromAPI() {
         });
 }
 
+document.querySelectorAll('.custom-filter .filter-item').forEach(item => {
+    item.addEventListener('click', () => {
+        const isActive = item.classList.contains('filter-item--active');
+        const filterType = item.dataset.filterType;
+        if (isActive) {
+            item.classList.remove('filter-item--active');
+            console.log(`Фильтр "${item.dataset.filterValue}" сброшен`);
+        } else {
+            document.querySelectorAll(`.filter-item[data-filter-type="${filterType}"]`)
+                .forEach(el => el.classList.remove('filter-item--active'));
+
+
+            item.classList.add('filter-item--active');
+            console.log(`Фильтр "${item.dataset.filterValue}" применён`);
+        }
+    });
+});
+
+
 document.addEventListener('DOMContentLoaded', function () {
-    renderFilterList();
+
+    renderFilterList('.catalog-top-line > .filter-list');
+
     if (axios) {
         fetchProductsFromAPI();
     } else {
         renderProductsComponent(getFilteredAndSortedProducts());
     }
+
     initSlider();
     initCart();
     initCartModal();
     if (typeof initFilters === 'function') initFilters();
     if (typeof initSort === 'function') initSort();
     if (typeof initSortModal === 'function') initSortModal();
-    if (typeof initFilterModal === 'function') initFilterModal();
+    initFilterModal();
 });
+
 
  
