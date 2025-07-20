@@ -477,15 +477,12 @@
     display: none !important;
   }
   .filter-mobile-btn {
-    display: block !important;
-    font-size: 12px;
-    color: #000000;
-    border: none;
-    align-self: flex-start !important; /* если нужно выравнивание по вертикали сверху */
-    justify-content: flex-end !important;
-    /*margin-left: 90%;
-    margin-right: auto; !* можно и убрать *!*/
-    /* или просто margin: 0; */
+    position: absolute;
+    left: 0;
+  }
+
+  .sort-mobile-btn {
+    margin-left: 10% !important;
   }
   .header-content__logo-img {
     display: flex;

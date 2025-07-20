@@ -202,7 +202,6 @@ function renderFilterList(targetSelector) {
             }
         });
 
-        // Отмена фильтра по повторному клику
         radio.addEventListener('click', function () {
             if (this === lastChecked && this.checked) {
                 setTimeout(() => {
@@ -282,11 +281,9 @@ function initFilters() {
             const filterValue = item.dataset.filterValue;
 
             if (isActive) {
-                // Снимаем активность и сбрасываем фильтр
                 item.classList.remove('filter-item--active');
                 resetFilter(filterType, filterValue);
             } else {
-                // Снимаем активность у других фильтров этого типа и ставим активность на кликнутом
                 document.querySelectorAll(`.filter-item[data-filter-type="${filterType}"]`)
                     .forEach(el => el.classList.remove('filter-item--active'));
 
