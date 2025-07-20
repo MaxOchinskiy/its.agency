@@ -284,12 +284,11 @@ function initSort() {
     }
 }
 
-function initFilterModal() {
-    const openBtn = document.getElementById('filterOpenBtn');
-    const modal = document.getElementById('filterModal');
-    const overlay = document.getElementById('filterOverlay');
-    const closeBtn = document.getElementById('filterModalClose');
-
+function initModal(openBtnId, modalId, overlayId, closeBtnId) {
+    const openBtn = document.getElementById(openBtnId);
+    const modal = document.getElementById(modalId);
+    const overlay = document.getElementById(overlayId);
+    const closeBtn = document.getElementById(closeBtnId);
 
     if (openBtn) {
         openBtn.addEventListener('click', function () {
@@ -297,13 +296,23 @@ function initFilterModal() {
         });
     }
 
-    if (closeBtn) closeBtn.addEventListener('click', function () {
-        modal.classList.remove('open');
-    });
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function () {
+            modal.classList.remove('open');
+        });
+    }
 
-    if (overlay) overlay.addEventListener('click', function () {
-        modal.classList.remove('open');
-    });
+    if (overlay) {
+        overlay.addEventListener('click', function () {
+            modal.classList.remove('open');
+        });
+    }
+
+    return {modal, overlay, closeBtn};
+}
+
+function initFilterModal() {
+    const {modal} = initModal('filterOpenBtn', 'filterModal', 'filterOverlay', 'filterModalClose');
 
     const modalRadios = modal ? modal.querySelectorAll('input[type="radio"]') : [];
     let lastCheckedModal = null;
@@ -329,26 +338,8 @@ function initFilterModal() {
 }
 
 function initSortModal() {
-    const openBtn = document.getElementById('sortOpenBtn');
-    const modal = document.getElementById('sortModal');
-    const overlay = document.getElementById('sortOverlay');
-    const closeBtn = document.getElementById('sortModalClose');
+    const {modal} = initModal('sortOpenBtn', 'sortModal', 'sortModalOverlay', 'sortModalClose');
     const sortItems = modal ? modal.querySelectorAll('.sort-item') : [];
-
-
-    if (openBtn) {
-        openBtn.addEventListener('click', function () {
-            modal.classList.add('open');
-        });
-    }
-
-    if (closeBtn) closeBtn.addEventListener('click', function () {
-        modal.classList.remove('open');
-    });
-
-    if (overlay) overlay.addEventListener('click', function () {
-        modal.classList.remove('open');
-    });
 
     sortItems.forEach(function (item) {
         item.addEventListener('click', function () {
@@ -484,16 +475,41 @@ function getFilteredAndSortedProducts() {
 
 let axios;
 
-if (typeof window !== 'undefined' && window.axios) {
-    axios = window.axios;
+
+if (typeof window !== 'undefined') {
+    if (window.axios) {
+        axios = window.axios;
+    } else {
+        try {
+            axios = window.axios || null;
+        } catch (e) {
+            axios = null;
+        }
+    }
 } else {
     axios = null;
+}
+
+
+if (!axios) {
+    axios = {
+        get: function (url) {
+            return fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json().then(data => ({data}));
+                });
+        }
+    };
 }
 
 const API_URL = 'https://67f4eef9913986b16fa26cac.mockapi.io/products';
 
 function fetchProductsFromAPI() {
     if (!axios) {
+        console.warn('Axios is not available. Skipping API call.');
         renderProductsComponent(getFilteredAndSortedProducts());
         return Promise.resolve();
     }
@@ -501,7 +517,7 @@ function fetchProductsFromAPI() {
     return axios.get(API_URL)
         .then(function (response) {
             if (Array.isArray(response.data)) {
-                products.length = 0; // Clear array instead of reassignment
+                products.length = 0;
                 response.data.forEach(function (item) {
                     products.push({
                         id: item.id,
@@ -514,7 +530,10 @@ function fetchProductsFromAPI() {
                 renderProductsComponent(getFilteredAndSortedProducts());
             }
         })
-
+        .catch(function (error) {
+            console.warn('Ошибка загрузки товаров с API:', error.message);
+            renderProductsComponent(getFilteredAndSortedProducts());
+        });
 }
 
 document.addEventListener('DOMContentLoaded', function () {

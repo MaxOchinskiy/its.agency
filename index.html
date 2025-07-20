@@ -45,14 +45,13 @@
                 <span></span>
                 <span></span>
                 <span></span>
-                <svg class="hamburger-cross" fill="none" height="48" viewBox="0 0 48 48" width="48"
-                     xmlns="http://www.w3.org/2000/svg">
+                <svg class="hamburger-cross" height="48" style="fill: none;" viewBox="0 0 48 48" width="48">
                     <circle cx="24" cy="24" opacity="0.1" r="23.5" stroke="black"/>
                     <g transform="translate(12,12)">
-                        <path d="M18 6L6 18" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round"
-                              stroke-width="1.4"/>
-                        <path d="M6 6L18 18" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round"
-                              stroke-width="1.4"/>
+                        <path d="M18 6L6 18" stroke="#1F2020"
+                              style="stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.4;"/>
+                        <path d="M6 6L18 18" stroke="#1F2020"
+                              style="stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.4;"/>
                     </g>
                 </svg>
             </button>
@@ -70,8 +69,7 @@
                 <a href="#"><img alt="Избранное" class="hide-menu" src="image/heart.png"></a>
                 <div class="header__menu__cart">
                     <span class="cart-icon ">
-                        <svg fill="none" height="24" viewBox="0 0 24 24" width="24"
-                             xmlns="http://www.w3.org/2000/svg">
+                        <svg height="24" style="fill: none;" viewBox="0 0 24 24" width="24">
                             <circle cx="12" cy="12" fill="#7BB899" r="12"/>
                             <text fill="black" font-family="Arial" font-size="12" id="cartTotalCountHeader"
                                   text-anchor="middle" x="12" y="16">
@@ -86,7 +84,6 @@
     </div>
 </header>
 
-<!-- Overlay затемнение -->
 <div class="overlay" id="selectOverlay"></div>
 <div class="overlay" id="sortOverlay" style="display:none;"></div>
 
@@ -109,8 +106,8 @@
             цвет!</p>
         <div class="main-nav__slice-f hide-slice_f">
             <div class="main-slider-dots">
-                <svg fill="none" height="32" viewBox="0 0 124 32" width="124" xmlns="http://www.w3.org/2000/svg">
-                    <rect fill="black" fill-opacity="0.4" height="32" rx="16" width="124"/>
+                <svg height="32" style="fill: none;" viewBox="0 0 124 32" width="124">
+                    <rect fill="black" height="32" rx="16" style="fill-opacity: 0.4;" width="124"/>
                     <circle cx="27" cy="16" fill="white" r="3"/>
                     <circle cx="41" cy="16" fill="white" opacity="0.2" r="3"/>
                     <circle cx="55" cy="16" fill="white" opacity="0.2" r="3"/>
@@ -127,9 +124,8 @@
             <img alt="Chevron right" src="image/chevron-right.png"/>
         </div>
     </div>
-    <!-- Кастомный селект -->
     <div class="catalog-top-line">
-        <div class="filter-list"><!-- filter items will be rendered by JS --></div>
+        <div class="filter-list"></div>
         <div class="custom-select main-nav__sort__catalog__text">
             <div>
                 <span class="filter-mobile-btn" id="filterOpenBtn">ФИЛЬТРЫ</span>
@@ -137,8 +133,7 @@
                     <div class="filter-modal__overlay" id="filterOverlay"></div>
                     <div class="filter-modal__content">
                         <button class="filter-modal__close" id="filterModalClose">
-                            <svg fill="none" height="4" viewBox="0 0 28 4" width="28"
-                                 xmlns="http://www.w3.org/2000/svg">
+                            <svg height="4" style="fill: none;" viewBox="0 0 28 4" width="28">
                                 <rect fill="#1F2020" height="4" opacity="0.6" rx="2" width="28"/>
                             </svg>
                         </button>
@@ -185,11 +180,10 @@
             <div class="filter-mobile">
                 <span class="sort-mobile-btn" id="sortOpenBtn">СОРТИРОВКА</span>
                 <div class="sort-modal" id="sortModal">
-                    <div class="sort-modal__overlay" id="sortOverlay"></div>
+                    <div class="sort-modal__overlay" id="sortModalOverlay"></div>
                     <div class="sort-modal__content">
                         <button class="sort-modal__close" id="sortModalClose">
-                            <svg fill="none" height="4" viewBox="0 0 28 4" width="28"
-                                 xmlns="http://www.w3.org/2000/svg">
+                            <svg height="4" style="fill: none;" viewBox="0 0 28 4" width="28">
                                 <rect fill="#1F2020" height="4" opacity="0.6" rx="2" width="28"/>
                             </svg>
                         </button>
@@ -217,7 +211,7 @@
     </div>
     <div class="catalog-product-row">
         <div class="filter-list--spacer">
-            <div class="product-list"><!-- product cards will be rendered by JS --></div>
+            <div class="product-list"></div>
         </div>
     </div>
 </main>
@@ -227,16 +221,17 @@
     </div>
 </footer>
 
-<!-- Модальное окно корзины -->
 <div class="cart-modal" id="cartModal" style="display:none;">
     <div class="cart-modal__overlay" id="cartModalOverlay"></div>
     <div class="cart-modal__content">
         <button class="cart-modal__close" id="cartModalClose">
-            <svg fill="none" height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg">
+            <svg height="48" style="fill: none;" viewBox="0 0 48 48" width="48">
                 <circle cx="24" cy="24" opacity="0.1" r="23.5" stroke="black"/>
                 <g transform="translate(12,12)">
-                    <path d="M18 6L6 18" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4"/>
-                    <path d="M6 6L18 18" stroke="#1F2020" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4"/>
+                    <path d="M18 6L6 18" stroke="#1F2020"
+                          style="stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.4;"/>
+                    <path d="M6 6L18 18" stroke="#1F2020"
+                          style="stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.4;"/>
                 </g>
             </svg>
         </button>
@@ -254,7 +249,7 @@
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="axios.min.js"></script>
 <script src="main.js"></script>
 </body>
 </html>
