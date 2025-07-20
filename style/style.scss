@@ -1,13 +1,14 @@
-@import 'header.scss';
-@import 'hamburger.scss';
-@import 'main.scss';
-@import 'select.scss';
-@import 'overlay.scss';
-@import "filter.scss";
-@import 'countProduct.scss';
-@import "product.scss";
-@import "cartModal.scss";
-@import "mainSliderSort.scss";
+@use 'header.scss';
+@use 'hamburger.scss';
+@use 'main.scss';
+@use 'select.scss';
+@use 'overlay.scss';
+@use "filter.scss";
+@use 'countProduct.scss';
+@use "product.scss";
+@use "cartModal.scss";
+@use "mainSliderSort.scss";
+@use 'media.scss';
 
 :root {
   --black: #000000;
@@ -26,6 +27,3 @@ html, body {
 *, *::before, *::after {
   box-sizing: inherit;
 }
-
-
-@import 'media.scss';

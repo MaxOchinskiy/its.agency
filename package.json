@@ -5,10 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass:watch": "sass --watch style/style.scss:style/style.css"
+    "sass:watch": "sass --watch style/style.scss:style/style.css",
+    "pug:watch": "pug --watch index.pug",
+    "pug:build": "pug index.pug",
+    "build": "pug index.pug && sass style/style.scss:style/style.css",
+    "dev": "concurrently \"npm run sass:watch\" \"npm run pug:watch\""
   },
   "private": true,
   "devDependencies": {
+    "concurrently": "^9.2.0",
+    "pug-cli": "^1.0.0-alpha6",
     "sass": "^1.89.2"
   },
   "dependencies": {
