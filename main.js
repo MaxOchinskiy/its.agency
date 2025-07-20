@@ -1,23 +1,23 @@
 // === СЛАЙДЕР ===
 function initSlider() {
     console.log('initSlider called');
-    let sliderImages = [
+    const sliderImages = [
         'image/rectangle.png',
         'image/photoMain.jpg',
         'image/photoMain2.jpg'
     ];
     let currentIndex = 0;
-    let sliderImg = document.querySelector('.main-content__img img');
-    let leftBtn = document.querySelector('.main-nav__chevron__left');
-    let rightBtn = document.querySelector('.main-nav__chevron__right');
-    let dotsContainer = document.querySelector('.main-slider-dots');
+    const sliderImg = document.querySelector('.main-content__img img');
+    const leftBtn = document.querySelector('.main-nav__chevron__left');
+    const rightBtn = document.querySelector('.main-nav__chevron__right');
+    const dotsContainer = document.querySelector('.main-slider-dots');
     console.log('sliderImg:', sliderImg, 'leftBtn:', leftBtn, 'rightBtn:', rightBtn, 'dotsContainer:', dotsContainer);
 
     function renderDots() {
         if (!dotsContainer) return;
         dotsContainer.innerHTML = '';
         sliderImages.forEach(function (_, idx) {
-            let dot = document.createElement('span');
+            const dot = document.createElement('span');
             dot.className = 'slider-dot' + (idx === currentIndex ? ' active' : '');
             dot.addEventListener('click', function () {
                 showSlide(idx);
@@ -45,11 +45,11 @@ function initSlider() {
     showSlide(currentIndex);
 }
 
-var products = [];
-var cart = [];
+const products = [];
+const cart = [];
 
 function updateProductCount(count) {
-    var countElem = document.getElementById('productCount');
+    const countElem = document.getElementById('productCount');
     if (countElem) countElem.textContent = count;
 }
 
@@ -81,14 +81,14 @@ function createCartItem(item, idx) {
 }
 
 function renderCart() {
-    let cartItems = document.getElementById('cartItems');
-    let cartTotal = document.getElementById('cartTotal');
-    let cartTotalCount = document.getElementById('cartTotalCount');
-    let cartCount = document.getElementById('cartCount');
-    let cartTotalCountHeader = document.getElementById('cartTotalCountHeader');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const cartTotalCount = document.getElementById('cartTotalCount');
+    const cartCount = document.getElementById('cartCount');
+    const cartTotalCountHeader = document.getElementById('cartTotalCountHeader');
 
-    let total = cart.reduce((sum, item) => sum + item.price * item.count, 0);
-    let totalCount = cart.reduce((sum, item) => sum + item.count, 0);
+    const total = cart.reduce((sum, item) => sum + item.price * item.count, 0);
+    const totalCount = cart.reduce((sum, item) => sum + item.count, 0);
 
     if (cartItems) {
         if (cart.length === 0) {
@@ -104,27 +104,27 @@ function renderCart() {
 
     if (cartItems) {
         cartItems.querySelectorAll('.cart-modal__qty-btn').forEach(function (btn) {
-            btn.onclick = function () {
-                let idx = parseInt(btn.getAttribute('data-idx'));
-                let action = btn.getAttribute('data-action');
+            btn.addEventListener('click', function () {
+                const idx = parseInt(btn.dataset.idx);
+                const action = btn.dataset.action;
                 if (action === 'plus') cart[idx].count++;
                 if (action === 'minus' && cart[idx].count > 1) cart[idx].count--;
                 renderCart();
-            };
+            });
         });
         cartItems.querySelectorAll('.cart-modal__remove').forEach(function (btn) {
-            btn.onclick = function () {
-                let idx = parseInt(btn.getAttribute('data-idx'));
+            btn.addEventListener('click', function () {
+                const idx = parseInt(btn.dataset.idx);
                 cart.splice(idx, 1);
                 renderCart();
-            };
+            });
         });
     }
 }
 
 function openCartModal() {
     console.log('openCartModal called');
-    let modal = document.getElementById('cartModal');
+    const modal = document.getElementById('cartModal');
     if (modal) {
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
@@ -132,7 +132,7 @@ function openCartModal() {
 }
 
 function closeCartModal() {
-    let modal = document.getElementById('cartModal');
+    const modal = document.getElementById('cartModal');
     if (modal) {
         modal.style.display = 'none';
         document.body.style.overflow = '';
@@ -140,13 +140,13 @@ function closeCartModal() {
 }
 
 function initCartModal() {
-    let cartBtn = document.querySelector('.header__menu__cart');
-    let closeBtn = document.getElementById('cartModalClose');
-    let overlay = document.getElementById('cartModalOverlay');
-    let clearBtn = document.getElementById('cartModalClear');
+    const cartBtn = document.querySelector('.header__menu__cart');
+    const closeBtn = document.getElementById('cartModalClose');
+    const overlay = document.getElementById('cartModalOverlay');
+    const clearBtn = document.getElementById('cartModalClear');
 
     if (cartBtn) {
-        cartBtn.addEventListener('click', function (e) {
+        cartBtn.addEventListener('click', function () {
             renderCart();
             openCartModal();
         });
@@ -159,7 +159,7 @@ function initCartModal() {
         });
     }
     if (overlay) {
-        overlay.addEventListener('click', function (e) {
+        overlay.addEventListener('click', function () {
             closeCartModal();
         });
     }
@@ -171,7 +171,7 @@ function initCartModal() {
     }
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
-            let modal = document.getElementById('cartModal');
+            const modal = document.getElementById('cartModal');
             if (modal && modal.style.display === 'flex') {
                 closeCartModal();
             }
@@ -180,26 +180,26 @@ function initCartModal() {
 }
 
 function initCart() {
-    let addToCartBtns = document.querySelectorAll('.product-card__add');
+    const addToCartBtns = document.querySelectorAll('.product-card__add');
     addToCartBtns.forEach(function (btn) {
         btn.replaceWith(btn.cloneNode(true));
     });
-    let freshBtns = document.querySelectorAll('.product-card__add');
+    const freshBtns = document.querySelectorAll('.product-card__add');
     freshBtns.forEach(function (btn) {
         btn.addEventListener('click', function () {
-            let card = this.closest('.product-card');
+            const card = this.closest('.product-card');
             addToCart(card);
         });
     });
 }
 
 function addToCart(card) {
-    let name = card.querySelector('.product-card__desc').textContent;
-    let price = parseInt(card.querySelector('.product-card__price b').textContent);
-    let img = card.querySelector('.product-card__img').src;
-    let id = name + price;
+    const name = card.querySelector('.product-card__desc').textContent;
+    const price = parseInt(card.querySelector('.product-card__price b').textContent);
+    const img = card.querySelector('.product-card__img').src;
+    const id = name + price;
 
-    let existingItem = cart.find(item => item.id === id);
+    const existingItem = cart.find(item => item.id === id);
     if (existingItem) {
         existingItem.count++;
     } else {
@@ -236,7 +236,7 @@ if (hamburger && navMenu) {
 }
 
 function initFilters() {
-    let filterItems = document.querySelectorAll('.filter-item input[type="radio"]');
+    const filterItems = document.querySelectorAll('.filter-item input[type="radio"]');
     filterItems.forEach(function (item) {
         item.addEventListener('change', function () {
             filterProducts();
@@ -246,16 +246,16 @@ function initFilters() {
 
 function initSort() {
     console.log('initSort called');
-    let customSelect = document.querySelector('.custom-select.main-nav__sort__catalog__text');
+    const customSelect = document.querySelector('.custom-select.main-nav__sort__catalog__text');
     if (!customSelect) return;
-    let selected = customSelect.querySelector('.custom-select__selected');
-    let options = customSelect.querySelectorAll('.custom-select__option');
-    let sortOverlay = document.getElementById('sortOverlay');
+    const selected = customSelect.querySelector('.custom-select__selected');
+    const options = customSelect.querySelectorAll('.custom-select__option');
+    const sortOverlay = document.getElementById('sortOverlay');
     console.log('selected:', selected, 'options:', options, 'sortOverlay:', sortOverlay);
 
     selected.addEventListener('click', function (e) {
         e.stopPropagation();
-        let isOpen = customSelect.classList.contains('open');
+        const isOpen = customSelect.classList.contains('open');
         customSelect.classList.toggle('open');
         if (!isOpen && sortOverlay) sortOverlay.style.display = 'block';
         else if (isOpen && sortOverlay) sortOverlay.style.display = 'none';
@@ -290,10 +290,10 @@ function initSort() {
 }
 
 function initFilterModal() {
-    let openBtn = document.getElementById('filterOpenBtn');
-    let modal = document.getElementById('filterModal');
-    let overlay = document.getElementById('filterOverlay');
-    let closeBtn = document.getElementById('filterModalClose');
+    const openBtn = document.getElementById('filterOpenBtn');
+    const modal = document.getElementById('filterModal');
+    const overlay = document.getElementById('filterOverlay');
+    const closeBtn = document.getElementById('filterModalClose');
 
     console.log('Filter modal elements:', {openBtn, modal, overlay, closeBtn});
 
@@ -315,8 +315,8 @@ function initFilterModal() {
         modal.classList.remove('open');
     });
 
-    let modalRadios = modal ? modal.querySelectorAll('input[type="radio"]') : [];
-    var lastCheckedModal = null;
+    const modalRadios = modal ? modal.querySelectorAll('input[type="radio"]') : [];
+    let lastCheckedModal = null;
 
     modalRadios.forEach(function (radio) {
         radio.addEventListener('change', function () {
@@ -326,7 +326,7 @@ function initFilterModal() {
             }
         });
 
-        radio.addEventListener('click', function (e) {
+        radio.addEventListener('click', function () {
             if (this === lastCheckedModal && this.checked) {
                 setTimeout(() => {
                     this.checked = false;
@@ -339,11 +339,11 @@ function initFilterModal() {
 }
 
 function initSortModal() {
-    let openBtn = document.getElementById('sortOpenBtn');
-    let modal = document.getElementById('sortModal');
-    let overlay = document.getElementById('sortOverlay');
-    let closeBtn = document.getElementById('sortModalClose');
-    let sortItems = modal ? modal.querySelectorAll('.sort-item') : [];
+    const openBtn = document.getElementById('sortOpenBtn');
+    const modal = document.getElementById('sortModal');
+    const overlay = document.getElementById('sortOverlay');
+    const closeBtn = document.getElementById('sortModalClose');
+    const sortItems = modal ? modal.querySelectorAll('.sort-item') : [];
 
     console.log('Sort modal elements:', {openBtn, modal, overlay, closeBtn});
 
@@ -372,7 +372,7 @@ function initSortModal() {
             });
             item.classList.add('custom-select__option--active');
 
-            let selected = document.querySelector('.custom-select__selected');
+            const selected = document.querySelector('.custom-select__selected');
             if (selected) {
                 selected.textContent = item.textContent;
             }
@@ -407,7 +407,7 @@ function createProductCard(product) {
     );
 }
 
-var FILTERS = [
+const FILTERS = [
     {label: 'НОВИНКИ', value: 'НОВИНКИ'},
     {label: 'ЕСТЬ В НАЛИЧИИ', value: 'ЕСТЬ В НАЛИЧИИ'},
     {label: 'КОНТРАКТНЫЕ', value: 'КОНТРАКТНЫЕ'},
@@ -426,17 +426,17 @@ function createFilterItem(filter, checked) {
 }
 
 function renderFilterList() {
-    var filterList = document.querySelector('.filter-list');
+    const filterList = document.querySelector('.filter-list');
     if (!filterList) return;
-    var currentChecked = filterList.querySelector('input[type="radio"]:checked');
-    var checkedValue = currentChecked ? currentChecked.parentNode.textContent.trim() : null;
+    const currentChecked = filterList.querySelector('input[type="radio"]:checked');
+    const checkedValue = currentChecked ? currentChecked.parentNode.textContent.trim() : null;
     filterList.innerHTML = FILTERS.map(function (f) {
         return createFilterItem(f, f.value === checkedValue);
     }).join('');
-    var radios = filterList.querySelectorAll('input[type="radio"]');
-    var lastChecked = null;
+    const radios = filterList.querySelectorAll('input[type="radio"]');
+    let lastChecked = null;
 
-    radios.forEach(function (radio, idx) {
+    radios.forEach(function (radio) {
         radio.addEventListener('change', function () {
             if (this.checked) {
                 lastChecked = this;
@@ -444,7 +444,7 @@ function renderFilterList() {
             }
         });
 
-        radio.addEventListener('click', function (e) {
+        radio.addEventListener('click', function () {
             if (this === lastChecked && this.checked) {
                 setTimeout(() => {
                     this.checked = false;
@@ -458,7 +458,7 @@ function renderFilterList() {
 
 function renderProductsComponent(list) {
     console.log('renderProductsComponent called');
-    var productList = document.querySelector('.product-list');
+    const productList = document.querySelector('.product-list');
     console.log('productList:', productList);
     if (!productList) {
         console.warn('Контейнер .product-list не найден!');
@@ -470,24 +470,24 @@ function renderProductsComponent(list) {
 }
 
 function filterProducts() {
-    var list = getFilteredAndSortedProducts();
+    const list = getFilteredAndSortedProducts();
     renderProductsComponent(list);
 }
 
 function sortProducts() {
-    var list = getFilteredAndSortedProducts();
+    const list = getFilteredAndSortedProducts();
     renderProductsComponent(list);
 }
 
 function getFilteredAndSortedProducts() {
-    let checked = document.querySelector('.filter-list:not(.filter-modal .filter-list) input[type="radio"]:checked');
-    let type = checked ? checked.parentNode.textContent.trim().toUpperCase() : null;
-    let filtered = type ? products.filter(function (product) {
+    const checked = document.querySelector('.filter-list:not(.filter-modal .filter-list) input[type="radio"]:checked');
+    const type = checked ? checked.parentNode.textContent.trim().toUpperCase() : null;
+    const filtered = type ? products.filter(function (product) {
         return product.type === type;
     }) : products.slice();
-    let selectedSort = document.querySelector('.custom-select__option--active');
-    let sortType = selectedSort ? selectedSort.textContent : '';
-    let sorted = filtered.slice();
+    const selectedSort = document.querySelector('.custom-select__option--active');
+    const sortType = selectedSort ? selectedSort.textContent : '';
+    const sorted = filtered.slice();
     if (sortType.trim() === 'СНАЧАЛА ДОРОГИЕ') {
         sorted.sort(function (a, b) {
             return b.price - a.price;
@@ -507,7 +507,7 @@ try {
     axios = window.axios;
 }
 
-let API_URL = 'https://67f4eef9913986b16fa26cac.mockapi.io/products';
+const API_URL = 'https://67f4eef9913986b16fa26cac.mockapi.io/products';
 
 function fetchProductsFromAPI() {
     console.log('axios:', axios, 'API_URL:', API_URL);
@@ -515,14 +515,15 @@ function fetchProductsFromAPI() {
         .then(function (response) {
             console.log('API response:', response);
             if (Array.isArray(response.data)) {
-                products = response.data.map(function (item) {
-                    return {
+                products.length = 0; // Clear array instead of reassignment
+                response.data.forEach(function (item) {
+                    products.push({
                         id: item.id,
                         name: item.name,
                         price: item.price,
                         img: item.img || 'image/img.png',
                         type: item.type || 'НОВИНКИ'
-                    };
+                    });
                 });
                 renderProductsComponent(getFilteredAndSortedProducts());
             } else {
@@ -545,10 +546,10 @@ document.addEventListener('DOMContentLoaded', function () {
     initSlider();
     initCart();
     initCartModal();
-    initFilters && initFilters();
-    initSort && initSort();
-    initFilterModal && initFilterModal();
-    initSortModal && initSortModal();
+    if (typeof initFilters === 'function') initFilters();
+    if (typeof initSort === 'function') initSort();
+    if (typeof initFilterModal === 'function') initFilterModal();
+    if (typeof initSortModal === 'function') initSortModal();
 });
 
  
