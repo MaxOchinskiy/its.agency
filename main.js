@@ -489,10 +489,10 @@ function renderProductsComponent(list) {
 function filterProducts() {
     const list = getFilteredAndSortedProducts();
     renderProductsComponent(list);
-
-    renderFilterList('.catalog-top-line > .filter-list');
-    const modalList = document.querySelector('#filterModal .filter-list');
-    if (modalList) renderFilterList(modalList);
+    // Удалены вызовы renderFilterList, чтобы кастомные фильтры не сбрасывались
+    // renderFilterList('.catalog-top-line > .filter-list');
+    // const modalList = document.querySelector('#filterModal .filter-list');
+    // if (modalList) renderFilterList(modalList);
 }
 
 
@@ -502,8 +502,16 @@ function sortProducts() {
 }
 
 function getFilteredAndSortedProducts() {
-    const checked = document.querySelector('.filter-list input[type="radio"]:checked');
-    const type = checked ? checked.parentNode.textContent.trim().toUpperCase() : null;
+    // Сначала ищем активный кастомный фильтр
+    let type = null;
+    const activeCustomFilter = document.querySelector('.custom-filter .filter-item--active');
+    if (activeCustomFilter) {
+        type = activeCustomFilter.dataset.filterValue ? activeCustomFilter.dataset.filterValue.toUpperCase() : null;
+    } else {
+        // Если кастомного нет — ищем radio
+        const checked = document.querySelector('.filter-list input[type="radio"]:checked');
+        type = checked ? checked.parentNode.textContent.trim().toUpperCase() : null;
+    }
     const filtered = type ? products.filter(function (product) {
         return product.type === type;
     }) : products.slice();
@@ -592,6 +600,7 @@ document.querySelectorAll('.custom-filter .filter-item').forEach(item => {
         if (isActive) {
             item.classList.remove('filter-item--active');
             console.log(`Фильтр "${item.dataset.filterValue}" сброшен`);
+            filterProducts(); // добавлено
         } else {
             document.querySelectorAll(`.filter-item[data-filter-type="${filterType}"]`)
                 .forEach(el => el.classList.remove('filter-item--active'));
@@ -599,6 +608,7 @@ document.querySelectorAll('.custom-filter .filter-item').forEach(item => {
 
             item.classList.add('filter-item--active');
             console.log(`Фильтр "${item.dataset.filterValue}" применён`);
+            filterProducts(); // добавлено
         }
     });
 });
